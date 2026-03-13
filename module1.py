@@ -42,7 +42,7 @@ records = []
 
 start_time = datetime(2024,1,1,0,0,0)
 
-ROWS = 50
+ROWS = 200
 
 # ==============================
 # FETCH BASE API DATA
