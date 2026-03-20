@@ -1,6 +1,6 @@
 # EnviroScan-AI
 EnviroScan AI-Powered Pollution Source Identifier using Geospatial Analytics
-owm_data.py
+#######owm_data.py
 import requests
 import pandas as pd
 import time
@@ -156,7 +156,7 @@ df.to_csv("enviro_data_with_distance.csv", index=False)
 
 print("\n✅ Distance features added successfully!")
 
-model.py
+##########model.py
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
@@ -235,7 +235,7 @@ prediction = model.predict(sample)
 print("\nPredicted Source:", le.inverse_transform(prediction)[0])  
 
 
-map.py
+#########map.py
 
 import pandas as pd
 import folium
@@ -304,7 +304,7 @@ plt.ylabel("PM2.5")
 plt.tight_layout()
 plt.show() 
 
-visualization.py
+#######visualization.py
 
 import streamlit as st
 import pandas as pd
@@ -385,7 +385,7 @@ if st.button("Predict Source"):
     st.success(f"Predicted Pollution Source: {result[0]}")
 
 
-    app.py
+   ###### app.py
 
     import streamlit as st
 import pandas as pd
