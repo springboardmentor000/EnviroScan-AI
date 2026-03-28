@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_cc61eadac7541c5952938b6bbf7874dd {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_cc61eadac7541c5952938b6bbf7874dd" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_cc61eadac7541c5952938b6bbf7874dd = L.map(
+                "map_cc61eadac7541c5952938b6bbf7874dd",
+                {
+                    center: [20.5937, 78.9629],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ae248d67a7cbfb4f4bab7f7ef3693db9 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ae248d67a7cbfb4f4bab7f7ef3693db9.addTo(map_cc61eadac7541c5952938b6bbf7874dd);
+        
+    
+            var feature_group_2610caa9040134444c31694ea17f058e = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_d23362742e2752a986f5c2ae600c1603 = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_e1e1a39d67da7c83da6dffbb333deeeb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_104863d0da111891bb769cf6e0df6729 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ad32c7adc42940c6ba78dc6491c19254 = $(`<div id="html_ad32c7adc42940c6ba78dc6491c19254" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_104863d0da111891bb769cf6e0df6729.setContent(html_ad32c7adc42940c6ba78dc6491c19254);
+            
+        
+
+        marker_d23362742e2752a986f5c2ae600c1603.bindPopup(popup_104863d0da111891bb769cf6e0df6729)
+        ;
+
+        
+    
+    
+                marker_d23362742e2752a986f5c2ae600c1603.setIcon(icon_e1e1a39d67da7c83da6dffbb333deeeb);
+            
+    
+            var marker_68b3021ce792cd062f39ca742a289e23 = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_47c01b1aecab46c04a81480f18ce549a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f4df67ee9e62414942e4678dcf12fc2f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5ec1328714f5e0f2e5b6f3ffacd7136b = $(`<div id="html_5ec1328714f5e0f2e5b6f3ffacd7136b" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_f4df67ee9e62414942e4678dcf12fc2f.setContent(html_5ec1328714f5e0f2e5b6f3ffacd7136b);
+            
+        
+
+        marker_68b3021ce792cd062f39ca742a289e23.bindPopup(popup_f4df67ee9e62414942e4678dcf12fc2f)
+        ;
+
+        
+    
+    
+                marker_68b3021ce792cd062f39ca742a289e23.setIcon(icon_47c01b1aecab46c04a81480f18ce549a);
+            
+    
+            var marker_e394924a552c9be43ba70515e41098d9 = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_6a5c2f815a440e5c79bafc58026e7292 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3b10b1dfe3247a0d534f2736d879a808 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_494c7c05e40f84d5df5339edbdb37fb1 = $(`<div id="html_494c7c05e40f84d5df5339edbdb37fb1" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_3b10b1dfe3247a0d534f2736d879a808.setContent(html_494c7c05e40f84d5df5339edbdb37fb1);
+            
+        
+
+        marker_e394924a552c9be43ba70515e41098d9.bindPopup(popup_3b10b1dfe3247a0d534f2736d879a808)
+        ;
+
+        
+    
+    
+                marker_e394924a552c9be43ba70515e41098d9.setIcon(icon_6a5c2f815a440e5c79bafc58026e7292);
+            
+    
+            var marker_601516f9496491766160ef749fabe598 = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_6b6b778d1ffb399af8b7959a7408e176 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_01e674489edc1c3cfe6565244cc97461 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_421105e625cfb83bda7919a327874d9a = $(`<div id="html_421105e625cfb83bda7919a327874d9a" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_01e674489edc1c3cfe6565244cc97461.setContent(html_421105e625cfb83bda7919a327874d9a);
+            
+        
+
+        marker_601516f9496491766160ef749fabe598.bindPopup(popup_01e674489edc1c3cfe6565244cc97461)
+        ;
+
+        
+    
+    
+                marker_601516f9496491766160ef749fabe598.setIcon(icon_6b6b778d1ffb399af8b7959a7408e176);
+            
+    
+            var marker_2f487ae39aa4ef30c9fdae8f8bcce825 = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_5bb267448c03d5ea36af52a35609587b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a1c33f800f6ccd28d09586d28613e1a8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f77adc2f76a7ccb5fcb2dbb3b9201b9c = $(`<div id="html_f77adc2f76a7ccb5fcb2dbb3b9201b9c" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_a1c33f800f6ccd28d09586d28613e1a8.setContent(html_f77adc2f76a7ccb5fcb2dbb3b9201b9c);
+            
+        
+
+        marker_2f487ae39aa4ef30c9fdae8f8bcce825.bindPopup(popup_a1c33f800f6ccd28d09586d28613e1a8)
+        ;
+
+        
+    
+    
+                marker_2f487ae39aa4ef30c9fdae8f8bcce825.setIcon(icon_5bb267448c03d5ea36af52a35609587b);
+            
+    
+            var marker_e42eed194fae79a57925cacf90bf650c = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_9e305c36a8814586089716b3bf98ed2b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6c4a0b9084668b9d2f435540810f5a7d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9da98d5a8480a7ed1b269e511c717622 = $(`<div id="html_9da98d5a8480a7ed1b269e511c717622" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_6c4a0b9084668b9d2f435540810f5a7d.setContent(html_9da98d5a8480a7ed1b269e511c717622);
+            
+        
+
+        marker_e42eed194fae79a57925cacf90bf650c.bindPopup(popup_6c4a0b9084668b9d2f435540810f5a7d)
+        ;
+
+        
+    
+    
+                marker_e42eed194fae79a57925cacf90bf650c.setIcon(icon_9e305c36a8814586089716b3bf98ed2b);
+            
+    
+            var marker_8e833d67dc0478f4f77669450f0292cd = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_6a15fa726e0194fca0acd88d1dc717a0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7432e41da2faac37bdd31a7c31679135 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f15db323b23a1a4d680e203b9aaf4b36 = $(`<div id="html_f15db323b23a1a4d680e203b9aaf4b36" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_7432e41da2faac37bdd31a7c31679135.setContent(html_f15db323b23a1a4d680e203b9aaf4b36);
+            
+        
+
+        marker_8e833d67dc0478f4f77669450f0292cd.bindPopup(popup_7432e41da2faac37bdd31a7c31679135)
+        ;
+
+        
+    
+    
+                marker_8e833d67dc0478f4f77669450f0292cd.setIcon(icon_6a15fa726e0194fca0acd88d1dc717a0);
+            
+    
+            var marker_a67a36cbcac5bb88718a7cd35563c0c3 = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_a618290c7dd0e9e255b0987d61c05ce6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_00b27b9217da3cb8c083613eb9c442bc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_82f753ad4f23025e23962f1a2b33b5ff = $(`<div id="html_82f753ad4f23025e23962f1a2b33b5ff" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_00b27b9217da3cb8c083613eb9c442bc.setContent(html_82f753ad4f23025e23962f1a2b33b5ff);
+            
+        
+
+        marker_a67a36cbcac5bb88718a7cd35563c0c3.bindPopup(popup_00b27b9217da3cb8c083613eb9c442bc)
+        ;
+
+        
+    
+    
+                marker_a67a36cbcac5bb88718a7cd35563c0c3.setIcon(icon_a618290c7dd0e9e255b0987d61c05ce6);
+            
+    
+            var marker_9fee4d5b47bb75330564a0589b4b2e0a = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_317a55d5c238d7260305a52df4989ba4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6ddff25b539abdc91397892744f688c1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d2aa7a3a95f67c4f54d21a16ed5798e9 = $(`<div id="html_d2aa7a3a95f67c4f54d21a16ed5798e9" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_6ddff25b539abdc91397892744f688c1.setContent(html_d2aa7a3a95f67c4f54d21a16ed5798e9);
+            
+        
+
+        marker_9fee4d5b47bb75330564a0589b4b2e0a.bindPopup(popup_6ddff25b539abdc91397892744f688c1)
+        ;
+
+        
+    
+    
+                marker_9fee4d5b47bb75330564a0589b4b2e0a.setIcon(icon_317a55d5c238d7260305a52df4989ba4);
+            
+    
+            var marker_d64628ce25c8a4a3a980721510c2d135 = L.marker(
+                [28.6139, 77.209],
+                {
+}
+            ).addTo(feature_group_2610caa9040134444c31694ea17f058e);
+        
+    
+            var icon_ad5023b0340073684868be29f62c9420 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "car",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f4263342241635a2c4a776573885eb32 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e0a4fba275d8acabbe1e48f5ddfe9dac = $(`<div id="html_e0a4fba275d8acabbe1e48f5ddfe9dac" style="width: 100.0%; height: 100.0%;">         City: Delhi<br>         Source: Vehicular<br>         PM2.5: 39.66         </div>`)[0];
+                popup_f4263342241635a2c4a776573885eb32.setContent(html_e0a4fba275d8acabbe1e48f5ddfe9dac);
+            
+        
+
+        marker_d64628ce25c8a4a3a980721510c2d135.bindPopup(popup_f4263342241635a2c4a776573885eb32)
+        ;
+
+        
+    
+    
+                marker_d64628ce25c8a4a3a980721510c2d135.setIcon(icon_ad5023b0340073684868be29f62c9420);
+            
+    
+            feature_group_2610caa9040134444c31694ea17f058e.addTo(map_cc61eadac7541c5952938b6bbf7874dd);
+        
+    
+            var feature_group_8713fb81610c7937fa01c4622370e227 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_5bf596142d688276d90c80eb84a5f93d = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_26a18cf7803df9d6041ecfea49009ec3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5d124316e87e9e67008df76de58925ba = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6097a3f3f93218540e003dfd5975a169 = $(`<div id="html_6097a3f3f93218540e003dfd5975a169" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_5d124316e87e9e67008df76de58925ba.setContent(html_6097a3f3f93218540e003dfd5975a169);
+            
+        
+
+        marker_5bf596142d688276d90c80eb84a5f93d.bindPopup(popup_5d124316e87e9e67008df76de58925ba)
+        ;
+
+        
+    
+    
+                marker_5bf596142d688276d90c80eb84a5f93d.setIcon(icon_26a18cf7803df9d6041ecfea49009ec3);
+            
+    
+            var marker_82c7c994089c3d916a67d56971ee1348 = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_56cf882a0a6a83af116e06af2167c208 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_79830ba8a54a04211a570e01ca1a8670 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_df08fb56750608e16169f34b1e5b2ee4 = $(`<div id="html_df08fb56750608e16169f34b1e5b2ee4" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_79830ba8a54a04211a570e01ca1a8670.setContent(html_df08fb56750608e16169f34b1e5b2ee4);
+            
+        
+
+        marker_82c7c994089c3d916a67d56971ee1348.bindPopup(popup_79830ba8a54a04211a570e01ca1a8670)
+        ;
+
+        
+    
+    
+                marker_82c7c994089c3d916a67d56971ee1348.setIcon(icon_56cf882a0a6a83af116e06af2167c208);
+            
+    
+            var marker_4e33c58912d97ba3a784b4f900066009 = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_84ee2118d2723eea1e05abbe39c3f7db = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8530826ccc4a69ac7170a73924ceecc5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3af6b61516348cde0b6397a983b63ff3 = $(`<div id="html_3af6b61516348cde0b6397a983b63ff3" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_8530826ccc4a69ac7170a73924ceecc5.setContent(html_3af6b61516348cde0b6397a983b63ff3);
+            
+        
+
+        marker_4e33c58912d97ba3a784b4f900066009.bindPopup(popup_8530826ccc4a69ac7170a73924ceecc5)
+        ;
+
+        
+    
+    
+                marker_4e33c58912d97ba3a784b4f900066009.setIcon(icon_84ee2118d2723eea1e05abbe39c3f7db);
+            
+    
+            var marker_6675a41dc34726a27136e1df3307c7c9 = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_4dbc2feb654e18d75b3240cc82ed1837 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d8cbcff6399ce40176e4f3f807cfa74a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_050646696432ee9ce7e0f51c1ebe6b30 = $(`<div id="html_050646696432ee9ce7e0f51c1ebe6b30" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_d8cbcff6399ce40176e4f3f807cfa74a.setContent(html_050646696432ee9ce7e0f51c1ebe6b30);
+            
+        
+
+        marker_6675a41dc34726a27136e1df3307c7c9.bindPopup(popup_d8cbcff6399ce40176e4f3f807cfa74a)
+        ;
+
+        
+    
+    
+                marker_6675a41dc34726a27136e1df3307c7c9.setIcon(icon_4dbc2feb654e18d75b3240cc82ed1837);
+            
+    
+            var marker_d04dc1edb09ddeb557c0bf658366a9dd = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_fb679cfa11ba2810cf59b893206c8d22 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1a8a33d847aeab93a55a7c7c5d7fbf6c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_08b6cb3252194026546b6b50b5621225 = $(`<div id="html_08b6cb3252194026546b6b50b5621225" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_1a8a33d847aeab93a55a7c7c5d7fbf6c.setContent(html_08b6cb3252194026546b6b50b5621225);
+            
+        
+
+        marker_d04dc1edb09ddeb557c0bf658366a9dd.bindPopup(popup_1a8a33d847aeab93a55a7c7c5d7fbf6c)
+        ;
+
+        
+    
+    
+                marker_d04dc1edb09ddeb557c0bf658366a9dd.setIcon(icon_fb679cfa11ba2810cf59b893206c8d22);
+            
+    
+            var marker_b389ffdf5880359f874495a3df3b7d91 = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_d74054f6b0697fb0a1195dd5cbda9f50 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1cb793712d27cb6069e5dfaeba11f693 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b5a8b3c6d871cc0004422e463045d8f5 = $(`<div id="html_b5a8b3c6d871cc0004422e463045d8f5" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_1cb793712d27cb6069e5dfaeba11f693.setContent(html_b5a8b3c6d871cc0004422e463045d8f5);
+            
+        
+
+        marker_b389ffdf5880359f874495a3df3b7d91.bindPopup(popup_1cb793712d27cb6069e5dfaeba11f693)
+        ;
+
+        
+    
+    
+                marker_b389ffdf5880359f874495a3df3b7d91.setIcon(icon_d74054f6b0697fb0a1195dd5cbda9f50);
+            
+    
+            var marker_a3fb10085afb8788f72c25d95802b5ce = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_d3e20748e757287708061e960dd470b5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_18ccda2abd83fa7ec3ec4c79d50410ac = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2ea0e81cc1f6ea6e4a2c8ef75fc72662 = $(`<div id="html_2ea0e81cc1f6ea6e4a2c8ef75fc72662" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_18ccda2abd83fa7ec3ec4c79d50410ac.setContent(html_2ea0e81cc1f6ea6e4a2c8ef75fc72662);
+            
+        
+
+        marker_a3fb10085afb8788f72c25d95802b5ce.bindPopup(popup_18ccda2abd83fa7ec3ec4c79d50410ac)
+        ;
+
+        
+    
+    
+                marker_a3fb10085afb8788f72c25d95802b5ce.setIcon(icon_d3e20748e757287708061e960dd470b5);
+            
+    
+            var marker_f75230ddc37a77f1c664d608e4a6c492 = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_3d77647b03a4e30636c273efbff7fd19 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e7cdc19a8f8858f5f825f370ca7030f6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c2a98216cf7252506e0c8fab2ab4ffc1 = $(`<div id="html_c2a98216cf7252506e0c8fab2ab4ffc1" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_e7cdc19a8f8858f5f825f370ca7030f6.setContent(html_c2a98216cf7252506e0c8fab2ab4ffc1);
+            
+        
+
+        marker_f75230ddc37a77f1c664d608e4a6c492.bindPopup(popup_e7cdc19a8f8858f5f825f370ca7030f6)
+        ;
+
+        
+    
+    
+                marker_f75230ddc37a77f1c664d608e4a6c492.setIcon(icon_3d77647b03a4e30636c273efbff7fd19);
+            
+    
+            var marker_bc10b5710222e7f7dbd3eb72320622d6 = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_86b7a4c967a3075637fd905a0e6e05a8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_49f1a4fc3caa3f57761df2bb417b353b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c9d657056e57238cc9d2577db3d1517f = $(`<div id="html_c9d657056e57238cc9d2577db3d1517f" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_49f1a4fc3caa3f57761df2bb417b353b.setContent(html_c9d657056e57238cc9d2577db3d1517f);
+            
+        
+
+        marker_bc10b5710222e7f7dbd3eb72320622d6.bindPopup(popup_49f1a4fc3caa3f57761df2bb417b353b)
+        ;
+
+        
+    
+    
+                marker_bc10b5710222e7f7dbd3eb72320622d6.setIcon(icon_86b7a4c967a3075637fd905a0e6e05a8);
+            
+    
+            var marker_46abebf4178c42cf80d28675ec5eb220 = L.marker(
+                [12.9716, 77.5946],
+                {
+}
+            ).addTo(feature_group_8713fb81610c7937fa01c4622370e227);
+        
+    
+            var icon_eb77f8b2ab81c48ffdbe3adc271e13f8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_67daedcda1fd914d476ff80e1218685c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7201c1dd91a57957db17af7bb92de5ae = $(`<div id="html_7201c1dd91a57957db17af7bb92de5ae" style="width: 100.0%; height: 100.0%;">         City: Bangalore<br>         Source: Industrial<br>         PM2.5: 32.65         </div>`)[0];
+                popup_67daedcda1fd914d476ff80e1218685c.setContent(html_7201c1dd91a57957db17af7bb92de5ae);
+            
+        
+
+        marker_46abebf4178c42cf80d28675ec5eb220.bindPopup(popup_67daedcda1fd914d476ff80e1218685c)
+        ;
+
+        
+    
+    
+                marker_46abebf4178c42cf80d28675ec5eb220.setIcon(icon_eb77f8b2ab81c48ffdbe3adc271e13f8);
+            
+    
+            feature_group_8713fb81610c7937fa01c4622370e227.addTo(map_cc61eadac7541c5952938b6bbf7874dd);
+        
+    
+            var feature_group_852c386cd55d433f3fabe148b2899d3c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_03173e7c12da1d21852b033f95f7726a = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_4c7973de6105e0e97dc7a20b97e53d9f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_728292b025852ebf9e90e0a81b17b0a4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e0d6f872cbd5ab8c4567b94584d39c96 = $(`<div id="html_e0d6f872cbd5ab8c4567b94584d39c96" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_728292b025852ebf9e90e0a81b17b0a4.setContent(html_e0d6f872cbd5ab8c4567b94584d39c96);
+            
+        
+
+        marker_03173e7c12da1d21852b033f95f7726a.bindPopup(popup_728292b025852ebf9e90e0a81b17b0a4)
+        ;
+
+        
+    
+    
+                marker_03173e7c12da1d21852b033f95f7726a.setIcon(icon_4c7973de6105e0e97dc7a20b97e53d9f);
+            
+    
+            var marker_5db3566b83d826912e2ad60fdffea4bb = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_f85e1805ed12579d82ba0773e39e44cd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0e2a7311bc33f857602f8d3651882ea4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_433b3b593ff8017c3b821597e9e918c9 = $(`<div id="html_433b3b593ff8017c3b821597e9e918c9" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_0e2a7311bc33f857602f8d3651882ea4.setContent(html_433b3b593ff8017c3b821597e9e918c9);
+            
+        
+
+        marker_5db3566b83d826912e2ad60fdffea4bb.bindPopup(popup_0e2a7311bc33f857602f8d3651882ea4)
+        ;
+
+        
+    
+    
+                marker_5db3566b83d826912e2ad60fdffea4bb.setIcon(icon_f85e1805ed12579d82ba0773e39e44cd);
+            
+    
+            var marker_b0a882b5e504c2ec1ce5197d8232743b = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_0c966c55841570a0a51f5a75b08864a5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6c51a60d0f1391bc5a01c38fd2464124 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7184cc4985fa3e18445738b49323652e = $(`<div id="html_7184cc4985fa3e18445738b49323652e" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_6c51a60d0f1391bc5a01c38fd2464124.setContent(html_7184cc4985fa3e18445738b49323652e);
+            
+        
+
+        marker_b0a882b5e504c2ec1ce5197d8232743b.bindPopup(popup_6c51a60d0f1391bc5a01c38fd2464124)
+        ;
+
+        
+    
+    
+                marker_b0a882b5e504c2ec1ce5197d8232743b.setIcon(icon_0c966c55841570a0a51f5a75b08864a5);
+            
+    
+            var marker_c07422f7dda7ec88f6bd1737739b2553 = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_bd2a29e4d3b4ddde4342d5ffd998649b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fd4adb8709a7d6d318497a925d22f6a1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_22c1d46b31a19444f2ba5920b985047d = $(`<div id="html_22c1d46b31a19444f2ba5920b985047d" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_fd4adb8709a7d6d318497a925d22f6a1.setContent(html_22c1d46b31a19444f2ba5920b985047d);
+            
+        
+
+        marker_c07422f7dda7ec88f6bd1737739b2553.bindPopup(popup_fd4adb8709a7d6d318497a925d22f6a1)
+        ;
+
+        
+    
+    
+                marker_c07422f7dda7ec88f6bd1737739b2553.setIcon(icon_bd2a29e4d3b4ddde4342d5ffd998649b);
+            
+    
+            var marker_554c0a69a9d6fc6148afb0b9f6474dff = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_2d664b885d605df56ae47dfffca2c21d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3ba615247f3960c5c2007a2dfc27c2c5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aca878ef86acf3d99f88849fe2c8fe8d = $(`<div id="html_aca878ef86acf3d99f88849fe2c8fe8d" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_3ba615247f3960c5c2007a2dfc27c2c5.setContent(html_aca878ef86acf3d99f88849fe2c8fe8d);
+            
+        
+
+        marker_554c0a69a9d6fc6148afb0b9f6474dff.bindPopup(popup_3ba615247f3960c5c2007a2dfc27c2c5)
+        ;
+
+        
+    
+    
+                marker_554c0a69a9d6fc6148afb0b9f6474dff.setIcon(icon_2d664b885d605df56ae47dfffca2c21d);
+            
+    
+            var marker_a334f4489846edf973eb5f7ff4690278 = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_c639d15255c058510155039b762cd079 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_78f4ab76867f2abec1222b99ed5f935a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4622762e964ccd2e3e43428299040e91 = $(`<div id="html_4622762e964ccd2e3e43428299040e91" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_78f4ab76867f2abec1222b99ed5f935a.setContent(html_4622762e964ccd2e3e43428299040e91);
+            
+        
+
+        marker_a334f4489846edf973eb5f7ff4690278.bindPopup(popup_78f4ab76867f2abec1222b99ed5f935a)
+        ;
+
+        
+    
+    
+                marker_a334f4489846edf973eb5f7ff4690278.setIcon(icon_c639d15255c058510155039b762cd079);
+            
+    
+            var marker_62b2978f5a1c9ac67f6d149837c1cbe8 = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_397d82e73ce960ccacc5284b6c3b6aa3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_74ab184004c24ac2df149935bf65df9a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e1cb3054d8d8ea8813dc1cf5651f0346 = $(`<div id="html_e1cb3054d8d8ea8813dc1cf5651f0346" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_74ab184004c24ac2df149935bf65df9a.setContent(html_e1cb3054d8d8ea8813dc1cf5651f0346);
+            
+        
+
+        marker_62b2978f5a1c9ac67f6d149837c1cbe8.bindPopup(popup_74ab184004c24ac2df149935bf65df9a)
+        ;
+
+        
+    
+    
+                marker_62b2978f5a1c9ac67f6d149837c1cbe8.setIcon(icon_397d82e73ce960ccacc5284b6c3b6aa3);
+            
+    
+            var marker_a6286600ffd7d67764add824ed0c469e = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_30d5d447898125511dc9e30e3d1d9bc2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b37d4fd7ff0915f70e4b18cc3eebcdb5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_87876c685c16eca655e4170a5781d2b6 = $(`<div id="html_87876c685c16eca655e4170a5781d2b6" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_b37d4fd7ff0915f70e4b18cc3eebcdb5.setContent(html_87876c685c16eca655e4170a5781d2b6);
+            
+        
+
+        marker_a6286600ffd7d67764add824ed0c469e.bindPopup(popup_b37d4fd7ff0915f70e4b18cc3eebcdb5)
+        ;
+
+        
+    
+    
+                marker_a6286600ffd7d67764add824ed0c469e.setIcon(icon_30d5d447898125511dc9e30e3d1d9bc2);
+            
+    
+            var marker_9fdae0bd16cc8f2fbaa6718338dd11b6 = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_81eeb0658c10bf4d8c7dbac7b7df981e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_aea07506abf4ae26b9e48a9ec41a1cf3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a72c9010ea4d31b773d3059859a0bf23 = $(`<div id="html_a72c9010ea4d31b773d3059859a0bf23" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_aea07506abf4ae26b9e48a9ec41a1cf3.setContent(html_a72c9010ea4d31b773d3059859a0bf23);
+            
+        
+
+        marker_9fdae0bd16cc8f2fbaa6718338dd11b6.bindPopup(popup_aea07506abf4ae26b9e48a9ec41a1cf3)
+        ;
+
+        
+    
+    
+                marker_9fdae0bd16cc8f2fbaa6718338dd11b6.setIcon(icon_81eeb0658c10bf4d8c7dbac7b7df981e);
+            
+    
+            var marker_8901f0c06587cb50bfe483e0656a2e7f = L.marker(
+                [17.385, 78.4867],
+                {
+}
+            ).addTo(feature_group_852c386cd55d433f3fabe148b2899d3c);
+        
+    
+            var icon_b3f8f9eff2a89a3ad7491500a92710e6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4126ad29f1db4c0295cf9c3833c7db9c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_886c8a41f9f26652b9f7b748942834be = $(`<div id="html_886c8a41f9f26652b9f7b748942834be" style="width: 100.0%; height: 100.0%;">         City: Hyderabad<br>         Source: Agricultural<br>         PM2.5: 27.88         </div>`)[0];
+                popup_4126ad29f1db4c0295cf9c3833c7db9c.setContent(html_886c8a41f9f26652b9f7b748942834be);
+            
+        
+
+        marker_8901f0c06587cb50bfe483e0656a2e7f.bindPopup(popup_4126ad29f1db4c0295cf9c3833c7db9c)
+        ;
+
+        
+    
+    
+                marker_8901f0c06587cb50bfe483e0656a2e7f.setIcon(icon_b3f8f9eff2a89a3ad7491500a92710e6);
+            
+    
+            feature_group_852c386cd55d433f3fabe148b2899d3c.addTo(map_cc61eadac7541c5952938b6bbf7874dd);
+        
+    
+            var feature_group_8d47436bf24cd2e0206ca5402b099e38 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_b78b388f88188e0cd3c62ed2fe2e0007 = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_ab3c8e59d62ea0bbe4225fbcf7fb3a0d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_86c4d394f1acc5e258b7e884897272d0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8a43f80b7e079b46ba481d8a0a2582f7 = $(`<div id="html_8a43f80b7e079b46ba481d8a0a2582f7" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_86c4d394f1acc5e258b7e884897272d0.setContent(html_8a43f80b7e079b46ba481d8a0a2582f7);
+            
+        
+
+        marker_b78b388f88188e0cd3c62ed2fe2e0007.bindPopup(popup_86c4d394f1acc5e258b7e884897272d0)
+        ;
+
+        
+    
+    
+                marker_b78b388f88188e0cd3c62ed2fe2e0007.setIcon(icon_ab3c8e59d62ea0bbe4225fbcf7fb3a0d);
+            
+    
+            var marker_29b0e0958544f9c0b45b8cfe1d375aba = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_ce3e77fc5b3927512dcea56bd2b935d8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c74a8f90ad7ef14e6f83efc10fc6bb05 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_39331f0eca4d8026b11b760cee9fc738 = $(`<div id="html_39331f0eca4d8026b11b760cee9fc738" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_c74a8f90ad7ef14e6f83efc10fc6bb05.setContent(html_39331f0eca4d8026b11b760cee9fc738);
+            
+        
+
+        marker_29b0e0958544f9c0b45b8cfe1d375aba.bindPopup(popup_c74a8f90ad7ef14e6f83efc10fc6bb05)
+        ;
+
+        
+    
+    
+                marker_29b0e0958544f9c0b45b8cfe1d375aba.setIcon(icon_ce3e77fc5b3927512dcea56bd2b935d8);
+            
+    
+            var marker_fbd6b1f0dafa188e5eb622a2fe3fd0b4 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_99f4bbcecd65dce0389995a38c116265 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_26019d24e562b30ba0cb7c3fdbf8d8f3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7b780b7c67155aaaa7d80c659a3c6e93 = $(`<div id="html_7b780b7c67155aaaa7d80c659a3c6e93" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_26019d24e562b30ba0cb7c3fdbf8d8f3.setContent(html_7b780b7c67155aaaa7d80c659a3c6e93);
+            
+        
+
+        marker_fbd6b1f0dafa188e5eb622a2fe3fd0b4.bindPopup(popup_26019d24e562b30ba0cb7c3fdbf8d8f3)
+        ;
+
+        
+    
+    
+                marker_fbd6b1f0dafa188e5eb622a2fe3fd0b4.setIcon(icon_99f4bbcecd65dce0389995a38c116265);
+            
+    
+            var marker_2587608faa1ceed04e4f41057ca3a354 = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_c00f86c96893766ce3633107e72d5ac9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fba9aac9d534a810a0d90a2f9a516448 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a477bc55f55fef3755a91045bc0ba46b = $(`<div id="html_a477bc55f55fef3755a91045bc0ba46b" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_fba9aac9d534a810a0d90a2f9a516448.setContent(html_a477bc55f55fef3755a91045bc0ba46b);
+            
+        
+
+        marker_2587608faa1ceed04e4f41057ca3a354.bindPopup(popup_fba9aac9d534a810a0d90a2f9a516448)
+        ;
+
+        
+    
+    
+                marker_2587608faa1ceed04e4f41057ca3a354.setIcon(icon_c00f86c96893766ce3633107e72d5ac9);
+            
+    
+            var marker_f2bb9e1c6f08722367221c8258f156d6 = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_4edee3eed880d045c78b40bd0166ed0c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7e1787556f2388e853b059df49954a6c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4c42cf2737765526a366e20a4aac6a08 = $(`<div id="html_4c42cf2737765526a366e20a4aac6a08" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_7e1787556f2388e853b059df49954a6c.setContent(html_4c42cf2737765526a366e20a4aac6a08);
+            
+        
+
+        marker_f2bb9e1c6f08722367221c8258f156d6.bindPopup(popup_7e1787556f2388e853b059df49954a6c)
+        ;
+
+        
+    
+    
+                marker_f2bb9e1c6f08722367221c8258f156d6.setIcon(icon_4edee3eed880d045c78b40bd0166ed0c);
+            
+    
+            var marker_4b6d0d42edc3ed57cbe55bdd85269922 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_58c43a2887a919e2ac7dbdd10f24a696 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_56f00ba593e4ed8c15eee9756783b03c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_15de56c5f2f6a2d962a29239be40bf46 = $(`<div id="html_15de56c5f2f6a2d962a29239be40bf46" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_56f00ba593e4ed8c15eee9756783b03c.setContent(html_15de56c5f2f6a2d962a29239be40bf46);
+            
+        
+
+        marker_4b6d0d42edc3ed57cbe55bdd85269922.bindPopup(popup_56f00ba593e4ed8c15eee9756783b03c)
+        ;
+
+        
+    
+    
+                marker_4b6d0d42edc3ed57cbe55bdd85269922.setIcon(icon_58c43a2887a919e2ac7dbdd10f24a696);
+            
+    
+            var marker_f438e184efeee6cd99662959de43c2ce = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_126c5efa44c679d5b631c1f95b038acb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ae207bd0a538a05d22ab167e1e42d0d9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a6e003559271b3f1e9e441ba8f74de9f = $(`<div id="html_a6e003559271b3f1e9e441ba8f74de9f" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_ae207bd0a538a05d22ab167e1e42d0d9.setContent(html_a6e003559271b3f1e9e441ba8f74de9f);
+            
+        
+
+        marker_f438e184efeee6cd99662959de43c2ce.bindPopup(popup_ae207bd0a538a05d22ab167e1e42d0d9)
+        ;
+
+        
+    
+    
+                marker_f438e184efeee6cd99662959de43c2ce.setIcon(icon_126c5efa44c679d5b631c1f95b038acb);
+            
+    
+            var marker_04d93fb4b5a34910dacb00dcdf8952eb = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_4268566372b9e4f13ac09bf6dcae7c8f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d5a0647ecab2cd5d9ffef3b5668c0b60 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2c6748afbc64a6934a9df179728fdade = $(`<div id="html_2c6748afbc64a6934a9df179728fdade" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_d5a0647ecab2cd5d9ffef3b5668c0b60.setContent(html_2c6748afbc64a6934a9df179728fdade);
+            
+        
+
+        marker_04d93fb4b5a34910dacb00dcdf8952eb.bindPopup(popup_d5a0647ecab2cd5d9ffef3b5668c0b60)
+        ;
+
+        
+    
+    
+                marker_04d93fb4b5a34910dacb00dcdf8952eb.setIcon(icon_4268566372b9e4f13ac09bf6dcae7c8f);
+            
+    
+            var marker_a9bcf5329bbf0ffa91cf731b6ca6e218 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_78394e5d10a3c61562edebf96aa6ce0d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ed9f70f372a0a116102c1f6a30e628de = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0afc3e5f2fb8c8744db9b69c43b3b2b8 = $(`<div id="html_0afc3e5f2fb8c8744db9b69c43b3b2b8" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_ed9f70f372a0a116102c1f6a30e628de.setContent(html_0afc3e5f2fb8c8744db9b69c43b3b2b8);
+            
+        
+
+        marker_a9bcf5329bbf0ffa91cf731b6ca6e218.bindPopup(popup_ed9f70f372a0a116102c1f6a30e628de)
+        ;
+
+        
+    
+    
+                marker_a9bcf5329bbf0ffa91cf731b6ca6e218.setIcon(icon_78394e5d10a3c61562edebf96aa6ce0d);
+            
+    
+            var marker_a68660ca4ec93b5eb886582a0648a30e = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_3c1e13f72a6e8ef0fd47b0054110f397 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_872d1ecfb52584cbc1919be05fe0dfca = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_757b17afb2fb7590351e565908bf44a8 = $(`<div id="html_757b17afb2fb7590351e565908bf44a8" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_872d1ecfb52584cbc1919be05fe0dfca.setContent(html_757b17afb2fb7590351e565908bf44a8);
+            
+        
+
+        marker_a68660ca4ec93b5eb886582a0648a30e.bindPopup(popup_872d1ecfb52584cbc1919be05fe0dfca)
+        ;
+
+        
+    
+    
+                marker_a68660ca4ec93b5eb886582a0648a30e.setIcon(icon_3c1e13f72a6e8ef0fd47b0054110f397);
+            
+    
+            var marker_921354d28209cb22e8f48a989188b116 = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_d6f6ea07bd7b7dcab5e6e0b85ce63794 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b3737148cda94f4a5ac7543348edf200 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1672869ed15576e9adb577d3e435a81c = $(`<div id="html_1672869ed15576e9adb577d3e435a81c" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_b3737148cda94f4a5ac7543348edf200.setContent(html_1672869ed15576e9adb577d3e435a81c);
+            
+        
+
+        marker_921354d28209cb22e8f48a989188b116.bindPopup(popup_b3737148cda94f4a5ac7543348edf200)
+        ;
+
+        
+    
+    
+                marker_921354d28209cb22e8f48a989188b116.setIcon(icon_d6f6ea07bd7b7dcab5e6e0b85ce63794);
+            
+    
+            var marker_2a8a057803a79a42e5a6d6b1207242c3 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_cb7ce9ab65dd12250242f41576554dea = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_eb52f5db7ada9d9d4af27d7ffdbcfa32 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dd67c2fde3b608be32c5935ea291f719 = $(`<div id="html_dd67c2fde3b608be32c5935ea291f719" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_eb52f5db7ada9d9d4af27d7ffdbcfa32.setContent(html_dd67c2fde3b608be32c5935ea291f719);
+            
+        
+
+        marker_2a8a057803a79a42e5a6d6b1207242c3.bindPopup(popup_eb52f5db7ada9d9d4af27d7ffdbcfa32)
+        ;
+
+        
+    
+    
+                marker_2a8a057803a79a42e5a6d6b1207242c3.setIcon(icon_cb7ce9ab65dd12250242f41576554dea);
+            
+    
+            var marker_6454c85ee29fdb1fd8695727be49073d = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_380bd174feed188b1eaa67cf07b2ba9c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8cdab16a93ae066819a93455175398f1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5c3cdc9673cbd46ba8276362194dc81f = $(`<div id="html_5c3cdc9673cbd46ba8276362194dc81f" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_8cdab16a93ae066819a93455175398f1.setContent(html_5c3cdc9673cbd46ba8276362194dc81f);
+            
+        
+
+        marker_6454c85ee29fdb1fd8695727be49073d.bindPopup(popup_8cdab16a93ae066819a93455175398f1)
+        ;
+
+        
+    
+    
+                marker_6454c85ee29fdb1fd8695727be49073d.setIcon(icon_380bd174feed188b1eaa67cf07b2ba9c);
+            
+    
+            var marker_245e28640633efc12dc56207929f703a = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_a17f6a36320093a34364849d551c8231 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bc6844928330231714189e14a377ac5a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ee498a198bed3419c62c7c75b9cd93d9 = $(`<div id="html_ee498a198bed3419c62c7c75b9cd93d9" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_bc6844928330231714189e14a377ac5a.setContent(html_ee498a198bed3419c62c7c75b9cd93d9);
+            
+        
+
+        marker_245e28640633efc12dc56207929f703a.bindPopup(popup_bc6844928330231714189e14a377ac5a)
+        ;
+
+        
+    
+    
+                marker_245e28640633efc12dc56207929f703a.setIcon(icon_a17f6a36320093a34364849d551c8231);
+            
+    
+            var marker_b8f161b9c5d8c6af107ed4d0ef6a4336 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_6262ba6796584e76a1ad65f7f08dbb3f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_43e2afe5ea3758131a9169c015808f26 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2f4d9f9c51957b8d66ebcbb831301ec9 = $(`<div id="html_2f4d9f9c51957b8d66ebcbb831301ec9" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_43e2afe5ea3758131a9169c015808f26.setContent(html_2f4d9f9c51957b8d66ebcbb831301ec9);
+            
+        
+
+        marker_b8f161b9c5d8c6af107ed4d0ef6a4336.bindPopup(popup_43e2afe5ea3758131a9169c015808f26)
+        ;
+
+        
+    
+    
+                marker_b8f161b9c5d8c6af107ed4d0ef6a4336.setIcon(icon_6262ba6796584e76a1ad65f7f08dbb3f);
+            
+    
+            var marker_04d39c9e67b296cfb20c46ab32e94ac0 = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_f410daf796a2972ceb9d5dca509c8520 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_603f51cd3a422a4fc28829123f79b802 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ef58559addd1b235bccc7633843e16d6 = $(`<div id="html_ef58559addd1b235bccc7633843e16d6" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_603f51cd3a422a4fc28829123f79b802.setContent(html_ef58559addd1b235bccc7633843e16d6);
+            
+        
+
+        marker_04d39c9e67b296cfb20c46ab32e94ac0.bindPopup(popup_603f51cd3a422a4fc28829123f79b802)
+        ;
+
+        
+    
+    
+                marker_04d39c9e67b296cfb20c46ab32e94ac0.setIcon(icon_f410daf796a2972ceb9d5dca509c8520);
+            
+    
+            var marker_fba85c36e6ddaf31f4ae57ff44a5fdd0 = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_cf66b47d890455c3201b4ca71d3afd77 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_64a0cc79f4e47f7fdb490ebb0eb97e4e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e8a2063497c80196aa6ebcacfe13dd65 = $(`<div id="html_e8a2063497c80196aa6ebcacfe13dd65" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_64a0cc79f4e47f7fdb490ebb0eb97e4e.setContent(html_e8a2063497c80196aa6ebcacfe13dd65);
+            
+        
+
+        marker_fba85c36e6ddaf31f4ae57ff44a5fdd0.bindPopup(popup_64a0cc79f4e47f7fdb490ebb0eb97e4e)
+        ;
+
+        
+    
+    
+                marker_fba85c36e6ddaf31f4ae57ff44a5fdd0.setIcon(icon_cf66b47d890455c3201b4ca71d3afd77);
+            
+    
+            var marker_690f10ede44c0a5225b1f2c076b2fea0 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_123fc6bd2a1b5d6bccdcba56f14f96eb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d2006f280f9d4416350d9a6301b4c60b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_111cedf8125c54ce21891b0c5540f67b = $(`<div id="html_111cedf8125c54ce21891b0c5540f67b" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_d2006f280f9d4416350d9a6301b4c60b.setContent(html_111cedf8125c54ce21891b0c5540f67b);
+            
+        
+
+        marker_690f10ede44c0a5225b1f2c076b2fea0.bindPopup(popup_d2006f280f9d4416350d9a6301b4c60b)
+        ;
+
+        
+    
+    
+                marker_690f10ede44c0a5225b1f2c076b2fea0.setIcon(icon_123fc6bd2a1b5d6bccdcba56f14f96eb);
+            
+    
+            var marker_e637f949a8ef3e91b9b6c3fb7fd21774 = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_ccd09eee1c522fcbcd4e103c23725a60 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_068fc5edae27aeada4dbb9aabd18e2ab = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_539b320d7bfd8fc6a57d6ce4513cbbdb = $(`<div id="html_539b320d7bfd8fc6a57d6ce4513cbbdb" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_068fc5edae27aeada4dbb9aabd18e2ab.setContent(html_539b320d7bfd8fc6a57d6ce4513cbbdb);
+            
+        
+
+        marker_e637f949a8ef3e91b9b6c3fb7fd21774.bindPopup(popup_068fc5edae27aeada4dbb9aabd18e2ab)
+        ;
+
+        
+    
+    
+                marker_e637f949a8ef3e91b9b6c3fb7fd21774.setIcon(icon_ccd09eee1c522fcbcd4e103c23725a60);
+            
+    
+            var marker_e2b22970ebd2789924fa46d515849f96 = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_64e8fd9923c035e6ec414a7518c31b09 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5317cac7fe0ba2abd86c484129e8e8f9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f8100924a921652217bd662584c652c = $(`<div id="html_5f8100924a921652217bd662584c652c" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_5317cac7fe0ba2abd86c484129e8e8f9.setContent(html_5f8100924a921652217bd662584c652c);
+            
+        
+
+        marker_e2b22970ebd2789924fa46d515849f96.bindPopup(popup_5317cac7fe0ba2abd86c484129e8e8f9)
+        ;
+
+        
+    
+    
+                marker_e2b22970ebd2789924fa46d515849f96.setIcon(icon_64e8fd9923c035e6ec414a7518c31b09);
+            
+    
+            var marker_efaa4f0371638ec55a7ae443a66f793d = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_add83fbe8cf2e611deb5a7ec402ed33a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3ca2e3b837b1e90a5e64e097dac7c8e8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2ebdbb5e520ae159ee3c3cdd5959a095 = $(`<div id="html_2ebdbb5e520ae159ee3c3cdd5959a095" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_3ca2e3b837b1e90a5e64e097dac7c8e8.setContent(html_2ebdbb5e520ae159ee3c3cdd5959a095);
+            
+        
+
+        marker_efaa4f0371638ec55a7ae443a66f793d.bindPopup(popup_3ca2e3b837b1e90a5e64e097dac7c8e8)
+        ;
+
+        
+    
+    
+                marker_efaa4f0371638ec55a7ae443a66f793d.setIcon(icon_add83fbe8cf2e611deb5a7ec402ed33a);
+            
+    
+            var marker_ef22f2b75c2984a3d8812f55ee039e0b = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_be418c68b7b544f591e2604d10e37139 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_33706529d12f0e7dd6602f9011f64b19 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_46f78bee0ca9b441d5b43cf66a466c94 = $(`<div id="html_46f78bee0ca9b441d5b43cf66a466c94" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_33706529d12f0e7dd6602f9011f64b19.setContent(html_46f78bee0ca9b441d5b43cf66a466c94);
+            
+        
+
+        marker_ef22f2b75c2984a3d8812f55ee039e0b.bindPopup(popup_33706529d12f0e7dd6602f9011f64b19)
+        ;
+
+        
+    
+    
+                marker_ef22f2b75c2984a3d8812f55ee039e0b.setIcon(icon_be418c68b7b544f591e2604d10e37139);
+            
+    
+            var marker_441f920c61065c938aedb6675a835914 = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_ab11ce78436eb9922ac3793b61a84339 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bac3b133698ebfa728227781166b3b30 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ae824c85816811c06d644e059277957f = $(`<div id="html_ae824c85816811c06d644e059277957f" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_bac3b133698ebfa728227781166b3b30.setContent(html_ae824c85816811c06d644e059277957f);
+            
+        
+
+        marker_441f920c61065c938aedb6675a835914.bindPopup(popup_bac3b133698ebfa728227781166b3b30)
+        ;
+
+        
+    
+    
+                marker_441f920c61065c938aedb6675a835914.setIcon(icon_ab11ce78436eb9922ac3793b61a84339);
+            
+    
+            var marker_39ef20928746f46a63a046774f4e17ac = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_b9fc4b71417cd74f75504696823b5bd8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_42dee1e503aabf4bf963d80bc04745e7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c2b73620e51ecda3c92e01b0c34fbfcb = $(`<div id="html_c2b73620e51ecda3c92e01b0c34fbfcb" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_42dee1e503aabf4bf963d80bc04745e7.setContent(html_c2b73620e51ecda3c92e01b0c34fbfcb);
+            
+        
+
+        marker_39ef20928746f46a63a046774f4e17ac.bindPopup(popup_42dee1e503aabf4bf963d80bc04745e7)
+        ;
+
+        
+    
+    
+                marker_39ef20928746f46a63a046774f4e17ac.setIcon(icon_b9fc4b71417cd74f75504696823b5bd8);
+            
+    
+            var marker_e36c3330b9d13ce3ea40a4b6f59bbd2d = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_02d34ed3b3bc90d31ba29895e2b207ea = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_be627cfdeee1e3485cc2c0582e04d698 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_99c1686d5b17362c60234593bdee5619 = $(`<div id="html_99c1686d5b17362c60234593bdee5619" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_be627cfdeee1e3485cc2c0582e04d698.setContent(html_99c1686d5b17362c60234593bdee5619);
+            
+        
+
+        marker_e36c3330b9d13ce3ea40a4b6f59bbd2d.bindPopup(popup_be627cfdeee1e3485cc2c0582e04d698)
+        ;
+
+        
+    
+    
+                marker_e36c3330b9d13ce3ea40a4b6f59bbd2d.setIcon(icon_02d34ed3b3bc90d31ba29895e2b207ea);
+            
+    
+            var marker_0fb8284ce3cbc9adc6c3035c90c11ec1 = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_95829fd629680b8511397496975d7582 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9d64f596c02c8761bb87f105777b1b26 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0eccc529463d82bb4327fc1c0e04e6b6 = $(`<div id="html_0eccc529463d82bb4327fc1c0e04e6b6" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_9d64f596c02c8761bb87f105777b1b26.setContent(html_0eccc529463d82bb4327fc1c0e04e6b6);
+            
+        
+
+        marker_0fb8284ce3cbc9adc6c3035c90c11ec1.bindPopup(popup_9d64f596c02c8761bb87f105777b1b26)
+        ;
+
+        
+    
+    
+                marker_0fb8284ce3cbc9adc6c3035c90c11ec1.setIcon(icon_95829fd629680b8511397496975d7582);
+            
+    
+            var marker_38cdc2fb7c78d559ece4d58495d1936c = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_9cac2dca985c651831bae179f40cfe83 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_29ee6ad902d28a1f5d48e2d52c035d6e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ac45aecbc51e2b2a19fa277ffd0387ac = $(`<div id="html_ac45aecbc51e2b2a19fa277ffd0387ac" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_29ee6ad902d28a1f5d48e2d52c035d6e.setContent(html_ac45aecbc51e2b2a19fa277ffd0387ac);
+            
+        
+
+        marker_38cdc2fb7c78d559ece4d58495d1936c.bindPopup(popup_29ee6ad902d28a1f5d48e2d52c035d6e)
+        ;
+
+        
+    
+    
+                marker_38cdc2fb7c78d559ece4d58495d1936c.setIcon(icon_9cac2dca985c651831bae179f40cfe83);
+            
+    
+            var marker_c2914c7ad35fc8aa9bbc0078c94cf238 = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_f6ef7c96e7c4a5f56e2ffa97868abad2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a6619669c18fe13813a05e7e21d5005c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9192d897802a97641dc6e7a515a5a688 = $(`<div id="html_9192d897802a97641dc6e7a515a5a688" style="width: 100.0%; height: 100.0%;">         City: Mumbai<br>         Source: Natural<br>         PM2.5: 31.64         </div>`)[0];
+                popup_a6619669c18fe13813a05e7e21d5005c.setContent(html_9192d897802a97641dc6e7a515a5a688);
+            
+        
+
+        marker_c2914c7ad35fc8aa9bbc0078c94cf238.bindPopup(popup_a6619669c18fe13813a05e7e21d5005c)
+        ;
+
+        
+    
+    
+                marker_c2914c7ad35fc8aa9bbc0078c94cf238.setIcon(icon_f6ef7c96e7c4a5f56e2ffa97868abad2);
+            
+    
+            var marker_a304953373cedb9223c0b34cc951d2f2 = L.marker(
+                [13.0827, 80.2707],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_d369d0201b84be6cb0d585c95b3acc50 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_72dfeddf62b1b2aec3a392b94b150674 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9f925fca37aa70487f6b7c3e8fa389ec = $(`<div id="html_9f925fca37aa70487f6b7c3e8fa389ec" style="width: 100.0%; height: 100.0%;">         City: Chennai<br>         Source: Natural<br>         PM2.5: 14.24         </div>`)[0];
+                popup_72dfeddf62b1b2aec3a392b94b150674.setContent(html_9f925fca37aa70487f6b7c3e8fa389ec);
+            
+        
+
+        marker_a304953373cedb9223c0b34cc951d2f2.bindPopup(popup_72dfeddf62b1b2aec3a392b94b150674)
+        ;
+
+        
+    
+    
+                marker_a304953373cedb9223c0b34cc951d2f2.setIcon(icon_d369d0201b84be6cb0d585c95b3acc50);
+            
+    
+            var marker_b0dc59d75280df4c5b1ce7f42863e109 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(feature_group_8d47436bf24cd2e0206ca5402b099e38);
+        
+    
+            var icon_7bdebd4131cbc2cf83e3f6e258fc0068 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "cloud",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a00ac5ace885381cd677d01008dd2a26 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a0e7e93962e348e7d353c9b139ee9534 = $(`<div id="html_a0e7e93962e348e7d353c9b139ee9534" style="width: 100.0%; height: 100.0%;">         City: Kolkata<br>         Source: Natural<br>         PM2.5: 20.06         </div>`)[0];
+                popup_a00ac5ace885381cd677d01008dd2a26.setContent(html_a0e7e93962e348e7d353c9b139ee9534);
+            
+        
+
+        marker_b0dc59d75280df4c5b1ce7f42863e109.bindPopup(popup_a00ac5ace885381cd677d01008dd2a26)
+        ;
+
+        
+    
+    
+                marker_b0dc59d75280df4c5b1ce7f42863e109.setIcon(icon_7bdebd4131cbc2cf83e3f6e258fc0068);
+            
+    
+            feature_group_8d47436bf24cd2e0206ca5402b099e38.addTo(map_cc61eadac7541c5952938b6bbf7874dd);
+        
+    
+            var layer_control_2e6ccbece8202747a74d30c28bf81fec_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_ae248d67a7cbfb4f4bab7f7ef3693db9,
+                },
+                overlays :  {
+                    "Vehicular" : feature_group_2610caa9040134444c31694ea17f058e,
+                    "Industrial" : feature_group_8713fb81610c7937fa01c4622370e227,
+                    "Agricultural" : feature_group_852c386cd55d433f3fabe148b2899d3c,
+                    "Natural" : feature_group_8d47436bf24cd2e0206ca5402b099e38,
+                },
+            };
+            let layer_control_2e6ccbece8202747a74d30c28bf81fec = L.control.layers(
+                layer_control_2e6ccbece8202747a74d30c28bf81fec_layers.base_layers,
+                layer_control_2e6ccbece8202747a74d30c28bf81fec_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_cc61eadac7541c5952938b6bbf7874dd);
+
+        
+</script>
+</html>
