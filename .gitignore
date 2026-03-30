@@ -1,0 +1,18 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code settings
+.vscode/
+
+# Project-specific folders you don’t want in Git
+.config/
+model/
+data/
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
