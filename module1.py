@@ -1,148 +1,198 @@
-
 # ==========================================
-# ENVIRONMENTAL DATASET GENERATOR (API + 50 ROWS + RANDOM GPS)
+# MODULE 1: INDIA DATASET (OPENWEATHER + OPENAQ)
 # ==========================================
 
 import requests
 import pandas as pd
 import random
+import time
 from datetime import datetime, timedelta
 
 # ==============================
 # API KEYS
 # ==============================
-
 OWM_API_KEY = "5ec26652e0c8495ca989e870aa1c8207"
 OPENAQ_API_KEY = "e7d57256e3371e283ed2546983feeef049d830f6127b2ed923db4dfd952bfe49"
 
-# ==============================
-# LOCATION
-# ==============================
-
-CITY = "Visakhapatnam"
-LAT = 17.6868
-LON = 83.2185
 
 # ==============================
-# API URLS
+# INDIA STATES + MAJOR CITIES
 # ==============================
 
-weather_url = "https://api.openweathermap.org/data/2.5/weather"
-air_url = "https://api.openaq.org/v2/latest"
-
-headers = {"X-API-Key": OPENAQ_API_KEY}
-
-required_pollutants = ["pm25","pm10","no2","co","so2","o3"]
+states_data = {
+    "Andhra Pradesh": [("Visakhapatnam", 17.6868, 83.2185)],
+    "Telangana": [("Hyderabad", 17.3850, 78.4867)],
+    "Maharashtra": [("Mumbai", 19.0760, 72.8777)],
+    "Delhi": [("Delhi", 28.6139, 77.2090)],
+    "Karnataka": [("Bangalore", 12.9716, 77.5946)],
+    "Tamil Nadu": [("Chennai", 13.0827, 80.2707)],
+    "West Bengal": [("Kolkata", 22.5726, 88.3639)],
+    "Gujarat": [("Ahmedabad", 23.0225, 72.5714)],
+    "Rajasthan": [("Jaipur", 26.9124, 75.7873)],
+    "Uttar Pradesh": [("Lucknow", 26.8467, 80.9462)],
+    "Punjab": [("Amritsar", 31.6340, 74.8723)],
+    "Bihar": [("Patna", 25.5941, 85.1376)],
+    "Madhya Pradesh": [("Bhopal", 23.2599, 77.4126)],
+    "Kerala": [("Kochi", 9.9312, 76.2673)],
+    "Odisha": [("Bhubaneswar", 20.2961, 85.8245)],
+    "Assam": [("Guwahati", 26.1445, 91.7362)]
+}
 
 # ==============================
-# DATA STORAGE
+# API FUNCTIONS
 # ==============================
+
+def get_weather(lat, lon):
+    try:
+        url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={OWM_API_KEY}&units=metric"
+        res = requests.get(url).json()
+
+        return {
+            "temperature": res["main"]["temp"],
+            "humidity": res["main"]["humidity"],
+            "pressure": res["main"]["pressure"],
+            "wind_speed": res["wind"]["speed"]
+        }
+    except:
+        return None
+
+
+def get_pollution_owm(lat, lon):
+    try:
+        url = f"https://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={OWM_API_KEY}"
+        res = requests.get(url).json()
+
+        comp = res["list"][0]["components"]
+
+        return {
+            "pm25": comp.get("pm2_5"),
+            "pm10": comp.get("pm10"),
+            "no2": comp.get("no2"),
+            "co": comp.get("co") / 100,
+            "so2": comp.get("so2"),
+            "o3": comp.get("o3")
+        }
+    except:
+        return None
+
+
+def get_pollution_openaq(city):
+    try:
+        url = f"https://api.openaq.org/v2/latest?city={city}"
+        headers = {"X-API-Key": OPENAQ_API_KEY}
+        res = requests.get(url, headers=headers).json()
+
+        measurements = res["results"][0]["measurements"]
+
+        data = {}
+        for m in measurements:
+            data[m["parameter"]] = m["value"]
+
+        return data
+    except:
+        return None
+
+
+# ==============================
+# CONFIG
+# ==============================
+
+ROWS = 150
+start_time = datetime(2024, 1, 1)
 
 records = []
 
-start_time = datetime(2024,1,1,0,0,0)
-
-ROWS = 200
+print("🚀 Generating India Dataset (API Integrated)...")
 
 # ==============================
-# FETCH BASE API DATA
-# ==============================
-
-print("Fetching environmental data from APIs...")
-
-# AIR QUALITY
-air_params = {
-    "coordinates": f"{LAT},{LON}",
-    "radius": 10000,
-    "limit": 100
-}
-
-air_response = requests.get(air_url, headers=headers, params=air_params)
-
-air_base = {p:0 for p in required_pollutants}
-
-if air_response.status_code == 200:
-
-    data = air_response.json()
-
-    for result in data.get("results", []):
-        for m in result.get("measurements", []):
-
-            param = m.get("parameter")
-            value = m.get("value")
-
-            if param in air_base and air_base[param] == 0:
-                air_base[param] = value
-
-# WEATHER
-weather_params = {
-    "lat": LAT,
-    "lon": LON,
-    "appid": OWM_API_KEY,
-    "units": "metric"
-}
-
-weather_response = requests.get(weather_url, params=weather_params)
-
-temperature_base = 30
-humidity_base = 60
-wind_base = 2
-
-if weather_response.status_code == 200:
-
-    w = weather_response.json()
-
-    temperature_base = w["main"]["temp"]
-    humidity_base = w["main"]["humidity"]
-    wind_base = w["wind"]["speed"]
-
-# ==============================
-# DATA GENERATION
+# MAIN LOOP
 # ==============================
 
 for i in range(ROWS):
 
     timestamp = start_time + timedelta(hours=i)
 
-    # Random GPS around Visakhapatnam
-    latitude = LAT + random.uniform(-0.01,0.01)
-    longitude = LON + random.uniform(-0.01,0.01)
+    state = random.choice(list(states_data.keys()))
+    city, base_lat, base_lon = random.choice(states_data[state])
 
-    # Air pollution variation
-    pm25 = air_base["pm25"] + random.uniform(-5,5)
-    pm10 = air_base["pm10"] + random.uniform(-10,10)
-    no2 = air_base["no2"] + random.uniform(-3,3)
-    co = air_base["co"] + random.uniform(-0.5,0.5)
-    so2 = air_base["so2"] + random.uniform(-2,2)
-    o3 = air_base["o3"] + random.uniform(-5,5)
+    latitude = base_lat + random.uniform(-0.01, 0.01)
+    longitude = base_lon + random.uniform(-0.01, 0.01)
 
-    nh3 = random.uniform(5,40)
-    benzene = random.uniform(1,20)
-    toluene = random.uniform(1,25)
+    # ==============================
+    # API CALLS
+    # ==============================
 
-    # Weather variation
-    temperature = temperature_base + random.uniform(-2,2)
-    humidity = humidity_base + random.uniform(-5,5)
-    wind_speed = wind_base + random.uniform(-1,1)
+    weather = get_weather(latitude, longitude)
+    owm_pollution = get_pollution_owm(latitude, longitude)
+    aq_pollution = get_pollution_openaq(city)
 
-    wind_direction = random.randint(0,360)
+    # ==============================
+    # MERGE DATA (PRIORITY: OWM > OpenAQ > Fallback)
+    # ==============================
 
-    pressure = random.uniform(995,1030)
-    visibility = random.uniform(4,10)
+    def safe(val, fallback):
+        return val if val is not None else fallback
 
-    # AQI calculation
-    aqi = (pm25*0.5 + pm10*0.3 + no2*0.1 + co*10)/4
+    pm25 = safe(
+        owm_pollution.get("pm25") if owm_pollution else None,
+        aq_pollution.get("pm25") if aq_pollution else None
+    ) or random.uniform(20,150)
 
-    row = {
+    pm10 = safe(
+        owm_pollution.get("pm10") if owm_pollution else None,
+        aq_pollution.get("pm10") if aq_pollution else None
+    ) or random.uniform(30,200)
 
-        "city": CITY,
+    no2 = safe(
+        owm_pollution.get("no2") if owm_pollution else None,
+        aq_pollution.get("no2") if aq_pollution else None
+    ) or random.uniform(10,100)
+
+    co = safe(
+        owm_pollution.get("co") if owm_pollution else None,
+        aq_pollution.get("co") if aq_pollution else None
+    ) or random.uniform(0.5,5)
+
+    so2 = safe(
+        owm_pollution.get("so2") if owm_pollution else None,
+        aq_pollution.get("so2") if aq_pollution else None
+    ) or random.uniform(5,50)
+
+    o3 = safe(
+        owm_pollution.get("o3") if owm_pollution else None,
+        aq_pollution.get("o3") if aq_pollution else None
+    ) or random.uniform(10,100)
+
+    # Weather fallback
+    if weather:
+        temperature = weather["temperature"]
+        humidity = weather["humidity"]
+        pressure = weather["pressure"]
+        wind_speed = weather["wind_speed"]
+    else:
+        temperature = random.uniform(20, 40)
+        humidity = random.uniform(40, 80)
+        pressure = random.uniform(995, 1030)
+        wind_speed = random.uniform(1, 5)
+
+    # ==============================
+    # DISTANCES
+    # ==============================
+
+    dist_to_road = random.uniform(0.001, 0.05)
+    dist_to_industry = random.uniform(0.001, 0.05)
+    dist_to_dump = random.uniform(0.001, 0.05)
+
+    # ==============================
+    # SAVE ROW
+    # ==============================
+
+    records.append({
+        "state": state,
+        "city": city,
         "latitude": round(latitude,6),
         "longitude": round(longitude,6),
         "timestamp": timestamp,
-
-        "hour": timestamp.hour,
-        "day": timestamp.day,
-        "month": timestamp.month,
 
         "pm25": round(pm25,2),
         "pm10": round(pm10,2),
@@ -150,30 +200,27 @@ for i in range(ROWS):
         "co": round(co,2),
         "so2": round(so2,2),
         "o3": round(o3,2),
-        "nh3": round(nh3,2),
-        "benzene": round(benzene,2),
-        "toluene": round(toluene,2),
 
         "temperature": round(temperature,2),
         "humidity": round(humidity,2),
-        "wind_speed": round(wind_speed,2),
-        "wind_direction": wind_direction,
         "pressure": round(pressure,2),
-        "visibility": round(visibility,2),
+        "wind_speed": round(wind_speed,2),
 
-        "aqi": round(aqi,2)
-    }
+        "dist_to_road": round(dist_to_road,4),
+        "dist_to_industry": round(dist_to_industry,4),
+        "dist_to_dump": round(dist_to_dump,4)
+    })
 
-    records.append(row)
+    time.sleep(1)  # avoid API limit
 
 # ==============================
-# CREATE DATASET
+# SAVE DATASET
 # ==============================
 
 df = pd.DataFrame(records)
-
 df.to_csv("dataset.csv", index=False)
 
-print("\nDataset Created Successfully!")
+print("✅ Dataset Created Successfully!")
+print("States Covered:", df["state"].unique())
 print("Rows:", len(df))
 print(df.head())

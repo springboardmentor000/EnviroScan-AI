@@ -1,191 +1,216 @@
 # ==========================================
-# MODULE 4: MODEL TRAINING & SOURCE PREDICTION
+# MODULE 4: FINAL SYSTEM (SMART INPUT)
 # ==========================================
 
 import pandas as pd
 import joblib
 
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score, classification_report
 
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+# OPTIONAL XGBOOST
+try:
+    from xgboost import XGBClassifier
+    use_xgb = True
+except:
+    use_xgb = False
 
 
 # ==============================
-# LOAD LABELED DATASET
+# LOAD DATA
 # ==============================
 
 df = pd.read_csv("labeled_environment_dataset.csv")
+df = df.drop_duplicates()
 
-print("Dataset Shape:", df.shape)
-
+# REMOVE RARE CLASSES
+df = df[df["source_label"].map(df["source_label"].value_counts()) > 2]
 
 # ==============================
-# SELECT FEATURES
+# ENCODE CITY
+# ==============================
+
+city_encoder = LabelEncoder()
+df["city_encoded"] = city_encoder.fit_transform(df["city"])
+
+# ==============================
+# FEATURES
 # ==============================
 
 features = [
     "pm25","pm10","no2","co","so2","o3",
     "temperature","humidity","pressure","wind_speed",
-    "dist_to_road","dist_to_industry","dist_to_dump"
+    "dist_to_road","dist_to_industry","dist_to_dump",
+    "city_encoded"
 ]
 
 X = df[features]
-
 y = df["source_label"]
 
+# ENCODE TARGET
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)
 
 # ==============================
-# ENCODE TARGET LABEL
-# ==============================
-
-encoder = LabelEncoder()
-
-y_encoded = encoder.fit_transform(y)
-
-
-# ==============================
-# TRAIN TEST SPLIT
+# SPLIT
 # ==============================
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y_encoded,
-    test_size=0.2,
-    random_state=42
+    X, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
 )
 
-print("Training Size:", X_train.shape)
-print("Testing Size:", X_test.shape)
+# ==============================
+# MODELS
+# ==============================
 
-
-# ==========================================
-# 1️⃣ DECISION TREE MODEL
-# ==========================================
-
-dt = DecisionTreeClassifier()
-
-dt_params = {
-    "max_depth":[3,5,10],
-    "min_samples_split":[2,5,10]
+models = {
+    "Decision Tree": DecisionTreeClassifier(max_depth=5, random_state=42),
+    "Random Forest": RandomForestClassifier(n_estimators=120, max_depth=10, random_state=42)
 }
 
-dt_grid = GridSearchCV(dt, dt_params, cv=3)
+if use_xgb:
+    models["XGBoost"] = XGBClassifier(
+        n_estimators=120,
+        max_depth=3,
+        learning_rate=0.1,
+        eval_metric="mlogloss"
+    )
 
-dt_grid.fit(X_train, y_train)
+trained_models = {}
 
-best_dt = dt_grid.best_estimator_
+# ==============================
+# TRAINING
+# ==============================
 
-print("\nBest Decision Tree Params:", dt_grid.best_params_)
+for name, model in models.items():
+    print(f"\n🔹 {name}")
 
+    cv = cross_val_score(model, X_train, y_train, cv=5)
+    print("CV Mean:", round(cv.mean(), 4))
 
-# ==========================================
-# 2️⃣ RANDOM FOREST MODEL
-# ==========================================
+    model.fit(X_train, y_train)
 
-rf = RandomForestClassifier()
+    y_pred = model.predict(X_test)
+    print("Accuracy:", round(accuracy_score(y_test, y_pred), 4))
 
-rf_params = {
-    "n_estimators":[50,100],
-    "max_depth":[5,10,None]
-}
+    print(classification_report(y_test, y_pred))
 
-rf_grid = GridSearchCV(rf, rf_params, cv=3)
+    trained_models[name] = model
 
-rf_grid.fit(X_train, y_train)
+# ==============================
+# BEST MODEL
+# ==============================
 
-best_rf = rf_grid.best_estimator_
+best_model = max(trained_models, key=lambda m: accuracy_score(y_test, trained_models[m].predict(X_test)))
+model = trained_models[best_model]
 
-print("\nBest Random Forest Params:", rf_grid.best_params_)
+print("\n🔥 Best Model:", best_model)
 
-
-# ==========================================
-# 3️⃣ XGBOOST MODEL
-# ==========================================
-
-xgb = XGBClassifier(use_label_encoder=False, eval_metric="mlogloss")
-
-xgb_params = {
-    "n_estimators":[50,100],
-    "max_depth":[3,6],
-    "learning_rate":[0.1,0.3]
-}
-
-xgb_grid = GridSearchCV(xgb, xgb_params, cv=3)
-
-xgb_grid.fit(X_train, y_train)
-
-best_xgb = xgb_grid.best_estimator_
-
-print("\nBest XGBoost Params:", xgb_grid.best_params_)
-
-
-# ==========================================
-# 4️⃣ GRADIENT BOOSTING MODEL
-# ==========================================
-
-gb = GradientBoostingClassifier()
-
-gb_params = {
-    "n_estimators":[50,100],
-    "learning_rate":[0.05,0.1],
-    "max_depth":[3,5]
-}
-
-gb_grid = GridSearchCV(gb, gb_params, cv=3)
-
-gb_grid.fit(X_train, y_train)
-
-best_gb = gb_grid.best_estimator_
-
-print("\nBest Gradient Boosting Params:", gb_grid.best_params_)
-
-
-# ==========================================
-# MODEL EVALUATION FUNCTION
-# ==========================================
-
-def evaluate_model(model, name):
-
-    predictions = model.predict(X_test)
-
-    print("\n==============================")
-    print(name)
-    print("==============================")
-
-    print("Accuracy:", accuracy_score(y_test, predictions))
-
-    print("\nClassification Report:")
-    print(classification_report(y_test, predictions, target_names=encoder.classes_))
-
-    print("\nConfusion Matrix:")
-    print(confusion_matrix(y_test, predictions))
+# SAVE
+joblib.dump(model, "pollution_source_model.pkl")
+joblib.dump(label_encoder, "label_encoder.pkl")
+joblib.dump(city_encoder, "city_encoder.pkl")
 
 
 # ==============================
-# EVALUATE ALL MODELS
+# SMART USER INPUT (LESS INPUT)
 # ==============================
 
-evaluate_model(best_dt, "Decision Tree")
+print("\n🌍 ENTER KEY POLLUTION VALUES:")
 
-evaluate_model(best_rf, "Random Forest")
+def get_val(name):
+    while True:
+        try:
+            val = float(input(f"{name} (0 to 1): "))
+            if 0 <= val <= 1:
+                return val
+        except:
+            pass
+        print("❌ Invalid input")
 
-evaluate_model(best_xgb, "XGBoost")
+pm25 = get_val("PM2.5")
+no2 = get_val("NO2")
+so2 = get_val("SO2")
+co = get_val("CO")
 
-evaluate_model(best_gb, "Gradient Boosting")
+dist_road = get_val("Distance to Road")
+dist_industry = get_val("Distance to Industry")
+dist_dump = get_val("Distance to Dump")
 
+# AUTO-FILL OTHER FEATURES (AVERAGE VALUES)
+pm10 = df["pm10"].mean()
+o3 = df["o3"].mean()
+temperature = df["temperature"].mean()
+humidity = df["humidity"].mean()
+pressure = df["pressure"].mean()
+wind_speed = df["wind_speed"].mean()
 
-# ==========================================
-# SAVE BEST MODEL
-# ==========================================
+# CITY
+city_input = input("Enter City: ").strip().title()
+try:
+    city_encoded = city_encoder.transform([city_input])[0]
+except:
+    city_encoded = 0
 
-# Here we assume Random Forest performed best
-best_model = best_rf
+# FINAL INPUT
+user_data = [
+    pm25, pm10, no2, co, so2, o3,
+    temperature, humidity, pressure, wind_speed,
+    dist_road, dist_industry, dist_dump,
+    city_encoded
+]
 
-joblib.dump(best_model, "pollution_source_model.pkl")
+user_df = pd.DataFrame([user_data], columns=features)
 
-joblib.dump(encoder, "label_encoder.pkl")
+# ==============================
+# PREDICTION
+# ==============================
 
-print("\nModel saved successfully!")
+pred = model.predict(user_df)
+result = label_encoder.inverse_transform(pred)
+
+print("\n🌟 Predicted Source:", result[0])
+
+# ==============================
+# ALERT SYSTEM
+# ==============================
+
+print("\n🚨 ALERTS:")
+
+if pm25 > 0.7:
+    print("🔴 High Pollution")
+elif pm25 > 0.4:
+    print("🟠 Moderate Pollution")
+else:
+    print("🟢 Safe")
+
+if no2 > 0.6:
+    print("⚠ Traffic Pollution Detected")
+
+if so2 > 0.6:
+    print("⚠ Industrial Pollution Detected")
+
+# ==============================
+# SUGGESTIONS
+# ==============================
+
+print("\n💡 SUGGESTIONS:")
+
+if result[0] == "Vehicular":
+    print("Reduce vehicle usage")
+
+elif result[0] == "Industrial":
+    print("Control industrial emissions")
+
+elif result[0] == "Burning":
+    print("Avoid waste burning")
+
+elif result[0] == "Agricultural":
+    print("Avoid stubble burning")
+
+else:
+    print("Environment is stable")
