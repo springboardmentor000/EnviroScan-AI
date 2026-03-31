@@ -1,4 +1,4 @@
-EnviroScan AI-Powered Pollution Source Identifier using Geospatial Analytics
+**EnviroScan AI-Powered Pollution Source Identifier using Geospatial Analytics**
 
 **Project Overview**
 
