@@ -131,3 +131,4 @@ This project collects pollution data, cleans it, shows graphs and maps, and pred
 - Real-time data  
 - Better ML models  
 - Mobile app  
+- web app
