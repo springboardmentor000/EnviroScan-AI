@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Cache folders
+cache/
+
+# Model files
+*.pkl
+
+# Large file (VERY IMPORTANT)
+data/raw/physical_features.geojson
+
+# OS files
+.DS_Store
+Thumbs.db
