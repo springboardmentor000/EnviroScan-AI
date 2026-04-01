@@ -200,11 +200,11 @@ To develop an interactive web-based dashboard for real-time pollution monitoring
 9. Health Audit Module:
    This module identifies unsafe pollution conditions. Displays records where PM2.5 exceeds safe limits. Highlights pollution violations. Provides system safety      status.
 
-10. User Interaction Features:
+ 10. User Interaction Features:
    
-   Dropdown filters (city, source type), Real-time analysis input (latitude, longitude), Interactive map navigation.
+     Dropdown filters (city, source type), Real-time analysis input (latitude, longitude), Interactive map navigation.
 
-11. System Integration:
+ 11. System Integration:
 
-   The dashboard integrates the dataset (enviro_scan_dataset.csv).
-   Real-time APIs (OpenAQ, OpenWeather).
+     The dashboard integrates the dataset (enviro_scan_dataset.csv).
+     Real-time APIs (OpenAQ, OpenWeather).
