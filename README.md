@@ -6,8 +6,11 @@ Project Overview:
 Air pollution monitoring systems generally measure pollutant levels but do not identify the specific sources of pollution. This limitation makes it difficult for authorities and urban planners to implement targeted mitigation strategies. The EnviroScan system uses machine learning, weather analytics, and geospatial data to identify the most likely source of pollution such as vehicular emissions, industrial activity, agricultural burning, waste burning, or natural causes. The system integrates multiple data sources including: Air quality monitoring data, Weather information, Geospatial infrastructure features. Using this integrated dataset, the system predicts pollution sources and enables accurate pollution source prediction and supports decision-making for environmental monitoring and urban planning.
 
 Milestone 1 (Week 1–2)
+
 This milestone includes:
+
 Module 1 – Data Collection
+
 Module 2 – Data Cleaning and Feature Engineering
 
 Module 1: Data Collection from APIs and Location Databases.
