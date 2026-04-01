@@ -227,7 +227,7 @@ The system integrates multiple data sources including:
 - Weather information
 - Geospatial infrastructure features
 
-Using this integrated dataset, the system predicts pollution sources and supports decision-making for environmental monitoring and urban planning.
+Using this integrated dataset, the system predicts pollution sources and enables accurate pollution source prediction, supporting decision-making for environmental monitoring and urban planning.
 
 ---
 
@@ -243,15 +243,20 @@ This milestone includes:
 Module 1: Data Collection from APIs and Location Databases
 
 Objective:
-To collect air quality data, weather data, and geospatial environmental features from multiple sources.
+
+The objective of this module is to collect air quality data, weather data, and geospatial environmental features from multiple sources. These datasets form the base for pollution source identification.
 
 The following pollutant measurements are collected:
 PM2.5, PM10, NO₂, SO₂, CO, O₃.
 These are widely used indicators of urban air pollution.
 
-1. Weather Data Collection:
+---
+
+1. Weather Data Collection
+
 Weather information is collected using the OpenWeatherMap API.
-Parameters retrieved include:
+
+The following weather parameters are retrieved:
 
 - Temperature
 - Humidity
@@ -259,8 +264,12 @@ Parameters retrieved include:
 
 Weather conditions significantly influence pollutant dispersion.
 
-2. Geospatial Data Collection:
-Environmental context is extracted using OSMnx from OpenStreetMap.
+---
+
+2. Geospatial Data Collection
+
+Environmental context is extracted using OSMnx, which retrieves geospatial data from OpenStreetMap.
+
 The following spatial features are collected:
 
 - Road Networks
@@ -268,63 +277,106 @@ The following spatial features are collected:
 - Agricultural Fields
 - Waste Disposal Sites
 
-These features help in identifying pollution sources.
+These spatial features provide environmental context for identifying pollution sources.
 
-3. Metadata Tagging:
-Each data point is tagged with:
+---
+
+3. Metadata Tagging
+
+Each collected data point is tagged with the following metadata:
 
 - Latitude
 - Longitude
 - Timestamp
 - Monitoring station name
 
-4. Data Storage:
-Data is stored in a structured dataset:
-"enviro_scan_dataset.csv"
+This ensures the dataset contains both spatial and temporal context.
+
+---
+
+4. Data Storage
+
+The collected data is stored in a structured dataset:
+enviro_scan_dataset.csv
+
+This dataset is later used for preprocessing and machine learning.
 
 ---
 
 Module 2: Data Cleaning and Feature Engineering
 
 Objective:
-To preprocess collected data and generate meaningful features for machine learning.
 
-1. Duplicate Removal:
-Duplicate records are removed:
+The objective of this module is to preprocess the collected data and generate meaningful features for machine learning models.
+
+---
+
+1. Duplicate Removal
+
+Duplicate records are removed to ensure dataset integrity.
+
+Example:
 "df.drop_duplicates()"
 
-2. Handling Missing Values:
-Missing values are handled using:
+---
 
-- Zero-value filling
-- Noise-based simulation
+2. Handling Missing Values
+
+API responses may sometimes contain missing values.
+
+To address this:
+
+- Missing pollutant values are replaced with realistic simulated values
+- Missing values are handled using zero-value filling and noise-based simulation
 
 This ensures dataset completeness.
 
-3. Standardization:
+---
 
-- Timestamps are converted to standard datetime format
-- Time is represented in IST
+3. Standardization of Timestamps and Data
 
-Derived features:
+All timestamps are converted into a standardized datetime format.
+
+Time is represented in Indian Standard Time (IST).
+
+Temporal features derived:
 
 - Hour of Day
 - Day of Week
 
-4. Spatial Feature Engineering:
-Generated features:
+These features help capture time-based pollution patterns.
+
+---
+
+4. Spatial Feature Engineering
+
+Spatial proximity features are extracted using OpenStreetMap data through OSMnx.
+
+Generated spatial attributes:
 
 - road_count
 - industry_count
 - farmland_count
 - dump_count
 
-5. Dataset Integration:
-All data sources are merged into a single feature-rich DataFrame.
+These features represent environmental infrastructure around monitoring locations.
+
+---
+
+5. Dataset Integration
+
+All datasets are merged into a single feature-rich DataFrame containing:
+
+- Pollution measurements
+- Weather conditions
+- Spatial features
+- Temporal features
 
 ---
 
 Milestone 2 (Week 3–4)
+
+Milestone 2 focuses on pollution source labeling and machine learning model development.
 
 Modules included:
 
@@ -336,61 +388,47 @@ Modules included:
 Module 3: Source Labeling and Simulation
 
 Objective:
-To assign pollution source labels using rule-based heuristics.
 
-Pollution Source Labeling Rules:
+This module assigns pollution source labels using rule-based heuristics derived from environmental knowledge.
 
-- Vehicular Pollution:
-  High road density + High NO₂
-
-- Industrial Pollution:
-  Industrial zones nearby + High SO₂
-
-- Agricultural Pollution:
-  Farmland nearby + High particulate matter
-
-- Waste Burning:
-  High PM2.5 values
-
-- Natural Pollution:
-  If none of the above conditions are satisfied
-
-Dataset Preparation:
-Final labeled dataset:
-"enviro_scan_dataset.csv"
+Since real pollution source labels are not directly available, heuristic rules are used to simulate labeled training data.
 
 ---
 
-Module 4: Model Training and Source Prediction
+Pollution Source Labeling Rules
 
-Objective:
-To train machine learning models to predict pollution sources.
+i. Vehicular Pollution
 
-1. Train-Test Split:
+Condition: High road density and high NO₂ concentration
+Explanation: Vehicles emit nitrogen dioxide during fuel combustion.
 
-- Training Data: 75%
-- Testing Data: 25%
+ii. Industrial Pollution
 
-2. Machine Learning Models Used:
+Condition: Industrial zones nearby and high SO₂ concentration
+Explanation: Industrial processes emit sulfur dioxide.
 
-- Decision Tree
-- Random Forest
-- XGBoost
+iii. Agricultural Pollution
 
-3. Cross Validation:
-5-Fold Cross Validation is used to ensure model reliability.
+Condition: Farmland nearby and high particulate matter
+Explanation: Crop residue burning produces particulate emissions.
 
-4. Evaluation Metrics:
+iv. Waste Burning
 
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- Confusion Matrix
+Condition: High PM2.5 levels (simulated burning conditions)
+Explanation: Burning waste generates particulate pollution.
 
-5. Model Export:
-The trained model is saved using joblib:
-"rf_model.pkl"
+v. Natural Pollution
+
+If none of the above conditions are satisfied, pollution is classified as natural.
+
+---
+
+Dataset Preparation
+
+The labeled dataset is prepared and saved as:
+enviro_scan_dataset.csv
+
+This dataset serves as the training dataset for machine learning models.
 
 ---
 
@@ -406,94 +444,172 @@ Modules included:
 Module 5: Geospatial Mapping and Heatmap Visualization
 
 Objective:
-To visualize pollution data and identify high-risk zones.
 
-1. Geospatial Map Integration:
-Interactive map using Folium with dynamic centering.
+To visualize pollution data and predicted sources using geospatial mapping techniques, enabling identification of pollution hotspots and spatial distribution patterns.
 
-2. Heatmap Visualization:
-Color gradient: blue → yellow → red
-Indicates increasing pollution intensity.
+---
 
-3. Marker-Based Visualization:
+1. Geospatial Map Integration
 
-- Tooltip → PM2.5 value
-- Popup → PM2.5, PM10, NO₂, SO₂, CO, O₃
+An interactive map is created using the Folium library.
 
-4. Filtering Capability:
+The map displays pollution data across different locations using latitude and longitude coordinates.
 
-- Location
-- Pollution source
+The map is dynamically centered based on the available dataset.
 
-5. High-Risk Zone Identification:
-Based on PM2.5 levels.
+---
 
-6. Map Embedding:
-Using "st_folium()" in Streamlit.
+2. Heatmap Visualization
+
+Heatmaps represent pollution intensity using color gradients (blue → yellow → red),
+where higher intensity indicates higher pollution levels.
+
+---
+
+3. Marker-Based Visualization
+
+Location points are displayed using clustered markers.
+
+Each marker includes:
+
+- Tooltip (on hover) → shows PM2.5 value
+- Popup (on click) → displays pollutant values:
+  PM2.5, PM10, NO₂, SO₂, CO, O₃
+
+---
+
+4. Filtering Capability
+
+The dashboard allows filtering based on:
+
+- Location (city)
+- Pollution source category
+
+This enables interactive exploration of pollution data.
+
+---
+
+5. High-Risk Zone Identification
+
+Locations with higher PM2.5 values are highlighted using color-coded markers, helping identify critical pollution zones.
+
+---
+
+6. Map Embedding
+
+The map is embedded in the Streamlit dashboard using:
+"st_folium()"
+
+This allows real-time user interaction with the map.
 
 ---
 
 Module 6: Interactive Dashboard and Real-Time Monitoring
 
 Objective:
-To build a real-time interactive pollution monitoring system.
 
-1. Dashboard Development:
-Built using Streamlit with sections:
+To develop an interactive web-based dashboard for real-time pollution monitoring, visualization, and AI-based source detection.
+
+---
+
+1. Dashboard Development
+
+The dashboard is built using Streamlit.
+
+It provides a user-friendly interface with multiple sections:
 
 - Dashboard
 - Source Detection
 - Health Audit
 - Dataset Explorer
 
-2. Real-Time Data Integration:
+---
 
-- OpenAQ API → Pollutants
-- OpenWeather API → Weather
+2. Real-Time Data Integration
 
-If OpenAQ fails, fallback to OpenWeather ensures reliability.
+Air Quality Data (OpenAQ API):
+Real-time pollutant data is fetched including PM2.5, PM10, NO₂, SO₂, CO, O₃.
 
-3. Source Detection:
-Predicts pollution source using trained ML model (RF/XGBoost).
+Weather Data (OpenWeather API):
+Real-time weather parameters include temperature, humidity, and wind speed.
 
-4. Real-Time Metrics Display:
-Displays:
-
-- Pollutants
-- Weather
-- Area features
-
-5. Visualization:
-Pie Chart showing pollution source distribution.
-
-6. Alert System:
-
-- PM2.5 > 130 → High Pollution
-- Otherwise → Safe
-
-7. Dataset Explorer:
-View and download dataset.
-
-8. Health Audit Module:
-Identifies unsafe pollution levels.
-
-9. User Interaction:
-
-- Filters
-- Location input
-- Map interaction
-
-10. System Integration:
-
-- Dataset: "enviro_scan_dataset.csv"
-- Model: "rf_model.pkl"
-- APIs: OpenAQ, OpenWeather
+If OpenAQ data is unavailable, the system automatically falls back to OpenWeather API, ensuring continuous real-time data availability.
 
 ---
 
-Final Outputs
+3. Source Detection
 
-- Dataset: "enviro_scan_dataset.csv"
-- Trained Model: "rf_model.pkl"
+Users can input latitude and longitude to analyze pollution at any location.
+
+The system uses a trained machine learning model (Random Forest / XGBoost selected during training) to predict the pollution source.
+
+---
+
+4. Real-Time Metrics Display
+
+The dashboard displays environmental metrics in real time:
+
+- Pollutant concentrations
+- Weather conditions
+- Area features (road, industry, farmland counts)
+
+These are displayed using structured metric cards for better readability.
+
+---
+
+5. Pollution Insights Visualization
+
+Pie Chart (Source Distribution):
+Shows contribution of different pollution sources based on PM2.5 values.
+
+---
+
+6. Alert System
+
+The system provides real-time alerts:
+
+- High pollution alert is triggered when PM2.5 exceeds 130
+- Otherwise, the system displays safe air conditions
+
+---
+
+7. Dataset Explorer
+
+Users can view the complete dataset in tabular format.
+The dataset can be downloaded as a CSV file for further analysis.
+
+---
+
+8. Health Audit Module
+
+This module identifies unsafe pollution conditions by:
+
+- Displaying records where PM2.5 exceeds safe limits
+- Highlighting pollution violations
+- Providing system safety status
+
+---
+
+9. User Interaction Features
+
+- Dropdown filters (city, source type)
+- Real-time analysis input (latitude, longitude)
+- Interactive map navigation
+
+---
+
+10. System Integration
+
+The dashboard integrates:
+
+- Dataset: enviro_scan_dataset.csv
+- Real-time APIs: OpenAQ and OpenWeather
+
+---
+
+Final Outputs of the System
+
+- Dataset: enviro_scan_dataset.csv
+- Trained Model: rf_model.pkl
 
 These outputs enable automated pollution source prediction and support environmental monitoring systems.
