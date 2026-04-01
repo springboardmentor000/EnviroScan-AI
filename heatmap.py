@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# ================= LOAD MODEL =================
+
 model = joblib.load("models/gradient_boost_pollution_model.pkl")
 label_encoder = joblib.load("models/label_encoder.pkl")
 
@@ -64,8 +64,7 @@ selected["severity"] = selected.apply(
     axis=1
 )
 
-# ================= MAP =================
-# ================= MAP =================
+
 m = folium.Map(location=[16.50, 80.65], zoom_start=12, tiles="OpenStreetMap")
 
 # ================= HEATMAP LAYER =================
@@ -191,7 +190,7 @@ folium.LayerControl(collapsed=False).add_to(m)
 m.save("map.html")
 print("✅ Map ready like your image!")
 
-# ================= SHAP (UNCHANGED - YOUR WORKING VERSION) =================
+
 print("\n🔍 SHAP Waterfalls...")
 
 os.makedirs("plots", exist_ok=True)
