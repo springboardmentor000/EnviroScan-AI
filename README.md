@@ -396,9 +396,5 @@ The dashboard integrates:
 
 ---
 
-Final Outputs of the System
 
-- Dataset: enviro_scan_dataset.csv
-- Trained Model: rf_model.pkl
 
-These outputs enable automated pollution source prediction and support environmental monitoring systems.
