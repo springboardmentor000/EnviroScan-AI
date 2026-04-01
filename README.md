@@ -208,3 +208,292 @@ To develop an interactive web-based dashboard for real-time pollution monitoring
 
      The dashboard integrates the dataset (enviro_scan_dataset.csv).
      Real-time APIs (OpenAQ, OpenWeather).
+
+EnviroScan
+
+EnviroScan: AI-Powered Pollution Source Identifier using Geospatial Analytics
+
+---
+
+Project Overview
+
+Air pollution monitoring systems generally measure pollutant levels but do not identify the specific sources of pollution. This limitation makes it difficult for authorities and urban planners to implement targeted mitigation strategies.
+
+The EnviroScan system uses machine learning, weather analytics, and geospatial data to identify the most likely source of pollution such as vehicular emissions, industrial activity, agricultural burning, waste burning, or natural causes.
+
+The system integrates multiple data sources including:
+
+- Air quality monitoring data
+- Weather information
+- Geospatial infrastructure features
+
+Using this integrated dataset, the system predicts pollution sources and supports decision-making for environmental monitoring and urban planning.
+
+---
+
+Milestone 1 (Week 1–2)
+
+This milestone includes:
+
+- Module 1 – Data Collection
+- Module 2 – Data Cleaning and Feature Engineering
+
+---
+
+Module 1: Data Collection from APIs and Location Databases
+
+Objective:
+To collect air quality data, weather data, and geospatial environmental features from multiple sources.
+
+The following pollutant measurements are collected:
+PM2.5, PM10, NO₂, SO₂, CO, O₃.
+These are widely used indicators of urban air pollution.
+
+1. Weather Data Collection:
+Weather information is collected using the OpenWeatherMap API.
+Parameters retrieved include:
+
+- Temperature
+- Humidity
+- Wind Speed
+
+Weather conditions significantly influence pollutant dispersion.
+
+2. Geospatial Data Collection:
+Environmental context is extracted using OSMnx from OpenStreetMap.
+The following spatial features are collected:
+
+- Road Networks
+- Industrial Zones
+- Agricultural Fields
+- Waste Disposal Sites
+
+These features help in identifying pollution sources.
+
+3. Metadata Tagging:
+Each data point is tagged with:
+
+- Latitude
+- Longitude
+- Timestamp
+- Monitoring station name
+
+4. Data Storage:
+Data is stored in a structured dataset:
+"enviro_scan_dataset.csv"
+
+---
+
+Module 2: Data Cleaning and Feature Engineering
+
+Objective:
+To preprocess collected data and generate meaningful features for machine learning.
+
+1. Duplicate Removal:
+Duplicate records are removed:
+"df.drop_duplicates()"
+
+2. Handling Missing Values:
+Missing values are handled using:
+
+- Zero-value filling
+- Noise-based simulation
+
+This ensures dataset completeness.
+
+3. Standardization:
+
+- Timestamps are converted to standard datetime format
+- Time is represented in IST
+
+Derived features:
+
+- Hour of Day
+- Day of Week
+
+4. Spatial Feature Engineering:
+Generated features:
+
+- road_count
+- industry_count
+- farmland_count
+- dump_count
+
+5. Dataset Integration:
+All data sources are merged into a single feature-rich DataFrame.
+
+---
+
+Milestone 2 (Week 3–4)
+
+Modules included:
+
+- Module 3 – Source Labeling and Simulation
+- Module 4 – Model Training and Source Prediction
+
+---
+
+Module 3: Source Labeling and Simulation
+
+Objective:
+To assign pollution source labels using rule-based heuristics.
+
+Pollution Source Labeling Rules:
+
+- Vehicular Pollution:
+  High road density + High NO₂
+
+- Industrial Pollution:
+  Industrial zones nearby + High SO₂
+
+- Agricultural Pollution:
+  Farmland nearby + High particulate matter
+
+- Waste Burning:
+  High PM2.5 values
+
+- Natural Pollution:
+  If none of the above conditions are satisfied
+
+Dataset Preparation:
+Final labeled dataset:
+"enviro_scan_dataset.csv"
+
+---
+
+Module 4: Model Training and Source Prediction
+
+Objective:
+To train machine learning models to predict pollution sources.
+
+1. Train-Test Split:
+
+- Training Data: 75%
+- Testing Data: 25%
+
+2. Machine Learning Models Used:
+
+- Decision Tree
+- Random Forest
+- XGBoost
+
+3. Cross Validation:
+5-Fold Cross Validation is used to ensure model reliability.
+
+4. Evaluation Metrics:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- Confusion Matrix
+
+5. Model Export:
+The trained model is saved using joblib:
+"rf_model.pkl"
+
+---
+
+Milestone 3 (Week 5–6)
+
+Modules included:
+
+- Module 5 – Geospatial Mapping and Heatmap Visualization
+- Module 6 – Interactive Dashboard and Real-Time Monitoring
+
+---
+
+Module 5: Geospatial Mapping and Heatmap Visualization
+
+Objective:
+To visualize pollution data and identify high-risk zones.
+
+1. Geospatial Map Integration:
+Interactive map using Folium with dynamic centering.
+
+2. Heatmap Visualization:
+Color gradient: blue → yellow → red
+Indicates increasing pollution intensity.
+
+3. Marker-Based Visualization:
+
+- Tooltip → PM2.5 value
+- Popup → PM2.5, PM10, NO₂, SO₂, CO, O₃
+
+4. Filtering Capability:
+
+- Location
+- Pollution source
+
+5. High-Risk Zone Identification:
+Based on PM2.5 levels.
+
+6. Map Embedding:
+Using "st_folium()" in Streamlit.
+
+---
+
+Module 6: Interactive Dashboard and Real-Time Monitoring
+
+Objective:
+To build a real-time interactive pollution monitoring system.
+
+1. Dashboard Development:
+Built using Streamlit with sections:
+
+- Dashboard
+- Source Detection
+- Health Audit
+- Dataset Explorer
+
+2. Real-Time Data Integration:
+
+- OpenAQ API → Pollutants
+- OpenWeather API → Weather
+
+If OpenAQ fails, fallback to OpenWeather ensures reliability.
+
+3. Source Detection:
+Predicts pollution source using trained ML model (RF/XGBoost).
+
+4. Real-Time Metrics Display:
+Displays:
+
+- Pollutants
+- Weather
+- Area features
+
+5. Visualization:
+Pie Chart showing pollution source distribution.
+
+6. Alert System:
+
+- PM2.5 > 130 → High Pollution
+- Otherwise → Safe
+
+7. Dataset Explorer:
+View and download dataset.
+
+8. Health Audit Module:
+Identifies unsafe pollution levels.
+
+9. User Interaction:
+
+- Filters
+- Location input
+- Map interaction
+
+10. System Integration:
+
+- Dataset: "enviro_scan_dataset.csv"
+- Model: "rf_model.pkl"
+- APIs: OpenAQ, OpenWeather
+
+---
+
+Final Outputs
+
+- Dataset: "enviro_scan_dataset.csv"
+- Trained Model: "rf_model.pkl"
+
+These outputs enable automated pollution source prediction and support environmental monitoring systems.
