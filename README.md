@@ -10,11 +10,9 @@ Milestone 1 (Week 1–2)
 This milestone includes:
 
 Module 1 – Data Collection
-
 Module 2 – Data Cleaning and Feature Engineering
 
 Module 1: Data Collection from APIs and Location Databases.
-
 Objective:
 The objective of this module is to collect air quality data, weather data, and geospatial environmental features from multiple sources. These datasets form the base for pollution source identification.
 
