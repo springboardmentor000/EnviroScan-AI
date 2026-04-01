@@ -10,6 +10,7 @@ Milestone 1 (Week 1–2)
 This milestone includes:
 
 Module 1 – Data Collection
+
 Module 2 – Data Cleaning and Feature Engineering
 
 Module 1: Data Collection from APIs and Location Databases.
@@ -29,7 +30,9 @@ Weather conditions significantly influence pollutant dispersion.
 4. Data Storage: The collected data is stored in a structured dataset enviro_scan_dataset.csv.
 This dataset is later used for preprocessing and machine learning.
 
+
 Module 2: Data Cleaning and Feature Engineering
+
 Objective:
 The objective of this module is to preprocess the collected data and generate meaningful features for machine learning models.
 
