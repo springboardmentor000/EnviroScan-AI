@@ -14,6 +14,7 @@ Module 1 – Data Collection
 Module 2 – Data Cleaning and Feature Engineering
 
 Module 1: Data Collection from APIs and Location Databases.
+
 Objective:
 The objective of this module is to collect air quality data, weather data, and geospatial environmental features from multiple sources. These datasets form the base for pollution source identification.
 
@@ -56,12 +57,17 @@ These features represent the number of environmental infrastructures around moni
 5. Dataset Integration: All datasets are merged into a single feature-rich DataFrame containing pollution measurements, weather conditions, spatial environmental features, temporal features                              
 
 Milestone 2(Week 3–4):
+
 Milestone 2 focuses on pollution source labeling and machine learning model development.
+
 Modules included:
+
 Module 3 – Source Labeling and Simulation
+
 Module 4 – Model Training and Source Prediction
 
 Module 3: Source Labeling and Simulation
+
 Objective:
 This module assigns pollution source labels using rule-based heuristics derived from environmental knowledge.
 Since real pollution source labels are not directly available, heuristic rules are used to simulate labeled training data.
