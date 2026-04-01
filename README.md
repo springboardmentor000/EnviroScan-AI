@@ -73,34 +73,39 @@ This module assigns pollution source labels using rule-based heuristics derived 
 Since real pollution source labels are not directly available, heuristic rules are used to simulate labeled training data.
 
 1. Pollution Source Labeling Rules
+
    i. Vehicular Pollution
+   
    Condition: High road density, High NO₂ concentration
 
    Explanation: Vehicles emit nitrogen dioxide during fuel combustion.
 
    ii. Industrial Pollution
+   
    Condition: Industrial zones nearby, High SO₂ concentration
  
    Explanation: Industrial processes emit sulfur dioxide.
 
    iii. Agricultural Pollution
+   
    Condition: Farmland nearby, High particulate matter
  
    Explanation: Crop residue burning produces particulate emissions.
 
    iv. Waste Burning
+   
    Condition: High PM2.5 levels (simulated burning conditions)
  
    Explanation: Burning waste generates particulate pollution.
 
-   v. Natural Pollution
+   v. Natural Pollution 
  
    If none of the above conditions are satisfied, pollution is classified as Natural.
 
-2. Dataset Preparation:
+3. Dataset Preparation:
 
-The labeled dataset is prepared and saved as: enviro_scan_dataset.csv.
-This dataset serves as the training dataset for machine learning models.
+   The labeled dataset is prepared and saved as: enviro_scan_dataset.csv.
+   This dataset serves as the training dataset for machine learning models.
 
 Milestone 3 (Week 5–6):
 
@@ -115,40 +120,40 @@ To visualize pollution data and predicted sources using geospatial mapping techn
  
 1. Geospatial Map Integration:
 
-An interactive map is created using the Folium library.
-The map displays pollution data across different locations using latitude and longitude coordinates.
-The map is dynamically centered based on the available dataset.
+   An interactive map is created using the Folium library.
+   The map displays pollution data across different locations using latitude and longitude coordinates.
+   The map is dynamically centered based on the available dataset.
 
 2. Heatmap Visualization:
 
-Heatmaps represent pollution intensity using color gradients (blue → yellow → red),
-where higher intensity indicates higher pollution levels.
+   Heatmaps represent pollution intensity using color gradients (blue → yellow → red),
+   where higher intensity indicates higher pollution levels.
 
 3. Marker-Based Visualization:
 
-Location points are displayed using clustered markers.
+   Location points are displayed using clustered markers.
 
-Each marker includes:
+   Each marker includes:
 
-Tooltip (on hover) → shows PM2.5 value
-Popup (on click) → displays pollutant values:
-PM2.5, PM10, NO₂, SO₂, CO, O₃.
+   Tooltip (on hover) → shows PM2.5 value
+   Popup (on click) → displays pollutant values:
+   PM2.5, PM10, NO₂, SO₂, CO, O₃.
 
 4. Filtering Capability:
 
-The dashboard allows filtering based on:
+   The dashboard allows filtering based on:
 
-Location (city), Pollution source category.
-This enables interactive exploration of pollution data.
+   Location (city), Pollution source category.
+   This enables interactive exploration of pollution data.
 
 5. High-Risk Zone Identification:
 
-Locations with higher PM2.5 values are highlighted using color-coded markers, helping identify critical pollution zones.
+   Locations with higher PM2.5 values are highlighted using color-coded markers, helping identify critical pollution zones.
 
 6. Map Embedding:
 
-The map is embedded in the Streamlit dashboard using: st_folium()
-This allows real-time user interaction with the map.
+   The map is embedded in the Streamlit dashboard using: st_folium()
+   This allows real-time user interaction with the map.
 
 Module 6: Interactive Dashboard and Real-Time Monitoring
 
@@ -157,51 +162,49 @@ To develop an interactive web-based dashboard for real-time pollution monitoring
 
 1. Dashboard Development:
 
-The dashboard is built using Streamlit.
-It provides a user-friendly interface with multiple sections: Dashboard, Source Detection, Health Audit, Dataset Explorer.
+   The dashboard is built using Streamlit.
+   It provides a user-friendly interface with multiple sections: Dashboard, Source Detection, Health Audit, Dataset Explorer.
 
 2. Real-Time Data Integration:
 
-Air Quality Data (OpenAQ API):
-
-Real-time pollutant data is fetched including: PM2.5, PM10, NO₂, SO₂, CO, O₃.
+   Air Quality Data (OpenAQ API): Real-time pollutant data is fetched including PM2.5, PM10, NO₂, SO₂, CO, O₃.
 
 3. Real-time weather parameters are retrieved: Temperature, Humidity, Wind Speed.
-These real-time inputs are used for dynamic prediction.
+   These real-time inputs are used for dynamic prediction.
 
 4. Source Detection:
 
-Users can input latitude and longitude to analyze pollution at any location.
-The system uses a trained machine learning model (Random Forest / XGBoost selected during training)
+   Users can input latitude and longitude to analyze pollution at any location.
+   The system uses a trained machine learning model (Random Forest / XGBoost selected during training)
 
 5. Real-Time Metrics Display:
 
-The dashboard displays environmental metrics in real time:
-Pollutant concentrations, Weather conditions, Area features (road, industry, farmland counts).
-Displayed using structured metric cards for readability.If OpenAQ data is unavailable, the system automatically falls back to OpenWeather API, ensuring continuous real-time data availability.
+   The dashboard displays environmental metrics in real time:
+   Pollutant concentrations, Weather conditions, Area features (road, industry, farmland counts).
+   Displayed using structured metric cards for readability.If OpenAQ data is unavailable, the system automatically falls back to OpenWeather API, ensuring            continuous real-time data availability.
 
 6. Pollution Insights Visualization:
 
-Pie Chart (Source Distribution): Shows contribution of different pollution sources based on PM2.5 values.
+   Pie Chart (Source Distribution): Shows contribution of different pollution sources based on PM2.5 values.
 
 7. Alert System:
 
-The system provides real-time alerts:
+   The system provides real-time alerts:
 
-High pollution alert is triggered when PM2.5 exceeds 130.
-Otherwise, the system displays safe air conditions.
+   High pollution alert is triggered when PM2.5 exceeds 130.
+   Otherwise, the system displays safe air conditions.
 
 8. Dataset Explorer:
-Users can view the complete dataset in tabular format. The dataset can be downloaded as a CSV file for further analysis.
+   Users can view the complete dataset in tabular format. The dataset can be downloaded as a CSV file for further analysis.
 
 9. Health Audit Module:
-This module identifies unsafe pollution conditions. Displays records where PM2.5 exceeds safe limits. Highlights pollution violations. Provides system safety status.
+   This module identifies unsafe pollution conditions. Displays records where PM2.5 exceeds safe limits. Highlights pollution violations. Provides system safety      status.
 
 10. User Interaction Features:
    
-Dropdown filters (city, source type), Real-time analysis input (latitude, longitude), Interactive map navigation.
+   Dropdown filters (city, source type), Real-time analysis input (latitude, longitude), Interactive map navigation.
 
-15. System Integration:
+11. System Integration:
 
-The dashboard integrates the dataset (enviro_scan_dataset.csv).
-Real-time APIs (OpenAQ, OpenWeather).
+   The dashboard integrates the dataset (enviro_scan_dataset.csv).
+   Real-time APIs (OpenAQ, OpenWeather).
