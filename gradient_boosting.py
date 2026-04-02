@@ -22,7 +22,7 @@ os.makedirs("models", exist_ok=True)
 # ================================
 # Load Dataset
 # ================================
-df = pd.read_csv("vijayawada_labelled_dataset.csv")
+df = pd.read_csv("vij_hyd_labelled_dataset.csv")
 
 print("Dataset Loaded:", df.shape)
 
@@ -30,9 +30,8 @@ print("Dataset Loaded:", df.shape)
 # Features
 # ================================
 features = [
-    'pm2_5','pm10','no2','o3','so2','co',
-    'temperature_c','humidity','pressure_hpa',
-    'wind_speed_ms','wind_direction'
+    "pm2_5","pm10","no2","o3","so2","co",
+        "road_count","industrial_count","waste_count","farmland_count"
 ]
 
 X = df[features]
@@ -95,7 +94,7 @@ print("\n===== Gradient Boosting AFTER Tuning =====")
 param_grid = {
     "n_estimators":[100,200],
     "learning_rate":[0.05,0.1,0.2],
-    "max_depth":[1]
+    "max_depth":[2]
 }
 
 grid = GridSearchCV(
@@ -193,3 +192,6 @@ print("Feature importance plot saved.")
 joblib.dump(best_gb,"models/gradient_boost_pollution_model.pkl")
 
 print("\nModel saved successfully.") 
+
+print(best_gb.predict(X_test[:10]))
+print(le.inverse_transform(best_gb.predict(X_test[:10]))) 
