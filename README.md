@@ -26,9 +26,9 @@ The dataset used in this project was created by combining air quality data, weat
 
 | Attribute      | Value                          |
 | -------------- | ------------------------------ |
-| Total Records  | 1914                           |
-| Total Features | 33+                            |
-| Locations      | HB Colony, Kanuru (Vijayawada) |
+| Total Records  | 7056                           |
+| Total Features | 36                             |
+| Locations      | Vijayawada, Hyderabad
 
 
 
@@ -51,12 +51,9 @@ Waste Count
 Time Based Features (Hour, Day, Month, Season)
 
 
-
 **Technologies Used**
 
-**Programming Language**
-
-Python
+Python Programming language 
 
 **Libraries**
 
@@ -84,8 +81,7 @@ OpenAQ API – Air pollution data
 OpenWeatherMap API – Weather data
 OpenStreetMap – Geographic features
 
-
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 **System architecture**
 
 Data Collection
