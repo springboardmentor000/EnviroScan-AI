@@ -160,7 +160,6 @@ All datasets are merged into a single feature-rich DataFrame containing:
 - Weather conditions
 - Spatial features
 - Temporal features
-
 ---
 
 Milestone 2 (Week 3–4)
@@ -220,9 +219,6 @@ enviro_scan_dataset.csv
 This dataset serves as the training dataset for machine learning models.
 
 ---
-
----
-
 Module 4: Model Training and Source Prediction
 
 Objective:
