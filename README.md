@@ -220,24 +220,25 @@ enviro_scan_dataset.csv
 This dataset serves as the training dataset for machine learning models.
 
 ---
+
 ---
 
 Module 4: Model Training and Source Prediction
 
 Objective:
 
-The objective of this module is to train machine learning models capable of predicting pollution sources using environmental, spatial, and temporal features.
+The objective of this module is to train machine learning models capable of predicting pollution sources using environmental, spatial, and temporal features derived from the dataset.
 
 ---
 
 1. Train-Test Split
 
-The labeled dataset is divided into training and testing sets to evaluate model performance.
+The labeled dataset is divided into training and testing sets to evaluate model performance on unseen data.
 
 - Training Data: 75%
 - Testing Data: 25%
 
-This ensures that the model is trained on one portion of the data and tested on unseen data.
+This ensures proper validation of the model’s predictive capability.
 
 ---
 
@@ -245,7 +246,7 @@ This ensures that the model is trained on one portion of the data and tested on 
 
 Feature scaling is applied using StandardScaler to normalize input features.
 
-This ensures that all features contribute equally during model training and prevents bias due to varying feature ranges.
+This ensures that all features contribute equally to the model and prevents bias due to differences in value ranges.
 
 ---
 
@@ -254,53 +255,72 @@ This ensures that all features contribute equally during model training and prev
 The following classification models are implemented:
 
 - Decision Tree
-  A rule-based model that splits data using hierarchical conditions.
+  A rule-based model that classifies data using hierarchical decision structures.
 
 - Random Forest
-  An ensemble model that combines multiple decision trees to improve accuracy and reduce overfitting.
+  An ensemble learning algorithm that combines multiple decision trees to improve accuracy and reduce overfitting.
 
 - XGBoost
-  A gradient boosting algorithm designed for high performance and scalability.
+  A gradient boosting algorithm known for high performance, efficiency, and scalability.
 
 ---
 
 4. Cross Validation
 
-To ensure model reliability, 5-Fold Cross Validation is used.
+To ensure model reliability and robustness, 5-Fold Cross Validation is applied.
 
 Process:
 
-1. Dataset is divided into 5 subsets
-2. Model is trained on 4 subsets
+1. The dataset is divided into 5 subsets
+2. The model is trained on 4 subsets
 3. Tested on the remaining subset
-4. Process is repeated 5 times
-5. Average accuracy is calculated
+4. This process is repeated 5 times
+5. The average accuracy is calculated
 
-This improves model robustness and reduces overfitting.
-
----
-
-5. Model Evaluation Metrics
-
-Model performance is evaluated using:
-
-- Accuracy Score → Overall correctness
-- Precision → Correct positive predictions
-- Recall → Ability to find all relevant cases
-- F1 Score → Balance between precision and recall
-- Confusion Matrix → Detailed classification performance
+This reduces overfitting and ensures consistent model performance.
 
 ---
 
-6. Model Selection
+5. Hyperparameter Tuning
 
-All models are compared based on accuracy and cross-validation scores.
+Hyperparameter tuning is performed through controlled parameter selection and model comparison.
+
+The following parameters are adjusted:
+
+- Number of estimators (n_estimators)
+- Maximum depth (max_depth)
+- Learning rate (for XGBoost)
+
+This helps improve model performance and ensures better generalization.
+
+---
+
+6. Model Evaluation Metrics
+
+Model performance is evaluated using the following metrics:
+
+- Accuracy → Measures overall correctness of predictions
+- Precision → Measures correctness of positive predictions
+- Recall → Measures ability to detect all relevant cases
+- F1 Score → Harmonic mean of precision and recall
+- Confusion Matrix → Provides detailed classification performance
+
+These metrics help assess how well the model predicts pollution sources.
+
+---
+
+7. Model Selection
+
+All models are compared based on:
+
+- Accuracy scores
+- Cross-validation performance
 
 The best-performing model is selected as the final model for deployment.
 
 ---
 
-7. Model Export
+8. Model Export
 
 The final trained model is saved using joblib:
 
@@ -308,8 +328,8 @@ joblib.dump(final_model, "rf_model.pkl")
 
 Additional files saved:
 
-- scaler.pkl → for feature scaling
-- label_encoder.pkl → for label conversion
+- scaler.pkl → used for feature scaling
+- label_encoder.pkl → used for label encoding
 
 ---
 
@@ -319,10 +339,9 @@ Output:
 - Scaler: scaler.pkl
 - Label Encoder: label_encoder.pkl
 
-These are used in the Streamlit dashboard for real-time pollution source prediction.
+These components are integrated into the Streamlit dashboard for real-time pollution source prediction.
 
 ---
-
 Milestone 3 (Week 5–6)
 
 Modules included:
