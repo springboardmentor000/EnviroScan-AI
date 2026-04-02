@@ -220,6 +220,108 @@ enviro_scan_dataset.csv
 This dataset serves as the training dataset for machine learning models.
 
 ---
+---
+
+Module 4: Model Training and Source Prediction
+
+Objective:
+
+The objective of this module is to train machine learning models capable of predicting pollution sources using environmental, spatial, and temporal features.
+
+---
+
+1. Train-Test Split
+
+The labeled dataset is divided into training and testing sets to evaluate model performance.
+
+- Training Data: 75%
+- Testing Data: 25%
+
+This ensures that the model is trained on one portion of the data and tested on unseen data.
+
+---
+
+2. Feature Scaling
+
+Feature scaling is applied using StandardScaler to normalize input features.
+
+This ensures that all features contribute equally during model training and prevents bias due to varying feature ranges.
+
+---
+
+3. Machine Learning Models Used
+
+The following classification models are implemented:
+
+- Decision Tree
+  A rule-based model that splits data using hierarchical conditions.
+
+- Random Forest
+  An ensemble model that combines multiple decision trees to improve accuracy and reduce overfitting.
+
+- XGBoost
+  A gradient boosting algorithm designed for high performance and scalability.
+
+---
+
+4. Cross Validation
+
+To ensure model reliability, 5-Fold Cross Validation is used.
+
+Process:
+
+1. Dataset is divided into 5 subsets
+2. Model is trained on 4 subsets
+3. Tested on the remaining subset
+4. Process is repeated 5 times
+5. Average accuracy is calculated
+
+This improves model robustness and reduces overfitting.
+
+---
+
+5. Model Evaluation Metrics
+
+Model performance is evaluated using:
+
+- Accuracy Score → Overall correctness
+- Precision → Correct positive predictions
+- Recall → Ability to find all relevant cases
+- F1 Score → Balance between precision and recall
+- Confusion Matrix → Detailed classification performance
+
+---
+
+6. Model Selection
+
+All models are compared based on accuracy and cross-validation scores.
+
+The best-performing model is selected as the final model for deployment.
+
+---
+
+7. Model Export
+
+The final trained model is saved using joblib:
+
+joblib.dump(final_model, "rf_model.pkl")
+
+Additional files saved:
+
+- scaler.pkl → for feature scaling
+- label_encoder.pkl → for label conversion
+
+---
+
+Output:
+
+- Trained Model: rf_model.pkl
+- Scaler: scaler.pkl
+- Label Encoder: label_encoder.pkl
+
+These are used in the Streamlit dashboard for real-time pollution source prediction.
+
+---
 
 Milestone 3 (Week 5–6)
 
