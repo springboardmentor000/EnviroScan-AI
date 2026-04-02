@@ -11,13 +11,13 @@ The system also provides data visualizations and a prediction dashboard to help 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Objectives**
 
-Collect air pollution data from environmental APIs
-Integrate weather and geospatial data
-Perform data cleaning and feature engineering
-Label pollution sources using rule-based logic
-Train machine learning models to classify pollution sources
-Visualize pollution patterns through charts and maps
-Build an interactive dashboard for pollution monitoring
+• Collect air pollution data from environmental APIs
+• Integrate weather and geospatial data
+• Perform data cleaning and feature engineering
+• Label pollution sources using rule-based logic
+• Train machine learning models to classify pollution sources
+• Visualize pollution patterns through charts and maps
+• Build an interactive dashboard for pollution monitoring
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Dataset Information**
@@ -99,9 +99,9 @@ Prediction Dashboard
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Project Milestones and Modules
-Milestone 1 – Data Collection and Data Preparation
-Module 1: Data Collection**
+**Project Milestones and Modules**
+**Milestone 1 – Data Collection and Data Preparation**
+     **Module 1: Data Collection**
 
 • Collected air quality data (PM2.5, PM10, NO2, CO, SO2, O3) from the OpenAQ API for selected monitoring locations.
 
@@ -134,8 +134,8 @@ Module 1: Data Collection**
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Milestone 2 – Pollution Source Identification and Model Training
-Module 3: Source Labeling and Simulation**
+**Milestone 2 – Pollution Source Identification and Model Training**
+**Module 3: Source Labeling and Simulation**
 
 • Define rule-based conditions to label pollution sources based on environmental features and pollutant levels.
 
@@ -274,14 +274,14 @@ CO
 O₃
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Milestone 3 - Geospatial Mapping and Heatmap Visualization And Real-Time Dashboard and Alerts
-Module-5: Geospatial Mapping and Heatmap Visualization**
+**Milestone 3 - Geospatial Mapping and Heatmap Visualization And Real-Time Dashboard and Alerts**
+**Module-5: Geospatial Mapping and Heatmap Visualization**
 
 • Loaded trained Gradient Boosting model and labeled dataset (Vijayawada + Hyderabad).
 • Calculated pollution severity index using weighted pollutant values.
 • Generated an interactive Folium map with:
     • Heatmap layer to visualize pollution intensity
-    • Color-coded circle markers based on pollution source 
+    • Color-coded circle markers based on pollution source     
             Red → Industrial
             Blue → Vehicular
             Green → Agricultural
