@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("vijayawada_feature_engineering.csv")
+df = pd.read_csv("vij_hyd_feature_engineering.csv")
 df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
 
 # STEP 4: columns for labeling 
@@ -11,15 +11,15 @@ df["_is_dry"] = df["_month"].isin([11, 12, 1, 2]).astype(int)
 def pct(col, p):
     return pd.to_numeric(df[col], errors="coerce").quantile(p)
 
-HIGH_NO2        = pct("no2",              0.75)
-HIGH_SO2        = pct("so2",              0.75)
+HIGH_NO2        = pct("no2",              0.70)
+HIGH_SO2        = pct("so2",              0.70)
 HIGH_PM25       = pct("pm2_5",            0.75)
 HIGH_PM10       = pct("pm10",             0.75)
 HIGH_CO         = pct("co",               0.75)
 HIGH_O3         = pct("o3",               0.75)
 HIGH_ROADS      = pct("road_count",       0.75)
 HIGH_INDUSTRIAL = pct("industrial_count", 0.50)
-HIGH_FARMLAND   = pct("farmland_count",   0.70)
+HIGH_FARMLAND   = pct("farmland_count",   0.50)
 HIGH_WASTE      = pct("waste_count",      0.70)
 
 print(f"\n📊 Thresholds:")
@@ -41,23 +41,21 @@ def assign_label(row):
     high_co   = row["co"]    >= HIGH_CO
     high_o3   = row["o3"]    >= HIGH_O3
 
-    dry = row["_is_dry"] == 1
-    rush_hour = (9<= row["hour"] <= 12) or (17 <= row["hour"] <= 20)
 
     # 1️⃣ Vehicular pollution
-    if near_road and rush_hour and (high_no2 or high_co) :
+    if near_road and (high_no2 and high_co) :
         return "Vehicular"
 
     # 2️⃣ Industrial pollution
-    if near_industrial and (high_so2 or high_pm25):
+    if near_industrial and (high_so2 and high_pm25):
         return "Industrial"
 
     # 3️⃣ Agricultural pollution
-    if near_farmland and dry and (high_pm10 or high_pm25 and dry )  :
+    if near_farmland and (high_pm10 and high_pm25 )  :
         return "Agricultural"
 
     # 4️⃣ Burning pollution (waste burning)
-    if near_waste and ( high_co or high_no2 or high_pm25) :
+    if near_waste and ( high_co and high_no2 ) :
         return "Burning"
 
     # 5️⃣ Natural pollution
@@ -104,6 +102,6 @@ print(f"\n✅ Final shape   : {df_final.shape}")
 print(f"   Columns      : {df_final.columns.tolist()}")
 print(df_final.head(5).to_string())
 
-df_final.to_csv("vijayawada_labelled_dataset.csv", index=False)
-print("\n💾 Saved → vijayawada_labelled_dataset.csv")
+df_final.to_csv("vij_hyd_labelled_dataset.csv", index=False)
+print("\n💾 Saved → vij_hyd_labelled_dataset.csv")
 print(df["farmland_count"].describe())
