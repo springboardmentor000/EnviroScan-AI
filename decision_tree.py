@@ -52,7 +52,7 @@ def prepare_features(df):
 
     features = [
         "pm2_5","pm10","no2","o3","so2","co",
-        "temperature_c","humidity","pressure_hpa","wind_speed_ms","wind_direction"
+        "road_count","industrial_count","waste_count","farmland_count"
     ]
 
     features = [f for f in features if f in df.columns]
@@ -280,7 +280,7 @@ def save_model(model, filename):
 # ==========================================
 if __name__ == "__main__":
 
-    df = load_dataset("vijayawada_labelled_dataset.csv")
+    df = load_dataset("vij_hyd_labelled_dataset.csv")
 
     X, y, features = prepare_features(df)
 
