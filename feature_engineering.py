@@ -6,7 +6,7 @@ from math import radians, sin, cos, sqrt, atan2
 # ==========================================
 # STEP 1: LOAD DATA
 # ==========================================
-df = pd.read_csv("vijayawada_final_dataset.csv")
+df = pd.read_csv("merged_hyderabad_vijayawada_dataset.csv")
 
 print("Initial Shape:", df.shape)          
 print("Columns      :", df.columns.tolist())
@@ -150,9 +150,9 @@ print(df.tail())
 # ==========================================
 # STEP 9: SAVE
 # ==========================================
-df.to_csv("vijayawada_feature_engineering.csv", index=False)
+df.to_csv("vij_hyd_feature_engineering.csv", index=False)
 print("Months:", sorted(df["timestamp"].dt.month.unique()))
 print("Seasons:", df["season"].unique())
-print(f"\n✅ Saved → vijayawada_feature_engineering.csv")
+print(f"\n✅ Saved → vij_hyd_feature_engineering.csv")
 print(f"   Shape   : {df.shape}")
 print(f"   Columns : {df.columns.tolist()}")
