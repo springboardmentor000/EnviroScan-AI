@@ -38,7 +38,7 @@ def prepare_features(df):
     target = "pollution_source"
     features = [
         "pm2_5","pm10","no2","o3","so2","co",
-        "temperature_c","humidity","pressure_hpa","wind_speed_ms","wind_direction"
+        "road_count","industrial_count","waste_count","farmland_count"
     ]
 
     features = [f for f in features if f in df.columns]
@@ -117,7 +117,7 @@ def tune_xgboost(X_train, y_train, num_class):
     param_grid = {
 
         "n_estimators":[200,300,400],
-        "max_depth":[1],
+        "max_depth":[2],
         "learning_rate":[0.05,0.1,0.2]
 
     }
@@ -248,7 +248,7 @@ def save_model(model, filename):
 # ==========================================
 if __name__ == "__main__":
 
-    df = load_dataset("vijayawada_labelled_dataset.csv")
+    df = load_dataset("vij_hyd_labelled_dataset.csv")
 
     X, y, features = prepare_features(df)
 
