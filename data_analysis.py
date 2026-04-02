@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-df = pd.read_csv("vijayawada_labelled_dataset.csv")
+df = pd.read_csv("vij_hyd_labelled_dataset.csv")
 OUTPUT_DIR = "plots/"
 import os
 os.makedirs(OUTPUT_DIR, exist_ok=True)
