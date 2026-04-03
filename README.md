@@ -100,6 +100,7 @@ OpenStreetMap – Geographic features
 
 Data Collection
       ↓
+	  
 Data Cleaning
       ↓
 Feature Engineering
@@ -313,18 +314,14 @@ O₃
             Blue → Vehicular
             Green → Agricultural
             Orange → Burning
-            Purple → Natural
-			
+            Purple → Natural	
     • Marker size representing severity levels
           Bigger circle → more pollution
-          Smaller circle → less pollution
-		  
+          Smaller circle → less pollution  
     • Toggle layers for each pollution source
-	
     • Added custom legend and layer control for better user interaction.
-	
     • Saved the final map as an HTML file for easy visualization.
-                         SHAP 
+                         **SHAP** 
 Used SHAP KernelExplainer to interpret model predictions.
 
 Generated waterfall plots for each pollution source to show feature impact.
