@@ -9,14 +9,31 @@ Traditional air quality monitoring systems measure pollutant concentrations but 
 The system also provides data visualizations and a prediction dashboard to help environmental researchers, urban planners, and government agencies understand pollution patterns and take preventive measures.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+**PROBLEM STATEMENT**
+
+Air pollution is one of the most critical environmental challenges affecting urban and rural areas worldwide. Traditional air quality monitoring systems focus on measuring pollutant concentrations such as PM2.5, PM10, NO₂, CO, and SO₂. 
+
+However, these systems do not identify the specific source of pollution, making it difficult for authorities to implement targeted mitigation strategies.
+
+Without accurate source identification, it becomes challenging to determine whether pollution originates from vehicular traffic, industrial emissions, agricultural activities, or natural causes.
+
+The EnviroScan system addresses this limitation by integrating pollution sensor data, weather information, and geospatial features to predict the most likely source of pollution using machine learning techniques
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Objectives**
 
 • Collect air pollution data from environmental APIs
+
 • Integrate weather and geospatial data
+
 • Perform data cleaning and feature engineering
+
 • Label pollution sources using rule-based logic
+
 • Train machine learning models to classify pollution sources
+
 • Visualize pollution patterns through charts and maps
+
 • Build an interactive dashboard for pollution monitoring
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,9 +116,9 @@ Prediction Dashboard
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Project Milestones and Modules**
 **Milestone 1 – Data Collection and Data Preparation**
-     **Module 1: Data Collection**
+    
+**Module 1: Data Collection**
 
 • Collected air quality data (PM2.5, PM10, NO2, CO, SO2, O3) from the OpenAQ API for selected monitoring locations.
 
@@ -135,6 +152,7 @@ Prediction Dashboard
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Milestone 2 – Pollution Source Identification and Model Training**
+
 **Module 3: Source Labeling and Simulation**
 
 • Define rule-based conditions to label pollution sources based on environmental features and pollutant levels.
@@ -275,6 +293,7 @@ O₃
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Milestone 3 - Geospatial Mapping and Heatmap Visualization And Real-Time Dashboard and Alerts**
+
 **Module-5: Geospatial Mapping and Heatmap Visualization**
 
 • Loaded trained Gradient Boosting model and labeled dataset (Vijayawada + Hyderabad).
@@ -337,15 +356,45 @@ The dashboard is divided into three main sections:
 • Identified top polluted locations based on PM2.5 levels.
 
 **4)Chatbot**
-• Developed a rule-based chatbot to answer pollution-related queries.
-• Supports questions like:
-    Most polluted / safest location
-    Pollution by date and time
-    Location-specific pollution details
-    Season-wise pollution analysis
-    AQI status and trends
-    Uses dataset filtering and logic-based responses for accurate answers.
-• Maintains chat history for better user interaction.
+
+**4.1)Hybrid Approach**
+  •  Hybrid approach means combining Rule-Based system + AI (LLM). 
+  •  First, the system tries to answer using predefined rules and dataset. 
+  •  If no rule matches, it uses AI model to generate the answer. 
+  •  Gives accurate answers for known queries 
+  •  Gives flexible answers for unknown queries
+	   Dataset questions → Rule-based 
+	   General questions → AI (LLM) 
+      
+**4.2. Rule-Based System**
+  •	Uses if-else conditions and logic to answer queries. 
+  •	Works directly on dataset using: 
+  •	Filtering 
+  •	Grouping 
+  •	Calculations (mean, max, etc.) 
+Examples:
+  •	“Top polluted areas” 
+  •	“AQI of Kanuru” 
+  •	“Pollution on 2026-02-12” 
+Advantages:
+  •	Fast and accurate 
+  •	Uses real data 
+Limitation:
+      Cannot answer new or complex questions outside rules 
+
+**4.3. LLM (Large Language Model)**
+  •	AI model that understands and generates human-like answers. 
+  •	Used when rule-based system cannot handle the query. 
+  •	Uses Groq AI to generate responses 
+Examples:
+  •	“Why is pollution high in cities?” 
+  •	“Explain effects of air pollution” 
+Advantages:
+  •	Handles any type of question 
+  •	Gives natural language responses 
+Limitation:
+	May not always use exact dataset values
+
 
 Overall, this module enhances usability by combining data visualization, machine learning predictions, and interactive controls into a single, intuitive interface.
 
