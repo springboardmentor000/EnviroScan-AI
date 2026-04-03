@@ -359,34 +359,25 @@ with tab4:
     import streamlit as st
     import pandas as pd
     import re
+    from openai import OpenAI
 
-    st.subheader("🤖 EnviroScan Assistant (Chatbot)")
+    st.subheader("🤖 EnviroScan Hybrid AI Assistant")
 
-    # ================= PREPARE DATA FOR CHATBOT =================
-    chatbot_df = df.copy()
+    # ================= GROQ SETUP =================
+    client = OpenAI(
+        api_key="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",   # replace with your real Groq API key
+        base_url="https://api.groq.com/openai/v1"
+    )
 
-    # Normalize required columns safely
-    if "timestamp" in chatbot_df.columns:
-        chatbot_df["timestamp"] = pd.to_datetime(chatbot_df["timestamp"], errors="coerce")
-        chatbot_df["date_only"] = chatbot_df["timestamp"].dt.date
-        chatbot_df["hour_only"] = chatbot_df["timestamp"].dt.hour
-    elif "date" in chatbot_df.columns:
-        chatbot_df["date_only"] = pd.to_datetime(chatbot_df["date"], errors="coerce").dt.date
-        if "hour" in chatbot_df.columns:
-            chatbot_df["hour_only"] = pd.to_numeric(chatbot_df["hour"], errors="coerce")
-    else:
-        chatbot_df["date_only"] = pd.NaT
-        chatbot_df["hour_only"] = pd.NA
+    # ================= DATA PREP =================
+    # Make sure df already exists in your app before tab4.
+    # Example:
+    # df = pd.read_csv("vij_hyd_labelled_dataset.csv")
 
-    if "pm2_5" in chatbot_df.columns:
-        chatbot_df["pm2_5"] = pd.to_numeric(chatbot_df["pm2_5"], errors="coerce")
+    if "timestamp" in df.columns:
+        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+        df["date"] = df["timestamp"].dt.date
 
-    if "hour" in chatbot_df.columns:
-        chatbot_df["hour"] = pd.to_numeric(chatbot_df["hour"], errors="coerce")
-
-    chatbot_df["location_lower"] = chatbot_df["location"].astype(str).str.lower().str.strip()
-
-    # ================= CHAT MEMORY =================
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
@@ -394,270 +385,265 @@ with tab4:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    # ================= HELPER FUNCTIONS =================
-    def extract_date(query):
-        match = re.search(r"(\d{4}-\d{2}-\d{2})", query)
-        if match:
-            try:
-                return pd.to_datetime(match.group(1)).date()
-            except:
-                return None
-        return None
+    # ================= HELPERS =================
+    def find_location_from_query(query, df):
+        query_l = query.lower()
 
-    def extract_hour(query):
-        patterns = [
-            r"\b(?:at|hour)\s*(\d{1,2})\b",
-            r"\b(\d{1,2}):00\b",
-            r"\b(\d{1,2})\s*(?:am|pm)\b"
-        ]
-
-        for pattern in patterns:
-            match = re.search(pattern, query)
-            if match:
-                hour_val = int(match.group(1))
-
-                ampm_match = re.search(r"\b(\d{1,2})\s*(am|pm)\b", query)
-                if ampm_match:
-                    h = int(ampm_match.group(1))
-                    meridian = ampm_match.group(2)
-                    if meridian == "pm" and h != 12:
-                        hour_val = h + 12
-                    elif meridian == "am" and h == 12:
-                        hour_val = 0
-                    else:
-                        hour_val = h
-
-                if 0 <= hour_val <= 23:
-                    return hour_val
-        return None
-
-    def detect_location(query, data):
-        locations = sorted(data["location"].dropna().astype(str).unique(), key=len, reverse=True)
-        query_lower = query.lower().strip()
-
-        for loc in locations:
-            if loc.lower() in query_lower:
+        for loc in df["location"].dropna().unique():
+            if loc.lower() in query_l:
                 return loc
+
+        simplified_map = {
+            "central university": "Central University, Hyderabad - TSPCB",
+            "zoo park": "Zoo Park, Hyderabad - TSPCB",
+            "somajiguda": "Somajiguda, Hyderabad - TSPCB",
+            "sanathnagar": "Sanathnagar, Hyderabad - TSPCB",
+            "kompally": "Kompally Municipal Office, Hyderabad - TSPCB",
+            "kanuru": "Kanuru, Vijayawada - APPCB",
+            "hb colony": "HB Colony, Vijayawada - APPCB"
+        }
+
+        for key, full_loc in simplified_map.items():
+            if key in query_l:
+                return full_loc
+
         return None
 
-    def classify_aqi(pm25):
-        if pd.isna(pm25):
-            return "Unknown"
-        elif pm25 <= 50:
-            return "🟢 Good AQI"
-        elif pm25 <= 100:
-            return "🟡 Moderate AQI"
-        elif pm25 <= 150:
-            return "🟠 Unhealthy"
-        elif pm25 <= 200:
+    def aqi_label_from_pm25(pm):
+        # Your dataset appears normalized around 0 to 1, not raw AQI values.
+        # So this is a dataset-relative interpretation, not official AQI conversion.
+        if pm <= 0.12:
+            return "🟢 Good"
+        elif pm <= 0.20:
+            return "🟡 Moderate"
+        elif pm <= 0.30:
+            return "🟠 Unhealthy for sensitive groups"
+        elif pm <= 0.45:
             return "🔴 Poor"
         else:
             return "⚫ Hazardous"
 
-    # ================= CHATBOT FUNCTION =================
-    def chatbot_response(query):
-        q = query.lower().strip()
+    # ================= RULE-BASED FUNCTION =================
+    def rule_based_answer(query):
+        query_l = query.lower().strip()
 
-        try:
-            # ================= MOST POLLUTED =================
-            if "most polluted" in q:
-                grp = chatbot_df.groupby("location", dropna=True)["pm2_5"].mean().dropna()
-                if grp.empty:
-                    return "No pollution data available."
-                loc = grp.idxmax()
-                val = grp.max()
-                return f"🚨 Most polluted location is **{loc}** (Avg PM2.5 = {val:.2f})"
+        # -------- DATE --------
+        date_match = re.search(r"\d{4}-\d{2}-\d{2}", query_l)
+        hour_match = re.search(r"(?:\b|at\s)([0-9]|1[0-9]|2[0-3])(?::00)?\b", query_l)
 
-            # ================= SAFEST =================
-            elif "safe" in q or "least polluted" in q or "safest" in q:
-                grp = chatbot_df.groupby("location", dropna=True)["pm2_5"].mean().dropna()
-                if grp.empty:
-                    return "No pollution data available."
-                loc = grp.idxmin()
-                val = grp.min()
-                return f"✅ Safest location is **{loc}** (Avg PM2.5 = {val:.2f})"
+        location_match = find_location_from_query(query_l, df)
 
-            # ================= TOP POLLUTED =================
-            elif "top" in q and ("polluted" in q or "pollution" in q):
-                top5 = (
-                    chatbot_df.groupby("location", dropna=True)["pm2_5"]
-                    .mean()
-                    .sort_values(ascending=False)
-                    .head(5)
-                )
-                if top5.empty:
-                    return "No pollution data available."
+        # -------- DATE + TIME + OPTIONAL LOCATION --------
+        if date_match:
+            date_val = pd.to_datetime(date_match.group()).date()
+            filtered = df[df["date"] == date_val]
 
-                lines = [f"{i+1}. {loc} → {val:.2f}" for i, (loc, val) in enumerate(top5.items())]
-                return "🏆 Top 5 polluted locations:\n\n" + "\n".join(lines)
+            if filtered.empty:
+                return f"⚠️ No data for {date_val}."
 
-            # ================= SEASON MOST POLLUTED =================
-            elif "season" in q and "polluted" in q:
-                grp = chatbot_df.groupby("season", dropna=True)["pm2_5"].mean().dropna()
-                if grp.empty:
-                    return "No season data available."
-                season = grp.idxmax()
-                val = grp.max()
-                return f"🌦️ Most polluted season is **{season}** (Avg PM2.5 = {val:.2f})"
+            if location_match:
+                filtered = filtered[filtered["location"] == location_match]
+                if filtered.empty:
+                    return f"⚠️ No data for {location_match} on {date_val}."
 
-            # ================= SEASON SUMMARY =================
-            elif "season" in q:
-                season_data = chatbot_df.groupby("season", dropna=True)["pm2_5"].mean().dropna()
-                if season_data.empty:
-                    return "No season data available."
-
-                lines = [f"- {season}: {val:.2f}" for season, val in season_data.items()]
-                return "📊 Season-wise average PM2.5:\n\n" + "\n".join(lines)
-
-            # ================= DATE / TIME / SOURCE FIXED =================
-            elif "date" in q or "time" in q or re.search(r"\d{4}-\d{2}-\d{2}", q):
-                date_val = extract_date(q)
-                hour_val = extract_hour(q)
-                loc_val = detect_location(q, chatbot_df)
-
-                if date_val is None:
-                    return "⚠️ Please provide date in **YYYY-MM-DD** format."
-
-                filtered = chatbot_df[chatbot_df["date_only"] == date_val]
-
-                if loc_val:
-                    filtered = filtered[filtered["location"] == loc_val]
+            if hour_match:
+                hour_val = int(hour_match.group(1))
+                filtered = filtered[filtered["hour"] == hour_val]
 
                 if filtered.empty:
-                    if loc_val:
-                        return f"No data available for **{loc_val}** on **{date_val}**."
-                    return f"No data available for **{date_val}**."
+                    if location_match:
+                        return f"⚠️ No data for {location_match} on {date_val} at {hour_val:02d}:00."
+                    return f"⚠️ No data for {date_val} at {hour_val:02d}:00."
 
-                if hour_val is not None:
-                    filtered = filtered[filtered["hour_only"] == hour_val]
-
-                    if filtered.empty:
-                        if loc_val:
-                            return f"No data available for **{loc_val}** at **{hour_val:02d}:00** on **{date_val}**."
-                        return f"No data available at **{hour_val:02d}:00** on **{date_val}**."
-
-                    # If exact single row exists
-                    if len(filtered) == 1:
-                        row = filtered.iloc[0]
-                        return (
-                            f"📅 **{date_val} at {hour_val:02d}:00**\n\n"
-                            f"📍 Location: **{row['location']}**\n"
-                            f"🏭 Pollution source: **{row['pollution_source']}**\n"
-                            f"🌫️ PM2.5: **{row['pm2_5']:.2f}**"
-                        )
-
-                    # Multiple rows at same date/hour
-                    src_counts = filtered["pollution_source"].value_counts().to_dict()
-                    avg_pm = filtered["pm2_5"].mean()
-
-                    if loc_val and filtered["location"].nunique() == 1:
-                        return (
-                            f"📅 **{date_val} at {hour_val:02d}:00** for **{loc_val}**\n\n"
-                            f"🏭 Source distribution: **{src_counts}**\n"
-                            f"🌫️ Avg PM2.5: **{avg_pm:.2f}**\n"
-                            f"📌 Matching records: **{len(filtered)}**"
-                        )
-                    else:
-                        grouped = filtered[["location", "pollution_source", "pm2_5"]].copy()
-                        grouped = grouped.sort_values(["location", "pm2_5"], ascending=[True, False])
-
-                        lines = []
-                        for _, row in grouped.iterrows():
-                            lines.append(
-                                f"- {row['location']} → Source: {row['pollution_source']}, PM2.5: {row['pm2_5']:.2f}"
-                            )
-
-                        return (
-                            f"📅 **{date_val} at {hour_val:02d}:00**\n\n"
-                            + "\n".join(lines[:10])
-                        )
-
-                # Date only, no hour
-                src_counts = filtered["pollution_source"].value_counts().to_dict()
-                avg_pm = filtered["pm2_5"].mean()
-
-                if loc_val:
+                if location_match:
+                    row = filtered.iloc[0]
                     return (
-                        f"📅 On **{date_val}** for **{loc_val}**\n\n"
-                        f"🏭 Source distribution: **{src_counts}**\n"
-                        f"🌫️ Avg PM2.5: **{avg_pm:.2f}**\n"
-                        f"📌 Records found: **{len(filtered)}**"
+                        f"📅 {location_match} on {date_val} at {hour_val:02d}:00\n\n"
+                        f"- PM2.5: {row['pm2_5']:.3f}\n"
+                        f"- Pollution source: {row['pollution_source']}\n"
+                        f"- AQI status: {aqi_label_from_pm25(row['pm2_5'])}"
                     )
 
-                top_sources = filtered["pollution_source"].value_counts().head(5).to_dict()
+                avg_pm = filtered["pm2_5"].mean()
+                top_source = filtered["pollution_source"].mode().iloc[0]
                 return (
-                    f"📅 On **{date_val}**\n\n"
-                    f"🏭 Top pollution sources: **{top_sources}**\n"
-                    f"🌫️ Avg PM2.5: **{avg_pm:.2f}**\n"
-                    f"📌 Records found: **{len(filtered)}**"
+                    f"📅 {date_val} at {hour_val:02d}:00\n\n"
+                    f"- Matching records: {len(filtered)}\n"
+                    f"- Avg PM2.5: {avg_pm:.3f}\n"
+                    f"- Main pollution source: {top_source}\n"
+                    f"- AQI status: {aqi_label_from_pm25(avg_pm)}"
                 )
 
-            # ================= LOCATION =================
-            elif "pollution in" in q or "source in" in q or "pm2.5 in" in q or "aqi in" in q:
-                loc = detect_location(q, chatbot_df)
-                if loc:
-                    loc_df = chatbot_df[chatbot_df["location"] == loc]
-                    if loc_df.empty:
-                        return f"No data available for **{loc}**."
+            # date only
+            if location_match:
+                avg_pm = filtered["pm2_5"].mean()
+                top_source = filtered["pollution_source"].mode().iloc[0]
+                return (
+                    f"📅 {location_match} on {date_val}\n\n"
+                    f"- Avg PM2.5: {avg_pm:.3f}\n"
+                    f"- Main pollution source: {top_source}\n"
+                    f"- AQI status: {aqi_label_from_pm25(avg_pm)}"
+                )
 
-                    avg = loc_df["pm2_5"].mean()
-                    src = loc_df["pollution_source"].value_counts().idxmax()
-                    return f"📍 In **{loc}**: Avg PM2.5 = **{avg:.2f}**, Main source = **{src}**"
+            avg_pm = filtered["pm2_5"].mean()
+            top_source = filtered["pollution_source"].mode().iloc[0]
+            return (
+                f"📅 {date_val}\n\n"
+                f"- Avg PM2.5: {avg_pm:.3f}\n"
+                f"- Main pollution source: {top_source}\n"
+                f"- AQI status: {aqi_label_from_pm25(avg_pm)}"
+            )
 
-                return "⚠️ Please mention a valid location name."
+        # -------- TOP POLLUTED --------
+        if (
+            "top polluted" in query_l
+            or "top polluted areas" in query_l
+            or "most polluted areas" in query_l
+            or "most poluted areas" in query_l
+            or "top poluted areas" in query_l
+            or ("top" in query_l and "polluted" in query_l)
+        ):
+            top5 = (
+                df.groupby("location")["pm2_5"]
+                .mean()
+                .sort_values(ascending=False)
+                .head(5)
+            )
+            lines = ["🏆 Top 5 polluted locations:\n"]
+            for i, (loc, val) in enumerate(top5.items(), start=1):
+                lines.append(f"{i}. {loc} — PM2.5: {val:.3f}")
+            return "\n".join(lines)
 
-            # ================= SOURCE =================
-            elif "source" in q:
-                src_counts = chatbot_df["pollution_source"].value_counts()
-                if src_counts.empty:
-                    return "No pollution source data available."
-                src = src_counts.idxmax()
-                return f"🏭 Most common pollution source is **{src}**"
+        # -------- MOST POLLUTED --------
+        if "most polluted" in query_l or "worst location" in query_l:
+            loc_avg = df.groupby("location")["pm2_5"].mean()
+            loc = loc_avg.idxmax()
+            val = loc_avg.max()
+            return f"🚨 Most polluted location: {loc} (Avg PM2.5: {val:.3f})"
 
-            # ================= TREND =================
-            elif "trend" in q:
-                if "hour_only" not in chatbot_df.columns:
-                    return "Hour data not available for trend analysis."
+        # -------- SAFEST --------
+        if "safe" in query_l or "safest" in query_l or "least polluted" in query_l or "cleanest" in query_l:
+            loc_avg = df.groupby("location")["pm2_5"].mean()
+            loc = loc_avg.idxmin()
+            val = loc_avg.min()
+            return f"✅ Safest location: {loc} (Avg PM2.5: {val:.3f})"
 
-                trend = chatbot_df.groupby("hour_only")["pm2_5"].mean().dropna()
-                if trend.empty:
-                    return "Trend data not available."
+        # -------- LOCATION --------
+        if location_match and ("pollution" in query_l or "pm2.5" in query_l or "aqi" in query_l):
+            loc_df = df[df["location"] == location_match]
 
-                peak = int(trend.idxmax())
-                peak_val = trend.max()
-                return f"📈 Pollution peaks around **{peak:02d}:00** (Avg PM2.5 = **{peak_val:.2f}**)"
+            if loc_df.empty:
+                return "⚠️ Location not found."
 
-            # ================= AQI =================
-            elif "aqi" in q:
-                loc = detect_location(q, chatbot_df)
+            avg_pm = loc_df["pm2_5"].mean()
+            top_source = loc_df["pollution_source"].mode().iloc[0]
+            return (
+                f"📍 {location_match}\n\n"
+                f"- Avg PM2.5: {avg_pm:.3f}\n"
+                f"- Main pollution source: {top_source}\n"
+                f"- AQI status: {aqi_label_from_pm25(avg_pm)}"
+            )
 
-                if loc:
-                    loc_df = chatbot_df[chatbot_df["location"] == loc]
-                    if loc_df.empty:
-                        return f"No AQI data available for **{loc}**."
-                    avg = loc_df["pm2_5"].mean()
-                    return f"📍 **{loc}** → Avg PM2.5 = **{avg:.2f}** → {classify_aqi(avg)}"
+        # -------- AQI --------
+        if "aqi" in query_l:
+            if location_match:
+                loc_df = df[df["location"] == location_match]
+                avg_pm = loc_df["pm2_5"].mean()
+                return f"🌫️ AQI status for {location_match}: {aqi_label_from_pm25(avg_pm)} (PM2.5: {avg_pm:.3f})"
 
-                avg = chatbot_df["pm2_5"].mean()
-                return f"🌍 Overall Avg PM2.5 = **{avg:.2f}** → {classify_aqi(avg)}"
+            avg_pm = df["pm2_5"].mean()
+            return f"🌫️ Overall AQI status: {aqi_label_from_pm25(avg_pm)} (Avg PM2.5: {avg_pm:.3f})"
 
-            # ================= DEFAULT =================
-            else:
-                return """🤖 You can ask things like:
+        # -------- PEAK HOUR --------
+        if "peak" in query_l or "trend" in query_l or "pollution hour" in query_l:
+            trend = df.groupby("hour")["pm2_5"].mean()
+            peak = trend.idxmax()
+            val = trend.max()
+            return f"⏰ Pollution peaks around hour {peak}:00 (Avg PM2.5: {val:.3f})"
 
-- Most polluted location
-- Safest area
-- Top polluted places
-- Which season is most polluted
-- Pollution on 2026-02-12
-- Pollution on 2026-02-12 at 20
-- Pollution source on 2026-02-12 at 20 in Zoo Park, Hyderabad - TSPCB
-- Pollution in Zoo Park, Hyderabad - TSPCB
-- AQI status
-- Trend analysis"""
+        # -------- SEASON --------
+        if "season" in query_l:
+            season_avg = df.groupby("season")["pm2_5"].mean()
+            season_names = {0: "Wet", 1: "Dry"}
+
+            if "most polluted" in query_l or "polluted season" in query_l:
+                s = season_avg.idxmax()
+                return f"🌦️ Most polluted season: {season_names.get(s, s)} (Avg PM2.5: {season_avg[s]:.3f})"
+
+            lines = ["📊 Season-wise pollution:"]
+            for s, val in season_avg.items():
+                lines.append(f"- {season_names.get(s, s)}: {val:.3f}")
+            return "\n".join(lines)
+
+        # -------- HEALTH --------
+        if "health" in query_l or "tips" in query_l or "precautions" in query_l:
+            return """❤️ Health tips:
+- Wear an N95 mask outdoors.
+- Avoid heavy traffic hours if pollution is high.
+- Keep windows closed during peak pollution.
+- Drink enough water and reduce outdoor exercise in polluted hours."""
+
+        return None
+
+    # ================= LLM FUNCTION =================
+    def ask_groq(query):
+        context = """
+        The dataset contains:
+        - location-wise pollution data
+        - PM2.5 values
+        - hourly trends
+        - date-wise values
+        - pollution source labels
+        - season-wise pollution patterns
+
+        Important:
+        - Use short, clear answers.
+        - If the question is general, answer simply.
+        - Do not invent exact dataset numbers unless provided.
+        """
+
+        prompt = f"""
+        You are EnviroScan AI, a pollution assistant.
+
+        Dataset context:
+        {context}
+
+        User question:
+        {query}
+
+        Rules:
+        - Keep answer short and clear
+        - Give only one direct answer
+        - For general questions, answer naturally
+        - Do not mention that you are an LLM
+        """
+
+        try:
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are a helpful pollution assistant."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                max_completion_tokens=250
+            )
+            return response.choices[0].message.content
 
         except Exception as e:
-            return f"⚠️ Error: {e}"
+            return f"⚠️ Groq API error: {str(e)}"
+
+    # ================= MAIN CHATBOT =================
+    def chatbot_response(query):
+        rule_answer = rule_based_answer(query)
+
+        if rule_answer:
+            return rule_answer
+
+        return ask_groq(query)
+
+    # ================= EXAMPLE HELP =================
+    st.caption("🤖 Ask: pollution in Central University • AQI Zoo Park 2026-02-12 20:00 • safest location • most polluted season • top polluted areas")
 
     # ================= USER INPUT =================
     user_input = st.chat_input("Ask anything about pollution...")
@@ -668,9 +654,9 @@ with tab4:
         with st.chat_message("user"):
             st.markdown(user_input)
 
-        response = chatbot_response(user_input)
+        bot_reply = chatbot_response(user_input)
 
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append({"role": "assistant", "content": bot_reply})
 
         with st.chat_message("assistant"):
-            st.markdown(response)
+            st.markdown(bot_reply)
