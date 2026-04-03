@@ -9,7 +9,7 @@ Traditional air quality monitoring systems measure pollutant concentrations but 
 The system also provides data visualizations and a prediction dashboard to help environmental researchers, urban planners, and government agencies understand pollution patterns and take preventive measures.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-**PROBLEM STATEMENT**
+**Problem Statement**
 
 Air pollution is one of the most critical environmental challenges affecting urban and rural areas worldwide. Traditional air quality monitoring systems focus on measuring pollutant concentrations such as PM2.5, PM10, NO₂, CO, and SO₂. 
 
@@ -229,9 +229,13 @@ This figure shows the average pollutant levels for each day of the week. Each su
 4)Gradient Boosting
 
 • Use pollutant concentrations, weather variables  features as input features.
+
 • Predict the target variable: pollution_source
+
 • Perform hyperparameter tuning using GridSearchCV and RandomizedSearchCV to optimize model performance.
+
 • Apply Stratified K-Fold Cross Validation to ensure balanced class distribution during training.
+
 • Evaluate model performance using:
 Accuracy
 Precision
@@ -241,6 +245,7 @@ F1 Score
 Confusion Matrix
 
 • Select the best-performing model based on evaluation metrics.
+
 • Export the trained model using Joblib or Pickle for integration with the EnviroScan dashboard.
 
 **Machine Learning Models**
@@ -269,6 +274,7 @@ Hyperparameters such as: learning rate, number of estimators, maximum tree depth
 **Gradient Boosting**
 
 Gradient Boosting builds models sequentially where each new model corrects the errors of previous models.
+
 The model captures complex nonlinear relationships between pollutants, weather conditions, and geographic features.And also smote was used to balance the dataset.
 
 Hyperparameter tuning was performed using GridSearchCV, and model stability was validated through cross-validation techniques.
@@ -297,7 +303,9 @@ O₃
 **Module-5: Geospatial Mapping and Heatmap Visualization**
 
 • Loaded trained Gradient Boosting model and labeled dataset (Vijayawada + Hyderabad).
+
 • Calculated pollution severity index using weighted pollutant values.
+
 • Generated an interactive Folium map with:
     • Heatmap layer to visualize pollution intensity
     • Color-coded circle markers based on pollution source     
@@ -306,16 +314,23 @@ O₃
             Green → Agricultural
             Orange → Burning
             Purple → Natural
+			
     • Marker size representing severity levels
           Bigger circle → more pollution
           Smaller circle → less pollution
+		  
     • Toggle layers for each pollution source
+	
     • Added custom legend and layer control for better user interaction.
+	
     • Saved the final map as an HTML file for easy visualization.
                          SHAP 
 Used SHAP KernelExplainer to interpret model predictions.
+
 Generated waterfall plots for each pollution source to show feature impact.
+
 Created a beeswarm  plot to visualize overall feature importance.
+
 Saved all SHAP plots as images for reporting and analysis.
 
 
@@ -331,18 +346,29 @@ The dashboard is divided into three main sections:
 4)chatbot
 
 **1)Dashboard**
+
 • Built an interactive Streamlit dashboard for real-time air pollution monitoring.
+
 • Added filters to select location and pollutant for customized analysis.
+
 • Displayed key pollution metrics like PM2.5, PM10, NO₂, O₃.
+
 • Implemented AQI indicator with health-based categories (Good → Hazardous).
+
 • Provided health recommendations based on pollution levels.
+
 • Enabled real-time prediction of pollution source using ML model.
+
 • Added downloadable reports (CSV) and email alert system using SMTP.
 
 **2)Map**
+
 • Integrated Folium map with:
+
 • Heatmap for pollution intensity
+
 • Color-coded markers for pollution sources
+
 • Colors represent sources:
      Red → Industrial
      Blue → Vehicular
@@ -351,47 +377,69 @@ The dashboard is divided into three main sections:
      Purple → Natural
 
 **3)Reports**
+
 • Displayed pollution source distribution using tables and pie charts.
+
 • Showed hourly trend analysis using line charts.
+
 • Identified top polluted locations based on PM2.5 levels.
 
 **4)Chatbot**
 
 **4.1)Hybrid Approach**
+
   •  Hybrid approach means combining Rule-Based system + AI (LLM). 
+  
   •  First, the system tries to answer using predefined rules and dataset. 
+  
   •  If no rule matches, it uses AI model to generate the answer. 
+  
   •  Gives accurate answers for known queries 
+  
   •  Gives flexible answers for unknown queries
 	   Dataset questions → Rule-based 
 	   General questions → AI (LLM) 
       
 **4.2. Rule-Based System**
+
   •	Uses if-else conditions and logic to answer queries. 
+  
   •	Works directly on dataset using: 
+  
   •	Filtering 
+  
   •	Grouping 
+  
   •	Calculations (mean, max, etc.) 
+
 Examples:
   •	“Top polluted areas” 
   •	“AQI of Kanuru” 
   •	“Pollution on 2026-02-12” 
+
 Advantages:
   •	Fast and accurate 
   •	Uses real data 
+
 Limitation:
       Cannot answer new or complex questions outside rules 
 
 **4.3. LLM (Large Language Model)**
+ 
   •	AI model that understands and generates human-like answers. 
+ 
   •	Used when rule-based system cannot handle the query. 
+  
   •	Uses Groq AI to generate responses 
+
 Examples:
   •	“Why is pollution high in cities?” 
   •	“Explain effects of air pollution” 
+
 Advantages:
   •	Handles any type of question 
   •	Gives natural language responses 
+
 Limitation:
 	May not always use exact dataset values
 
@@ -403,34 +451,53 @@ Overall, this module enhances usability by combining data visualization, machine
 **Results**
 
 • Successfully developed an AI-based system to identify pollution sources.
+
 • Gradient Boosting model performed best with 95.16% testing accuracy.
+
 • Achieved strong performance using F1-score and cross-validation.
+
 • Generated interactive geospatial maps
+
 • Built Streamlit dashboard 
+
 • Implemented data analysis features using plots 
+
 • Developed a chatbot assistant
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Conclusion**
 
 • Successfully developed an AI-powered pollution source identification system using machine learning and geospatial analytics.
+
 • Overcame limitations of traditional systems by identifying actual sources of pollution, not just pollutant levels.
+
 • Gradient Boosting model provided high accuracy and reliable predictions.
+
 • Integrated pollution, weather, and geographic data for better analysis and performance.
+
 • Implemented interactive visualizations (maps, charts, dashboard) for easy understanding of pollution patterns.
+
 • Used severity index and heatmaps to identify high-risk pollution zones.
+
 • Applied SHAP explainability to make model predictions transparent and trustworthy.
+
 • Developed a real-time Streamlit dashboard with prediction, reports, and alerts.
+
 • Built a chatbot assistant to enable natural language querying of pollution data.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Future Scope**
 
 • Real-time pollution monitoring
+
 • Integration with IoT pollution sensors
+
 • Expansion to multiple cities
+
 • Satellite data integration
+
 • Mobile and web applications
+
 • Deep learning models for improved prediction
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
