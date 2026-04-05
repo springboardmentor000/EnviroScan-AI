@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e575baabaa7da6aaf02e0526e147c9c6 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="position:fixed;bottom:30px;left:30px;z-index:1000;background:white;
+            padding:12px;border-radius:8px;border:2px solid #ccc;font-family:Arial;font-size:12px;">
+    <b>Pollution Sources</b><br>
+    <span style="color:#E74C3C;">●</span> Vehicular<br>
+    <span style="color:#3498DB;">●</span> Industrial<br>
+    <span style="color:#2ECC71;">●</span> Agricultural<br>
+    <span style="color:#F39C12;">●</span> Burning<br>
+    <span style="color:#9B59B6;">●</span> Natural<br>
+</div>
+    
+            <div class="folium-map" id="map_e575baabaa7da6aaf02e0526e147c9c6" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_e575baabaa7da6aaf02e0526e147c9c6 = L.map(
+                "map_e575baabaa7da6aaf02e0526e147c9c6",
+                {
+                    center: [17.385, 78.4867],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ff6e96175c876e0c0d5ee07d89ad4d62 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ff6e96175c876e0c0d5ee07d89ad4d62.addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_04f3d5b748db2ca8c8054b156e00c062 = L.marker(
+                [17.349694, 78.451437],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_ba7728b98104ee3cc9e1300431a9ae90 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#E74C3C",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3ccc78cee4b9d4df0568c93db4d1b1be = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_343ddcb43d2559b7274f46e7fae885a3 = $(`<div id="html_343ddcb43d2559b7274f46e7fae885a3" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Zoo Park, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#E74C3C;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Vehicular</span><br><br>         <b>Confidence:</b> 100%<br>         <b>PM2.5:</b> 63.0 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 88.2 µg/m³ &nbsp;         <b>SO2:</b> 2.4 µg/m³<br>         <b>Road count:</b> 337 &nbsp;         <b>Industrial zones:</b> 5     </div>     </div>`)[0];
+                popup_3ccc78cee4b9d4df0568c93db4d1b1be.setContent(html_343ddcb43d2559b7274f46e7fae885a3);
+            
+        
+
+        marker_04f3d5b748db2ca8c8054b156e00c062.bindPopup(popup_3ccc78cee4b9d4df0568c93db4d1b1be)
+        ;
+
+        
+    
+    
+            marker_04f3d5b748db2ca8c8054b156e00c062.bindTooltip(
+                `<div>
+                     Vehicular — Zoo Park, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_04f3d5b748db2ca8c8054b156e00c062.setIcon(icon_ba7728b98104ee3cc9e1300431a9ae90);
+            
+    
+            var circle_marker_8e09cfc77692aae0b1b3a5185d4903d9 = L.circleMarker(
+                [17.349694, 78.451437],
+                {"bubblingMouseEvents": true, "color": "#E74C3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_e9b04f60dcee1219e88f5ac914ea7729 = L.marker(
+                [17.443464, 78.47489],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_b65e40ce28170e98ebc24aa0f3543093 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#E74C3C",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_93b4a0e0918a8b9719ff95f221f223f3 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_a3a13f8d9febe28f2b99f16bd8219ade = $(`<div id="html_a3a13f8d9febe28f2b99f16bd8219ade" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">US Diplomatic Post: Hyderabad</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#E74C3C;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Vehicular</span><br><br>         <b>Confidence:</b> 46%<br>         <b>PM2.5:</b> 80.0 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 25.3 µg/m³ &nbsp;         <b>SO2:</b> 9.8 µg/m³<br>         <b>Road count:</b> 669 &nbsp;         <b>Industrial zones:</b> 28     </div>     </div>`)[0];
+                popup_93b4a0e0918a8b9719ff95f221f223f3.setContent(html_a3a13f8d9febe28f2b99f16bd8219ade);
+            
+        
+
+        marker_e9b04f60dcee1219e88f5ac914ea7729.bindPopup(popup_93b4a0e0918a8b9719ff95f221f223f3)
+        ;
+
+        
+    
+    
+            marker_e9b04f60dcee1219e88f5ac914ea7729.bindTooltip(
+                `<div>
+                     Vehicular — US Diplomatic Post: Hyderabad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e9b04f60dcee1219e88f5ac914ea7729.setIcon(icon_b65e40ce28170e98ebc24aa0f3543093);
+            
+    
+            var circle_marker_165fd18bc5f8e513a80f5a5413f05541 = L.circleMarker(
+                [17.443464, 78.47489],
+                {"bubblingMouseEvents": true, "color": "#E74C3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_ceeb6291484f8a8d539150b8fdd171e3 = L.marker(
+                [17.423297, 78.474697],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_d9d7030a4f426e7f79dbee0d4b8cf073 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f05e5eb59fd80522a5f0c51bef4f2c91 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_4fc4eb5c37c2996311ee4acdaf34ab79 = $(`<div id="html_4fc4eb5c37c2996311ee4acdaf34ab79" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Sanathnagar, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 41%<br>         <b>PM2.5:</b> 157.0 µg/m³         <span style="background:#8E44AD;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Very Poor</span><br>         <b>NO2:</b> 25.3 µg/m³ &nbsp;         <b>SO2:</b> 4.2 µg/m³<br>         <b>Road count:</b> 877 &nbsp;         <b>Industrial zones:</b> 45     </div>     </div>`)[0];
+                popup_f05e5eb59fd80522a5f0c51bef4f2c91.setContent(html_4fc4eb5c37c2996311ee4acdaf34ab79);
+            
+        
+
+        marker_ceeb6291484f8a8d539150b8fdd171e3.bindPopup(popup_f05e5eb59fd80522a5f0c51bef4f2c91)
+        ;
+
+        
+    
+    
+            marker_ceeb6291484f8a8d539150b8fdd171e3.bindTooltip(
+                `<div>
+                     Industrial — Sanathnagar, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ceeb6291484f8a8d539150b8fdd171e3.setIcon(icon_d9d7030a4f426e7f79dbee0d4b8cf073);
+            
+    
+            var circle_marker_311ccf7caa2c6770ae37fe11ce6f3062 = L.circleMarker(
+                [17.423297, 78.474697],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_fe7647c486a52664b32d2184a8045b64 = L.marker(
+                [17.540891, 78.358528],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_b934f7fe10b342058190572725eaeea9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_26eeb62b266fcf2dc944589bcde28806 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_f1d2a775216dbe2755f1d0196e132fb9 = $(`<div id="html_f1d2a775216dbe2755f1d0196e132fb9" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Bollaram Industrial Area, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 67%<br>         <b>PM2.5:</b> 52.0 µg/m³         <span style="background:#F1C40F;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Satisfactory</span><br>         <b>NO2:</b> 12.9 µg/m³ &nbsp;         <b>SO2:</b> 3.6 µg/m³<br>         <b>Road count:</b> 109 &nbsp;         <b>Industrial zones:</b> 7     </div>     </div>`)[0];
+                popup_26eeb62b266fcf2dc944589bcde28806.setContent(html_f1d2a775216dbe2755f1d0196e132fb9);
+            
+        
+
+        marker_fe7647c486a52664b32d2184a8045b64.bindPopup(popup_26eeb62b266fcf2dc944589bcde28806)
+        ;
+
+        
+    
+    
+            marker_fe7647c486a52664b32d2184a8045b64.bindTooltip(
+                `<div>
+                     Industrial — Bollaram Industrial Area, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fe7647c486a52664b32d2184a8045b64.setIcon(icon_b934f7fe10b342058190572725eaeea9);
+            
+    
+            var circle_marker_9055e234ab1228715d993d329983ab60 = L.circleMarker(
+                [17.540891, 78.358528],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_ab8f519694e863f29020eb075bc9d165 = L.marker(
+                [17.460103, 78.334361],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_74e378623ee644499abc50fb48250b07 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bfb24ca19b564afd1026b1f5f1223c4e = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_ee49db734688e12f861b99c4d239f215 = $(`<div id="html_ee49db734688e12f861b99c4d239f215" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Central University, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 55%<br>         <b>PM2.5:</b> 26.0 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 8.0 µg/m³ &nbsp;         <b>SO2:</b> 5.9 µg/m³<br>         <b>Road count:</b> 204 &nbsp;         <b>Industrial zones:</b> 13     </div>     </div>`)[0];
+                popup_bfb24ca19b564afd1026b1f5f1223c4e.setContent(html_ee49db734688e12f861b99c4d239f215);
+            
+        
+
+        marker_ab8f519694e863f29020eb075bc9d165.bindPopup(popup_bfb24ca19b564afd1026b1f5f1223c4e)
+        ;
+
+        
+    
+    
+            marker_ab8f519694e863f29020eb075bc9d165.bindTooltip(
+                `<div>
+                     Industrial — Central University, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ab8f519694e863f29020eb075bc9d165.setIcon(icon_74e378623ee644499abc50fb48250b07);
+            
+    
+            var circle_marker_92ad01dc9271aec64f4a042c09b87754 = L.circleMarker(
+                [17.460103, 78.334361],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_451405cd5f2a7684876bccd0498a7636 = L.marker(
+                [17.455946, 78.433215],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_58a80d8c414e9c77086f3a499b54d005 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9efd1e59ac4d5ed2b5fcd79c120c07a2 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_124d114ba5d186acc5c88a7e301531fa = $(`<div id="html_124d114ba5d186acc5c88a7e301531fa" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Sanathnagar, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 56%<br>         <b>PM2.5:</b> 32.0 µg/m³         <span style="background:#F1C40F;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Satisfactory</span><br>         <b>NO2:</b> 22.4 µg/m³ &nbsp;         <b>SO2:</b> 8.5 µg/m³<br>         <b>Road count:</b> 377 &nbsp;         <b>Industrial zones:</b> 25     </div>     </div>`)[0];
+                popup_9efd1e59ac4d5ed2b5fcd79c120c07a2.setContent(html_124d114ba5d186acc5c88a7e301531fa);
+            
+        
+
+        marker_451405cd5f2a7684876bccd0498a7636.bindPopup(popup_9efd1e59ac4d5ed2b5fcd79c120c07a2)
+        ;
+
+        
+    
+    
+            marker_451405cd5f2a7684876bccd0498a7636.bindTooltip(
+                `<div>
+                     Industrial — Sanathnagar, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_451405cd5f2a7684876bccd0498a7636.setIcon(icon_58a80d8c414e9c77086f3a499b54d005);
+            
+    
+            var circle_marker_77a9c1dfabae1c8be345d1e9cfdedc44 = L.circleMarker(
+                [17.455946, 78.433215],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_3ce89c5bf2d4f9158bcfe569029905bd = L.marker(
+                [17.38405, 78.45636],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_6fc53a5d429bf0fa8e1518ed7dee6cd1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1c8e71ef776ba9f46459fb89095d8d74 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_8e0cb49ddc273af89130a360ae735816 = $(`<div id="html_8e0cb49ddc273af89130a360ae735816" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Hyderabad</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 100%<br>         <b>PM2.5:</b> 79.8 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 25.3 µg/m³ &nbsp;         <b>SO2:</b> 9.8 µg/m³<br>         <b>Road count:</b> 0 &nbsp;         <b>Industrial zones:</b> 21     </div>     </div>`)[0];
+                popup_1c8e71ef776ba9f46459fb89095d8d74.setContent(html_8e0cb49ddc273af89130a360ae735816);
+            
+        
+
+        marker_3ce89c5bf2d4f9158bcfe569029905bd.bindPopup(popup_1c8e71ef776ba9f46459fb89095d8d74)
+        ;
+
+        
+    
+    
+            marker_3ce89c5bf2d4f9158bcfe569029905bd.bindTooltip(
+                `<div>
+                     Industrial — Hyderabad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3ce89c5bf2d4f9158bcfe569029905bd.setIcon(icon_6fc53a5d429bf0fa8e1518ed7dee6cd1);
+            
+    
+            var circle_marker_2d2cad502a43acca29d24f0c162d2a64 = L.circleMarker(
+                [17.38405, 78.45636],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_077b79686551636b84b0cd6e4c68f2c3 = L.marker(
+                [17.470431, 78.566959],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_78d31fc44e214239ceccbc835b6126be = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#F39C12",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dbd83cc7e468fc8b05c7f58235861f67 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_4627e0baeb9812a6d0cf7d916df94386 = $(`<div id="html_4627e0baeb9812a6d0cf7d916df94386" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">ECIL Kapra, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#F39C12;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Burning</span><br><br>         <b>Confidence:</b> 24%<br>         <b>PM2.5:</b> 15.35 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 14.2 µg/m³ &nbsp;         <b>SO2:</b> 3.9 µg/m³<br>         <b>Road count:</b> 82 &nbsp;         <b>Industrial zones:</b> 18     </div>     </div>`)[0];
+                popup_dbd83cc7e468fc8b05c7f58235861f67.setContent(html_4627e0baeb9812a6d0cf7d916df94386);
+            
+        
+
+        marker_077b79686551636b84b0cd6e4c68f2c3.bindPopup(popup_dbd83cc7e468fc8b05c7f58235861f67)
+        ;
+
+        
+    
+    
+            marker_077b79686551636b84b0cd6e4c68f2c3.bindTooltip(
+                `<div>
+                     Burning — ECIL Kapra, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_077b79686551636b84b0cd6e4c68f2c3.setIcon(icon_78d31fc44e214239ceccbc835b6126be);
+            
+    
+            var circle_marker_b53c561e00db19e573b1ac9407479144 = L.circleMarker(
+                [17.470431, 78.566959],
+                {"bubblingMouseEvents": true, "color": "#F39C12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F39C12", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_e43adda3a2d0d315e4832d37fe016c9c = L.marker(
+                [17.544899, 78.486949],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_bd3274ee303d3243779329d5ad543328 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#2ECC71",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e173b7d5b7037421367dbc8131605ac3 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_c0e3e5cb5d54ce79c61bc67930f16bfc = $(`<div id="html_c0e3e5cb5d54ce79c61bc67930f16bfc" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Kompally Municipal Office, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#2ECC71;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Agricultural</span><br><br>         <b>Confidence:</b> 50%<br>         <b>PM2.5:</b> 28.26 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 3.0 µg/m³ &nbsp;         <b>SO2:</b> 5.3 µg/m³<br>         <b>Road count:</b> 96 &nbsp;         <b>Industrial zones:</b> 5     </div>     </div>`)[0];
+                popup_e173b7d5b7037421367dbc8131605ac3.setContent(html_c0e3e5cb5d54ce79c61bc67930f16bfc);
+            
+        
+
+        marker_e43adda3a2d0d315e4832d37fe016c9c.bindPopup(popup_e173b7d5b7037421367dbc8131605ac3)
+        ;
+
+        
+    
+    
+            marker_e43adda3a2d0d315e4832d37fe016c9c.bindTooltip(
+                `<div>
+                     Agricultural — Kompally Municipal Office, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e43adda3a2d0d315e4832d37fe016c9c.setIcon(icon_bd3274ee303d3243779329d5ad543328);
+            
+    
+            var circle_marker_6a408059967bdf7e16b9e2dfa4146058 = L.circleMarker(
+                [17.544899, 78.486949],
+                {"bubblingMouseEvents": true, "color": "#2ECC71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_3c4402d3894440f9904c9ae34bf96b40 = L.marker(
+                [17.417094, 78.457437],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_5c6b16b19e66356313092678b3bc938a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#E74C3C",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a8bc114d2015056fe2d65e04c693829b = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_f8e50e1297ce32b2d016145a456d8b81 = $(`<div id="html_f8e50e1297ce32b2d016145a456d8b81" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Somajiguda, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#E74C3C;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Vehicular</span><br><br>         <b>Confidence:</b> 54%<br>         <b>PM2.5:</b> 69.53 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 47.3 µg/m³ &nbsp;         <b>SO2:</b> 4.6 µg/m³<br>         <b>Road count:</b> 711 &nbsp;         <b>Industrial zones:</b> 33     </div>     </div>`)[0];
+                popup_a8bc114d2015056fe2d65e04c693829b.setContent(html_f8e50e1297ce32b2d016145a456d8b81);
+            
+        
+
+        marker_3c4402d3894440f9904c9ae34bf96b40.bindPopup(popup_a8bc114d2015056fe2d65e04c693829b)
+        ;
+
+        
+    
+    
+            marker_3c4402d3894440f9904c9ae34bf96b40.bindTooltip(
+                `<div>
+                     Vehicular — Somajiguda, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3c4402d3894440f9904c9ae34bf96b40.setIcon(icon_5c6b16b19e66356313092678b3bc938a);
+            
+    
+            var circle_marker_14abe982d84cecbeb876f0f76e0eca26 = L.circleMarker(
+                [17.417094, 78.457437],
+                {"bubblingMouseEvents": true, "color": "#E74C3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_582a11aaa18a448ff58043436bbb42f4 = L.marker(
+                [17.429398, 78.569354],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_08110ef047e8d45c46681abe83e2c98c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d7f6caf81f8a3b356f86262737f7609c = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_8cb2f05a07d45d8cdeb6d1a0e857acb8 = $(`<div id="html_8cb2f05a07d45d8cdeb6d1a0e857acb8" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Nacharam_TSIIC IALA, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 52%<br>         <b>PM2.5:</b> 129.72 µg/m³         <span style="background:#8E44AD;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Very Poor</span><br>         <b>NO2:</b> 13.6 µg/m³ &nbsp;         <b>SO2:</b> 7.9 µg/m³<br>         <b>Road count:</b> 87 &nbsp;         <b>Industrial zones:</b> 27     </div>     </div>`)[0];
+                popup_d7f6caf81f8a3b356f86262737f7609c.setContent(html_8cb2f05a07d45d8cdeb6d1a0e857acb8);
+            
+        
+
+        marker_582a11aaa18a448ff58043436bbb42f4.bindPopup(popup_d7f6caf81f8a3b356f86262737f7609c)
+        ;
+
+        
+    
+    
+            marker_582a11aaa18a448ff58043436bbb42f4.bindTooltip(
+                `<div>
+                     Industrial — Nacharam_TSIIC IALA, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_582a11aaa18a448ff58043436bbb42f4.setIcon(icon_08110ef047e8d45c46681abe83e2c98c);
+            
+    
+            var circle_marker_7e78b4c6d4ed2a4718429330459e03b1 = L.circleMarker(
+                [17.429398, 78.569354],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_469bd5af74d04c97049ee06384c80b36 = L.marker(
+                [17.393559, 78.339194],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_7c393a86fd2b478ab1f4f96fc11662a7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b25d1a39dd583c53586ae50b2a5fca5a = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_65c1d4fdcdb85b2c2b803eb71df5a721 = $(`<div id="html_65c1d4fdcdb85b2c2b803eb71df5a721" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Kokapet, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 44%<br>         <b>PM2.5:</b> 21.25 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 14.6 µg/m³ &nbsp;         <b>SO2:</b> 12.1 µg/m³<br>         <b>Road count:</b> 364 &nbsp;         <b>Industrial zones:</b> 33     </div>     </div>`)[0];
+                popup_b25d1a39dd583c53586ae50b2a5fca5a.setContent(html_65c1d4fdcdb85b2c2b803eb71df5a721);
+            
+        
+
+        marker_469bd5af74d04c97049ee06384c80b36.bindPopup(popup_b25d1a39dd583c53586ae50b2a5fca5a)
+        ;
+
+        
+    
+    
+            marker_469bd5af74d04c97049ee06384c80b36.bindTooltip(
+                `<div>
+                     Industrial — Kokapet, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_469bd5af74d04c97049ee06384c80b36.setIcon(icon_7c393a86fd2b478ab1f4f96fc11662a7);
+            
+    
+            var circle_marker_93556952011eb0d9f239824cd9e8d936 = L.circleMarker(
+                [17.393559, 78.339194],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_139a2436d1209a03f1f1e0ce056358c9 = L.marker(
+                [17.37206, 78.50864],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_11e42f69185ccd5c6a364d85c922ed35 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#E74C3C",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2cac0a7ee6521fceeb060cf7108bb1e3 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_f085658a8ae9384b22b1a045630864be = $(`<div id="html_f085658a8ae9384b22b1a045630864be" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">New Malakpet, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#E74C3C;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Vehicular</span><br><br>         <b>Confidence:</b> 38%<br>         <b>PM2.5:</b> 27.66 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 14.1 µg/m³ &nbsp;         <b>SO2:</b> 47.1 µg/m³<br>         <b>Road count:</b> 430 &nbsp;         <b>Industrial zones:</b> 7     </div>     </div>`)[0];
+                popup_2cac0a7ee6521fceeb060cf7108bb1e3.setContent(html_f085658a8ae9384b22b1a045630864be);
+            
+        
+
+        marker_139a2436d1209a03f1f1e0ce056358c9.bindPopup(popup_2cac0a7ee6521fceeb060cf7108bb1e3)
+        ;
+
+        
+    
+    
+            marker_139a2436d1209a03f1f1e0ce056358c9.bindTooltip(
+                `<div>
+                     Vehicular — New Malakpet, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_139a2436d1209a03f1f1e0ce056358c9.setIcon(icon_11e42f69185ccd5c6a364d85c922ed35);
+            
+    
+            var circle_marker_ef9992ef1bcbfbd4e4064b66f050cd63 = L.circleMarker(
+                [17.37206, 78.50864],
+                {"bubblingMouseEvents": true, "color": "#E74C3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var marker_d9a67329f03b911d910db3474bb3e225 = L.marker(
+                [17.492676, 78.405394],
+                {
+}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+    
+            var icon_6275884bf9afc011d068927559bd2acf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498DB",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6715ec53e4ec5adfdebf7a8ed6b6ac07 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_d94b0b8f912ae78aa4b7f52e339a5252 = $(`<div id="html_d94b0b8f912ae78aa4b7f52e339a5252" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Hyderabad</h4>         <hr style="margin:4px 0;">         <b>Predicted Source:</b><br>         <span style="background:#3498DB;color:white;padding:3px 10px;                      border-radius:5px;font-size:13px;">Industrial</span><br><br>         <b>Confidence:</b> 100%<br>         <b>PM2.5:</b> 16.686041355133057 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 25.3 µg/m³ &nbsp;         <b>SO2:</b> 9.8 µg/m³<br>         <b>Road count:</b> 0 &nbsp;         <b>Industrial zones:</b> 17     </div>     </div>`)[0];
+                popup_6715ec53e4ec5adfdebf7a8ed6b6ac07.setContent(html_d94b0b8f912ae78aa4b7f52e339a5252);
+            
+        
+
+        marker_d9a67329f03b911d910db3474bb3e225.bindPopup(popup_6715ec53e4ec5adfdebf7a8ed6b6ac07)
+        ;
+
+        
+    
+    
+            marker_d9a67329f03b911d910db3474bb3e225.bindTooltip(
+                `<div>
+                     Industrial — Hyderabad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d9a67329f03b911d910db3474bb3e225.setIcon(icon_6275884bf9afc011d068927559bd2acf);
+            
+    
+            var circle_marker_cc72d9e15ad432f1ea1095a27f9a3bbd = L.circleMarker(
+                [17.492676, 78.405394],
+                {"bubblingMouseEvents": true, "color": "#3498DB", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14, "stroke": true, "weight": 3}
+            ).addTo(map_e575baabaa7da6aaf02e0526e147c9c6);
+        
+</script>
+</html>

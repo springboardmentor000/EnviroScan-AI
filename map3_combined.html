@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_88429bee0c60e3e2d79e39c5581f71fd {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+<div style="position:fixed;bottom:30px;left:30px;z-index:1000;background:white;
+            padding:12px;border-radius:8px;border:2px solid #ccc;font-family:Arial;font-size:12px;width:160px;">
+    <b>Pollution Sources</b><br>
+    <span style="color:#E74C3C;">●</span> Vehicular<br>
+    <span style="color:#3498DB;">●</span> Industrial<br>
+    <span style="color:#2ECC71;">●</span> Agricultural<br>
+    <span style="color:#F39C12;">●</span> Burning<br>
+    <span style="color:#9B59B6;">●</span> Natural<br>
+    <hr style="margin:6px 0;">
+    <b>PM2.5 Heatmap</b><br>
+    <span style="color:blue;">■</span> Low &nbsp;
+    <span style="color:lime;">■</span> Med &nbsp;
+    <span style="color:red;">■</span> High
+</div>
+    
+            <div class="folium-map" id="map_88429bee0c60e3e2d79e39c5581f71fd" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_88429bee0c60e3e2d79e39c5581f71fd = L.map(
+                "map_88429bee0c60e3e2d79e39c5581f71fd",
+                {
+                    center: [17.385, 78.4867],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_bb808099ac7bb4c957c95f8fc763f994 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_bb808099ac7bb4c957c95f8fc763f994.addTo(map_88429bee0c60e3e2d79e39c5581f71fd);
+        
+    
+            var heat_map_27f67b90aad7d1fcc048b6c049f37003 = L.heatLayer(
+                [[17.349694, 78.451437, 63.0], [17.443464, 78.47489, 80.0], [17.423297, 78.474697, 157.0], [17.540891, 78.358528, 52.0], [17.460103, 78.334361, 26.0], [17.455946, 78.433215, 32.0], [17.38405, 78.45636, 79.8], [17.470431, 78.566959, 15.35], [17.544899, 78.486949, 28.26], [17.417094, 78.457437, 69.53], [17.429398, 78.569354, 129.72], [17.393559, 78.339194, 21.25], [17.37206, 78.50864, 27.66], [17.492676, 78.405394, 16.686041355133057]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 13,
+  "radius": 40,
+  "blur": 25,
+  "gradient": {
+  "0.2": "blue",
+  "0.4": "lime",
+  "0.6": "yellow",
+  "0.8": "orange",
+  "1.0": "red",
+},
+}
+            );
+        
+    
+            heat_map_27f67b90aad7d1fcc048b6c049f37003.addTo(map_88429bee0c60e3e2d79e39c5581f71fd);
+        
+    
+            var feature_group_2358f508e8baba38a4c4174cfc712e21 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_09326b754486cf70f5b609708e0619db = L.circleMarker(
+                [17.349694, 78.451437],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_b73ca701e2360994f843118018ef2794 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_1d74c51700ddca482e275d276ca006e8 = $(`<div id="html_1d74c51700ddca482e275d276ca006e8" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Zoo Park, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#E74C3C;color:white;padding:2px 8px;border-radius:4px;">             Vehicular</span><br>         <b>Confidence:</b> 100%<br>         <b>PM2.5:</b> 63.0 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 88.2 &nbsp;         <b>SO2:</b> 2.4 &nbsp;         <b>CO:</b> 0.1<br>         <b>Temp:</b> 25.29°C &nbsp;         <b>Wind:</b> 3.36 m/s     </div>     </div>`)[0];
+                popup_b73ca701e2360994f843118018ef2794.setContent(html_1d74c51700ddca482e275d276ca006e8);
+            
+        
+
+        circle_marker_09326b754486cf70f5b609708e0619db.bindPopup(popup_b73ca701e2360994f843118018ef2794)
+        ;
+
+        
+    
+    
+            circle_marker_09326b754486cf70f5b609708e0619db.bindTooltip(
+                `<div>
+                     Vehicular | PM2.5: 63.0 | Zoo Park, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f665f308c1fb93d981fe11a403db7290 = L.circleMarker(
+                [17.443464, 78.47489],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_5cd9040ef6bb47e4c37ebf2f6da4227a = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_3c73516d23602982a40ab2fc2e36433f = $(`<div id="html_3c73516d23602982a40ab2fc2e36433f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">US Diplomatic Post: Hyderabad</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#E74C3C;color:white;padding:2px 8px;border-radius:4px;">             Vehicular</span><br>         <b>Confidence:</b> 46%<br>         <b>PM2.5:</b> 80.0 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 25.3 &nbsp;         <b>SO2:</b> 9.8 &nbsp;         <b>CO:</b> 1.51<br>         <b>Temp:</b> 26.29°C &nbsp;         <b>Wind:</b> 3.29 m/s     </div>     </div>`)[0];
+                popup_5cd9040ef6bb47e4c37ebf2f6da4227a.setContent(html_3c73516d23602982a40ab2fc2e36433f);
+            
+        
+
+        circle_marker_f665f308c1fb93d981fe11a403db7290.bindPopup(popup_5cd9040ef6bb47e4c37ebf2f6da4227a)
+        ;
+
+        
+    
+    
+            circle_marker_f665f308c1fb93d981fe11a403db7290.bindTooltip(
+                `<div>
+                     Vehicular | PM2.5: 80.0 | US Diplomatic Post: Hyderabad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_03fb551d50fc4b907bb46e9cb059c1c8 = L.circleMarker(
+                [17.423297, 78.474697],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_fae369add17ccb6a83c5a172bece848d = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_6ed07de467b02ed4a570589ecfb87463 = $(`<div id="html_6ed07de467b02ed4a570589ecfb87463" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Sanathnagar, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 41%<br>         <b>PM2.5:</b> 157.0 µg/m³         <span style="background:#8E44AD;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Very Poor</span><br>         <b>NO2:</b> 25.3 &nbsp;         <b>SO2:</b> 4.2 &nbsp;         <b>CO:</b> 270.0<br>         <b>Temp:</b> 26.29°C &nbsp;         <b>Wind:</b> 3.29 m/s     </div>     </div>`)[0];
+                popup_fae369add17ccb6a83c5a172bece848d.setContent(html_6ed07de467b02ed4a570589ecfb87463);
+            
+        
+
+        circle_marker_03fb551d50fc4b907bb46e9cb059c1c8.bindPopup(popup_fae369add17ccb6a83c5a172bece848d)
+        ;
+
+        
+    
+    
+            circle_marker_03fb551d50fc4b907bb46e9cb059c1c8.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 157.0 | Sanathnagar, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_475a6f99d7c4ac172114086aaa80d10e = L.circleMarker(
+                [17.540891, 78.358528],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_802fe44cc7d5ecffb108f015aad6a321 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_822943c124f1bdaf63781fe4ffb3dc22 = $(`<div id="html_822943c124f1bdaf63781fe4ffb3dc22" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Bollaram Industrial Area, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 67%<br>         <b>PM2.5:</b> 52.0 µg/m³         <span style="background:#F1C40F;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Satisfactory</span><br>         <b>NO2:</b> 12.9 &nbsp;         <b>SO2:</b> 3.6 &nbsp;         <b>CO:</b> 0.57<br>         <b>Temp:</b> 26.42°C &nbsp;         <b>Wind:</b> 3.67 m/s     </div>     </div>`)[0];
+                popup_802fe44cc7d5ecffb108f015aad6a321.setContent(html_822943c124f1bdaf63781fe4ffb3dc22);
+            
+        
+
+        circle_marker_475a6f99d7c4ac172114086aaa80d10e.bindPopup(popup_802fe44cc7d5ecffb108f015aad6a321)
+        ;
+
+        
+    
+    
+            circle_marker_475a6f99d7c4ac172114086aaa80d10e.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 52.0 | Bollaram Industrial Area, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_070837f0d13d2fac6d54012a49ab032e = L.circleMarker(
+                [17.460103, 78.334361],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_f3bab2c9a75c99cfeb722cced8d021b9 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_2b99b9a63c09190a97005eec8720f8e4 = $(`<div id="html_2b99b9a63c09190a97005eec8720f8e4" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Central University, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 55%<br>         <b>PM2.5:</b> 26.0 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 8.0 &nbsp;         <b>SO2:</b> 5.9 &nbsp;         <b>CO:</b> 0.0<br>         <b>Temp:</b> 25.98°C &nbsp;         <b>Wind:</b> 3.53 m/s     </div>     </div>`)[0];
+                popup_f3bab2c9a75c99cfeb722cced8d021b9.setContent(html_2b99b9a63c09190a97005eec8720f8e4);
+            
+        
+
+        circle_marker_070837f0d13d2fac6d54012a49ab032e.bindPopup(popup_f3bab2c9a75c99cfeb722cced8d021b9)
+        ;
+
+        
+    
+    
+            circle_marker_070837f0d13d2fac6d54012a49ab032e.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 26.0 | Central University, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4a24f8a85c24eefdf0c7b6b0f41b9b8e = L.circleMarker(
+                [17.455946, 78.433215],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_5d85dadf8d99181f6bf6de903e52a546 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_f5361b06b7de6a54e37e000c2eb9d4b9 = $(`<div id="html_f5361b06b7de6a54e37e000c2eb9d4b9" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Sanathnagar, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 56%<br>         <b>PM2.5:</b> 32.0 µg/m³         <span style="background:#F1C40F;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Satisfactory</span><br>         <b>NO2:</b> 22.4 &nbsp;         <b>SO2:</b> 8.5 &nbsp;         <b>CO:</b> 1.66<br>         <b>Temp:</b> 26.42°C &nbsp;         <b>Wind:</b> 3.34 m/s     </div>     </div>`)[0];
+                popup_5d85dadf8d99181f6bf6de903e52a546.setContent(html_f5361b06b7de6a54e37e000c2eb9d4b9);
+            
+        
+
+        circle_marker_4a24f8a85c24eefdf0c7b6b0f41b9b8e.bindPopup(popup_5d85dadf8d99181f6bf6de903e52a546)
+        ;
+
+        
+    
+    
+            circle_marker_4a24f8a85c24eefdf0c7b6b0f41b9b8e.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 32.0 | Sanathnagar, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_06e0d72b20782f143b01c33204b67127 = L.circleMarker(
+                [17.38405, 78.45636],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_b8c7b9c99a527a261fa40c652cc50bef = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_50aec3bd9d5aaaed3dde4a0774373389 = $(`<div id="html_50aec3bd9d5aaaed3dde4a0774373389" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Hyderabad</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 100%<br>         <b>PM2.5:</b> 79.8 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 25.3 &nbsp;         <b>SO2:</b> 9.8 &nbsp;         <b>CO:</b> 1.51<br>         <b>Temp:</b> 25.92°C &nbsp;         <b>Wind:</b> 3.31 m/s     </div>     </div>`)[0];
+                popup_b8c7b9c99a527a261fa40c652cc50bef.setContent(html_50aec3bd9d5aaaed3dde4a0774373389);
+            
+        
+
+        circle_marker_06e0d72b20782f143b01c33204b67127.bindPopup(popup_b8c7b9c99a527a261fa40c652cc50bef)
+        ;
+
+        
+    
+    
+            circle_marker_06e0d72b20782f143b01c33204b67127.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 79.8 | Hyderabad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_30df3c1067c07327363596bcf71dc7b7 = L.circleMarker(
+                [17.470431, 78.566959],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F39C12", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_9bcb00c2fc5af8eb6b426d69c716ad0e = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_050769df8e780d6c5d302832d75df360 = $(`<div id="html_050769df8e780d6c5d302832d75df360" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">ECIL Kapra, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#F39C12;color:white;padding:2px 8px;border-radius:4px;">             Burning</span><br>         <b>Confidence:</b> 24%<br>         <b>PM2.5:</b> 15.35 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 14.2 &nbsp;         <b>SO2:</b> 3.9 &nbsp;         <b>CO:</b> 800.0<br>         <b>Temp:</b> 26.11°C &nbsp;         <b>Wind:</b> 3.18 m/s     </div>     </div>`)[0];
+                popup_9bcb00c2fc5af8eb6b426d69c716ad0e.setContent(html_050769df8e780d6c5d302832d75df360);
+            
+        
+
+        circle_marker_30df3c1067c07327363596bcf71dc7b7.bindPopup(popup_9bcb00c2fc5af8eb6b426d69c716ad0e)
+        ;
+
+        
+    
+    
+            circle_marker_30df3c1067c07327363596bcf71dc7b7.bindTooltip(
+                `<div>
+                     Burning | PM2.5: 15.35 | ECIL Kapra, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a23eb221a8f38e9b95ca32087d80605c = L.circleMarker(
+                [17.544899, 78.486949],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_47b98da5078688448ed5ba2a8659cf48 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_e55b08ca76e5ccd0db5c96d2d7f57cc8 = $(`<div id="html_e55b08ca76e5ccd0db5c96d2d7f57cc8" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Kompally Municipal Office, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#2ECC71;color:white;padding:2px 8px;border-radius:4px;">             Agricultural</span><br>         <b>Confidence:</b> 50%<br>         <b>PM2.5:</b> 28.26 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 3.0 &nbsp;         <b>SO2:</b> 5.3 &nbsp;         <b>CO:</b> 240.0<br>         <b>Temp:</b> 26.26°C &nbsp;         <b>Wind:</b> 3.4 m/s     </div>     </div>`)[0];
+                popup_47b98da5078688448ed5ba2a8659cf48.setContent(html_e55b08ca76e5ccd0db5c96d2d7f57cc8);
+            
+        
+
+        circle_marker_a23eb221a8f38e9b95ca32087d80605c.bindPopup(popup_47b98da5078688448ed5ba2a8659cf48)
+        ;
+
+        
+    
+    
+            circle_marker_a23eb221a8f38e9b95ca32087d80605c.bindTooltip(
+                `<div>
+                     Agricultural | PM2.5: 28.26 | Kompally Municipal Office, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9fcda9102e48b4b9ac82d7a613022eda = L.circleMarker(
+                [17.417094, 78.457437],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_5dd0620be8f3140534c711b0174a6656 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_a8c0d7ec184266e0bf8769a82f9c133e = $(`<div id="html_a8c0d7ec184266e0bf8769a82f9c133e" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Somajiguda, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#E74C3C;color:white;padding:2px 8px;border-radius:4px;">             Vehicular</span><br>         <b>Confidence:</b> 54%<br>         <b>PM2.5:</b> 69.53 µg/m³         <span style="background:#F39C12;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Moderate</span><br>         <b>NO2:</b> 47.3 &nbsp;         <b>SO2:</b> 4.6 &nbsp;         <b>CO:</b> 1210.0<br>         <b>Temp:</b> 26.29°C &nbsp;         <b>Wind:</b> 3.29 m/s     </div>     </div>`)[0];
+                popup_5dd0620be8f3140534c711b0174a6656.setContent(html_a8c0d7ec184266e0bf8769a82f9c133e);
+            
+        
+
+        circle_marker_9fcda9102e48b4b9ac82d7a613022eda.bindPopup(popup_5dd0620be8f3140534c711b0174a6656)
+        ;
+
+        
+    
+    
+            circle_marker_9fcda9102e48b4b9ac82d7a613022eda.bindTooltip(
+                `<div>
+                     Vehicular | PM2.5: 69.53 | Somajiguda, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ade099397f1190ede8637ffdf59d454f = L.circleMarker(
+                [17.429398, 78.569354],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_7ea5eb222f276ac4a8d1b17762988fc4 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_814391e82707b84d471689ab0f647e7d = $(`<div id="html_814391e82707b84d471689ab0f647e7d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Nacharam_TSIIC IALA, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 52%<br>         <b>PM2.5:</b> 129.72 µg/m³         <span style="background:#8E44AD;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Very Poor</span><br>         <b>NO2:</b> 13.6 &nbsp;         <b>SO2:</b> 7.9 &nbsp;         <b>CO:</b> 380.0<br>         <b>Temp:</b> 26.07°C &nbsp;         <b>Wind:</b> 3.2 m/s     </div>     </div>`)[0];
+                popup_7ea5eb222f276ac4a8d1b17762988fc4.setContent(html_814391e82707b84d471689ab0f647e7d);
+            
+        
+
+        circle_marker_ade099397f1190ede8637ffdf59d454f.bindPopup(popup_7ea5eb222f276ac4a8d1b17762988fc4)
+        ;
+
+        
+    
+    
+            circle_marker_ade099397f1190ede8637ffdf59d454f.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 129.72 | Nacharam_TSIIC IALA, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_13ec2d83ce19fd889d8ab91f3d09381b = L.circleMarker(
+                [17.393559, 78.339194],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_a49201ef4bb5f2c1ae8f16635616f6ff = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_44dd2d9ce825d4fecbb160865b93d890 = $(`<div id="html_44dd2d9ce825d4fecbb160865b93d890" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Kokapet, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 44%<br>         <b>PM2.5:</b> 21.25 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 14.6 &nbsp;         <b>SO2:</b> 12.1 &nbsp;         <b>CO:</b> 180.0<br>         <b>Temp:</b> 25.68°C &nbsp;         <b>Wind:</b> 3.47 m/s     </div>     </div>`)[0];
+                popup_a49201ef4bb5f2c1ae8f16635616f6ff.setContent(html_44dd2d9ce825d4fecbb160865b93d890);
+            
+        
+
+        circle_marker_13ec2d83ce19fd889d8ab91f3d09381b.bindPopup(popup_a49201ef4bb5f2c1ae8f16635616f6ff)
+        ;
+
+        
+    
+    
+            circle_marker_13ec2d83ce19fd889d8ab91f3d09381b.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 21.25 | Kokapet, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_20e5ac0147f0ebf79306176c3b441e26 = L.circleMarker(
+                [17.37206, 78.50864],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E74C3C", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_634da252a2656c104eb0809240a572bf = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_38a9bec3d920635bda4df5a71b7766fc = $(`<div id="html_38a9bec3d920635bda4df5a71b7766fc" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">New Malakpet, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#E74C3C;color:white;padding:2px 8px;border-radius:4px;">             Vehicular</span><br>         <b>Confidence:</b> 38%<br>         <b>PM2.5:</b> 27.66 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 14.1 &nbsp;         <b>SO2:</b> 47.1 &nbsp;         <b>CO:</b> 1000.0<br>         <b>Temp:</b> 25.85°C &nbsp;         <b>Wind:</b> 3.31 m/s     </div>     </div>`)[0];
+                popup_634da252a2656c104eb0809240a572bf.setContent(html_38a9bec3d920635bda4df5a71b7766fc);
+            
+        
+
+        circle_marker_20e5ac0147f0ebf79306176c3b441e26.bindPopup(popup_634da252a2656c104eb0809240a572bf)
+        ;
+
+        
+    
+    
+            circle_marker_20e5ac0147f0ebf79306176c3b441e26.bindTooltip(
+                `<div>
+                     Vehicular | PM2.5: 27.66 | New Malakpet, Hyderabad - TSPCB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_01c111da143e309649916edeaf28dc5d = L.circleMarker(
+                [17.492676, 78.405394],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498DB", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2358f508e8baba38a4c4174cfc712e21);
+        
+    
+        var popup_a5f343e74190481bf44b8df7fd2ecb12 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_11555a856a45defda9890293a2415850 = $(`<div id="html_11555a856a45defda9890293a2415850" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:230px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Hyderabad</h4>         <hr style="margin:4px 0;">         <b>Source:</b>         <span style="background:#3498DB;color:white;padding:2px 8px;border-radius:4px;">             Industrial</span><br>         <b>Confidence:</b> 100%<br>         <b>PM2.5:</b> 16.686041355133057 µg/m³         <span style="background:#2ECC71;color:white;                      padding:1px 6px;border-radius:3px;font-size:11px;">             Good</span><br>         <b>NO2:</b> 25.3 &nbsp;         <b>SO2:</b> 9.8 &nbsp;         <b>CO:</b> 1.51<br>         <b>Temp:</b> 26.21°C &nbsp;         <b>Wind:</b> 3.45 m/s     </div>     </div>`)[0];
+                popup_a5f343e74190481bf44b8df7fd2ecb12.setContent(html_11555a856a45defda9890293a2415850);
+            
+        
+
+        circle_marker_01c111da143e309649916edeaf28dc5d.bindPopup(popup_a5f343e74190481bf44b8df7fd2ecb12)
+        ;
+
+        
+    
+    
+            circle_marker_01c111da143e309649916edeaf28dc5d.bindTooltip(
+                `<div>
+                     Industrial | PM2.5: 16.686041355133057 | Hyderabad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_2358f508e8baba38a4c4174cfc712e21.addTo(map_88429bee0c60e3e2d79e39c5581f71fd);
+        
+    
+            var layer_control_60e6ba015794fe21e9d083e3c6160f57_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_bb808099ac7bb4c957c95f8fc763f994,
+                },
+                overlays :  {
+                    "PM2.5 Heatmap" : heat_map_27f67b90aad7d1fcc048b6c049f37003,
+                    "Pollution Sources" : feature_group_2358f508e8baba38a4c4174cfc712e21,
+                },
+            };
+            let layer_control_60e6ba015794fe21e9d083e3c6160f57 = L.control.layers(
+                layer_control_60e6ba015794fe21e9d083e3c6160f57_layers.base_layers,
+                layer_control_60e6ba015794fe21e9d083e3c6160f57_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_88429bee0c60e3e2d79e39c5581f71fd);
+
+        
+</script>
+</html>

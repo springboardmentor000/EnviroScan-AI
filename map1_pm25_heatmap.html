@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b008a0dff14f3c72b28a91d46dc439d5 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+<div style="position:fixed;bottom:30px;left:30px;z-index:1000;background:white;
+            padding:12px;border-radius:8px;border:2px solid #ccc;font-family:Arial;font-size:12px;">
+    <b>PM2.5 AQI Levels</b><br>
+    <span style="background:#2ECC71;color:white;padding:1px 8px;border-radius:3px;">Good</span> 0-30 µg/m³<br>
+    <span style="background:#F1C40F;color:white;padding:1px 8px;border-radius:3px;">Satisfactory</span> 31-60<br>
+    <span style="background:#F39C12;color:white;padding:1px 8px;border-radius:3px;">Moderate</span> 61-90<br>
+    <span style="background:#E74C3C;color:white;padding:1px 8px;border-radius:3px;">Poor</span> 91-120<br>
+    <span style="background:#8E44AD;color:white;padding:1px 8px;border-radius:3px;">Very Poor</span> 121-250<br>
+</div>
+    
+            <div class="folium-map" id="map_b008a0dff14f3c72b28a91d46dc439d5" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b008a0dff14f3c72b28a91d46dc439d5 = L.map(
+                "map_b008a0dff14f3c72b28a91d46dc439d5",
+                {
+                    center: [17.385, 78.4867],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_91cf0e5d640039886d4c89ce1f209d85 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_91cf0e5d640039886d4c89ce1f209d85.addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+            var heat_map_2ef6f68733058c674364d0727a2bd7ed = L.heatLayer(
+                [[17.349694, 78.451437, 63.0], [17.443464, 78.47489, 80.0], [17.423297, 78.474697, 157.0], [17.540891, 78.358528, 52.0], [17.460103, 78.334361, 26.0], [17.455946, 78.433215, 32.0], [17.38405, 78.45636, 79.8], [17.470431, 78.566959, 15.35], [17.544899, 78.486949, 28.26], [17.417094, 78.457437, 69.53], [17.429398, 78.569354, 129.72], [17.393559, 78.339194, 21.25], [17.37206, 78.50864, 27.66], [17.492676, 78.405394, 16.686041355133057]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 13,
+  "radius": 40,
+  "blur": 25,
+  "gradient": {
+  "0.2": "blue",
+  "0.4": "lime",
+  "0.6": "yellow",
+  "0.8": "orange",
+  "1.0": "red",
+},
+}
+            );
+        
+    
+            heat_map_2ef6f68733058c674364d0727a2bd7ed.addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+            var circle_marker_ca0560d65c04afc95484677c627310b5 = L.circleMarker(
+                [17.349694, 78.451437],
+                {"bubblingMouseEvents": true, "color": "#F39C12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F39C12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_c16a90c8fe80486fe748bc137705affa = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ab766a39d4ce9831b3620df7c46eba5d = $(`<div id="html_ab766a39d4ce9831b3620df7c46eba5d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Zoo Park, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 63.0 µg/m³ &nbsp;         <span style="background:#F39C12;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Moderate</span><br>         <b>PM10:</b> 123.0 µg/m³<br>         <b>NO2:</b> 88.2 µg/m³<br>         <b>SO2:</b> 2.4 µg/m³<br>         <b>CO:</b> 0.1 mg/m³<br>         <b>Temp:</b> 25.29°C &nbsp; <b>Humidity:</b> 34%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Vehicular<br>         <b>Confidence:</b> 100%     </div>     </div>`)[0];
+                popup_c16a90c8fe80486fe748bc137705affa.setContent(html_ab766a39d4ce9831b3620df7c46eba5d);
+            
+        
+
+        circle_marker_ca0560d65c04afc95484677c627310b5.bindPopup(popup_c16a90c8fe80486fe748bc137705affa)
+        ;
+
+        
+    
+    
+            circle_marker_ca0560d65c04afc95484677c627310b5.bindTooltip(
+                `<div>
+                     Zoo Park, Hyderabad - TSPCB — PM2.5: 63.0 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_548e40a8bf197647d310705e60b3e987 = L.circleMarker(
+                [17.443464, 78.47489],
+                {"bubblingMouseEvents": true, "color": "#F39C12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F39C12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_a74a55fd03171d9255d0da96499c1e64 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_838d27cb3d858a84a47b84cf966f8fe2 = $(`<div id="html_838d27cb3d858a84a47b84cf966f8fe2" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">US Diplomatic Post: Hyderabad</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 80.0 µg/m³ &nbsp;         <span style="background:#F39C12;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Moderate</span><br>         <b>PM10:</b> 123.6 µg/m³<br>         <b>NO2:</b> 25.3 µg/m³<br>         <b>SO2:</b> 9.8 µg/m³<br>         <b>CO:</b> 1.51 mg/m³<br>         <b>Temp:</b> 26.29°C &nbsp; <b>Humidity:</b> 33%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Vehicular<br>         <b>Confidence:</b> 46%     </div>     </div>`)[0];
+                popup_a74a55fd03171d9255d0da96499c1e64.setContent(html_838d27cb3d858a84a47b84cf966f8fe2);
+            
+        
+
+        circle_marker_548e40a8bf197647d310705e60b3e987.bindPopup(popup_a74a55fd03171d9255d0da96499c1e64)
+        ;
+
+        
+    
+    
+            circle_marker_548e40a8bf197647d310705e60b3e987.bindTooltip(
+                `<div>
+                     US Diplomatic Post: Hyderabad — PM2.5: 80.0 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f42745a1f2f29d0c515117f21c00ebf6 = L.circleMarker(
+                [17.423297, 78.474697],
+                {"bubblingMouseEvents": true, "color": "#8E44AD", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8E44AD", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_5cf9293d23b4111e86c687b937ff1c18 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6d0f659f578598bd1aeca692c4b28936 = $(`<div id="html_6d0f659f578598bd1aeca692c4b28936" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Sanathnagar, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 157.0 µg/m³ &nbsp;         <span style="background:#8E44AD;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Very Poor</span><br>         <b>PM10:</b> 123.6 µg/m³<br>         <b>NO2:</b> 25.3 µg/m³<br>         <b>SO2:</b> 4.2 µg/m³<br>         <b>CO:</b> 270.0 mg/m³<br>         <b>Temp:</b> 26.29°C &nbsp; <b>Humidity:</b> 33%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 41%     </div>     </div>`)[0];
+                popup_5cf9293d23b4111e86c687b937ff1c18.setContent(html_6d0f659f578598bd1aeca692c4b28936);
+            
+        
+
+        circle_marker_f42745a1f2f29d0c515117f21c00ebf6.bindPopup(popup_5cf9293d23b4111e86c687b937ff1c18)
+        ;
+
+        
+    
+    
+            circle_marker_f42745a1f2f29d0c515117f21c00ebf6.bindTooltip(
+                `<div>
+                     Sanathnagar, Hyderabad - TSPCB — PM2.5: 157.0 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8640d1493b042a5a5eef9e69ff6f5c8c = L.circleMarker(
+                [17.540891, 78.358528],
+                {"bubblingMouseEvents": true, "color": "#F1C40F", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F1C40F", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_7efc8b1b8ac8fecd9962316a6023a8b5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_76a469aa59e6603f8a8fb3a7c5e1932d = $(`<div id="html_76a469aa59e6603f8a8fb3a7c5e1932d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Bollaram Industrial Area, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 52.0 µg/m³ &nbsp;         <span style="background:#F1C40F;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Satisfactory</span><br>         <b>PM10:</b> 112.0 µg/m³<br>         <b>NO2:</b> 12.9 µg/m³<br>         <b>SO2:</b> 3.6 µg/m³<br>         <b>CO:</b> 0.57 mg/m³<br>         <b>Temp:</b> 26.42°C &nbsp; <b>Humidity:</b> 36%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 67%     </div>     </div>`)[0];
+                popup_7efc8b1b8ac8fecd9962316a6023a8b5.setContent(html_76a469aa59e6603f8a8fb3a7c5e1932d);
+            
+        
+
+        circle_marker_8640d1493b042a5a5eef9e69ff6f5c8c.bindPopup(popup_7efc8b1b8ac8fecd9962316a6023a8b5)
+        ;
+
+        
+    
+    
+            circle_marker_8640d1493b042a5a5eef9e69ff6f5c8c.bindTooltip(
+                `<div>
+                     Bollaram Industrial Area, Hyderabad - TSPCB — PM2.5: 52.0 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c3c3dd40b0e541b5ce4e2cbe5536d0ae = L.circleMarker(
+                [17.460103, 78.334361],
+                {"bubblingMouseEvents": true, "color": "#2ECC71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_3bd63839800c76565ee6c8711878ab98 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_75ba05cda9b35de68fd3e13a1aae6f00 = $(`<div id="html_75ba05cda9b35de68fd3e13a1aae6f00" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Central University, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 26.0 µg/m³ &nbsp;         <span style="background:#2ECC71;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Good</span><br>         <b>PM10:</b> 86.0 µg/m³<br>         <b>NO2:</b> 8.0 µg/m³<br>         <b>SO2:</b> 5.9 µg/m³<br>         <b>CO:</b> 0.0 mg/m³<br>         <b>Temp:</b> 25.98°C &nbsp; <b>Humidity:</b> 36%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 55%     </div>     </div>`)[0];
+                popup_3bd63839800c76565ee6c8711878ab98.setContent(html_75ba05cda9b35de68fd3e13a1aae6f00);
+            
+        
+
+        circle_marker_c3c3dd40b0e541b5ce4e2cbe5536d0ae.bindPopup(popup_3bd63839800c76565ee6c8711878ab98)
+        ;
+
+        
+    
+    
+            circle_marker_c3c3dd40b0e541b5ce4e2cbe5536d0ae.bindTooltip(
+                `<div>
+                     Central University, Hyderabad - TSPCB — PM2.5: 26.0 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4985cc72e1136395f3bc61e6030f34ac = L.circleMarker(
+                [17.455946, 78.433215],
+                {"bubblingMouseEvents": true, "color": "#F1C40F", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F1C40F", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_47b2effba3213095d13fae752cab1fe5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_40077be9c68fc4107ce8ec95cdefdb1a = $(`<div id="html_40077be9c68fc4107ce8ec95cdefdb1a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Sanathnagar, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 32.0 µg/m³ &nbsp;         <span style="background:#F1C40F;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Satisfactory</span><br>         <b>PM10:</b> 123.6 µg/m³<br>         <b>NO2:</b> 22.4 µg/m³<br>         <b>SO2:</b> 8.5 µg/m³<br>         <b>CO:</b> 1.66 mg/m³<br>         <b>Temp:</b> 26.42°C &nbsp; <b>Humidity:</b> 33%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 56%     </div>     </div>`)[0];
+                popup_47b2effba3213095d13fae752cab1fe5.setContent(html_40077be9c68fc4107ce8ec95cdefdb1a);
+            
+        
+
+        circle_marker_4985cc72e1136395f3bc61e6030f34ac.bindPopup(popup_47b2effba3213095d13fae752cab1fe5)
+        ;
+
+        
+    
+    
+            circle_marker_4985cc72e1136395f3bc61e6030f34ac.bindTooltip(
+                `<div>
+                     Sanathnagar, Hyderabad - TSPCB — PM2.5: 32.0 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9468e154308363b5d87fb49e30764029 = L.circleMarker(
+                [17.38405, 78.45636],
+                {"bubblingMouseEvents": true, "color": "#F39C12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F39C12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_2fc68c801d2ef40476b7cb2d45d62fdb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_72c2a48a81839beffb347697ab19e4c8 = $(`<div id="html_72c2a48a81839beffb347697ab19e4c8" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Hyderabad</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 79.8 µg/m³ &nbsp;         <span style="background:#F39C12;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Moderate</span><br>         <b>PM10:</b> 123.6 µg/m³<br>         <b>NO2:</b> 25.3 µg/m³<br>         <b>SO2:</b> 9.8 µg/m³<br>         <b>CO:</b> 1.51 mg/m³<br>         <b>Temp:</b> 25.92°C &nbsp; <b>Humidity:</b> 33%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 100%     </div>     </div>`)[0];
+                popup_2fc68c801d2ef40476b7cb2d45d62fdb.setContent(html_72c2a48a81839beffb347697ab19e4c8);
+            
+        
+
+        circle_marker_9468e154308363b5d87fb49e30764029.bindPopup(popup_2fc68c801d2ef40476b7cb2d45d62fdb)
+        ;
+
+        
+    
+    
+            circle_marker_9468e154308363b5d87fb49e30764029.bindTooltip(
+                `<div>
+                     Hyderabad — PM2.5: 79.8 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_63efb2fc7ba2e13831100fffaf917d83 = L.circleMarker(
+                [17.470431, 78.566959],
+                {"bubblingMouseEvents": true, "color": "#2ECC71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_7f4a47e617af3cad62cadd02237cc670 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_61fe8667738e5704195bbfc802671403 = $(`<div id="html_61fe8667738e5704195bbfc802671403" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">ECIL Kapra, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 15.35 µg/m³ &nbsp;         <span style="background:#2ECC71;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Good</span><br>         <b>PM10:</b> 24.5 µg/m³<br>         <b>NO2:</b> 14.2 µg/m³<br>         <b>SO2:</b> 3.9 µg/m³<br>         <b>CO:</b> 800.0 mg/m³<br>         <b>Temp:</b> 26.11°C &nbsp; <b>Humidity:</b> 32%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Burning<br>         <b>Confidence:</b> 24%     </div>     </div>`)[0];
+                popup_7f4a47e617af3cad62cadd02237cc670.setContent(html_61fe8667738e5704195bbfc802671403);
+            
+        
+
+        circle_marker_63efb2fc7ba2e13831100fffaf917d83.bindPopup(popup_7f4a47e617af3cad62cadd02237cc670)
+        ;
+
+        
+    
+    
+            circle_marker_63efb2fc7ba2e13831100fffaf917d83.bindTooltip(
+                `<div>
+                     ECIL Kapra, Hyderabad - TSPCB — PM2.5: 15.35 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_08a23c4d97552e866e6666fc86afe384 = L.circleMarker(
+                [17.544899, 78.486949],
+                {"bubblingMouseEvents": true, "color": "#2ECC71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_35bbd61df63c473a5fe64357a3a01da7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_14bace82cc1b534e960812fe9652461a = $(`<div id="html_14bace82cc1b534e960812fe9652461a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Kompally Municipal Office, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 28.26 µg/m³ &nbsp;         <span style="background:#2ECC71;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Good</span><br>         <b>PM10:</b> 27.4 µg/m³<br>         <b>NO2:</b> 3.0 µg/m³<br>         <b>SO2:</b> 5.3 µg/m³<br>         <b>CO:</b> 240.0 mg/m³<br>         <b>Temp:</b> 26.26°C &nbsp; <b>Humidity:</b> 34%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Agricultural<br>         <b>Confidence:</b> 50%     </div>     </div>`)[0];
+                popup_35bbd61df63c473a5fe64357a3a01da7.setContent(html_14bace82cc1b534e960812fe9652461a);
+            
+        
+
+        circle_marker_08a23c4d97552e866e6666fc86afe384.bindPopup(popup_35bbd61df63c473a5fe64357a3a01da7)
+        ;
+
+        
+    
+    
+            circle_marker_08a23c4d97552e866e6666fc86afe384.bindTooltip(
+                `<div>
+                     Kompally Municipal Office, Hyderabad - TSPCB — PM2.5: 28.26 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8e70d6304354e519a964b1c4446d8286 = L.circleMarker(
+                [17.417094, 78.457437],
+                {"bubblingMouseEvents": true, "color": "#F39C12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F39C12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_dac7672acd6cb2e77e37e08a6047fef1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a5cccfe793a2b1eec9d724e9d9a3f166 = $(`<div id="html_a5cccfe793a2b1eec9d724e9d9a3f166" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Somajiguda, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 69.53 µg/m³ &nbsp;         <span style="background:#F39C12;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Moderate</span><br>         <b>PM10:</b> 186.9 µg/m³<br>         <b>NO2:</b> 47.3 µg/m³<br>         <b>SO2:</b> 4.6 µg/m³<br>         <b>CO:</b> 1210.0 mg/m³<br>         <b>Temp:</b> 26.29°C &nbsp; <b>Humidity:</b> 33%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Vehicular<br>         <b>Confidence:</b> 54%     </div>     </div>`)[0];
+                popup_dac7672acd6cb2e77e37e08a6047fef1.setContent(html_a5cccfe793a2b1eec9d724e9d9a3f166);
+            
+        
+
+        circle_marker_8e70d6304354e519a964b1c4446d8286.bindPopup(popup_dac7672acd6cb2e77e37e08a6047fef1)
+        ;
+
+        
+    
+    
+            circle_marker_8e70d6304354e519a964b1c4446d8286.bindTooltip(
+                `<div>
+                     Somajiguda, Hyderabad - TSPCB — PM2.5: 69.53 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_196515932bd0abf28bc65607b775a693 = L.circleMarker(
+                [17.429398, 78.569354],
+                {"bubblingMouseEvents": true, "color": "#8E44AD", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8E44AD", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_b1e18a68cf22121b4dd3e1b9f1f55cc8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8aa3570230cbb46af2a895a55104c921 = $(`<div id="html_8aa3570230cbb46af2a895a55104c921" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Nacharam_TSIIC IALA, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 129.72 µg/m³ &nbsp;         <span style="background:#8E44AD;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Very Poor</span><br>         <b>PM10:</b> 107.2 µg/m³<br>         <b>NO2:</b> 13.6 µg/m³<br>         <b>SO2:</b> 7.9 µg/m³<br>         <b>CO:</b> 380.0 mg/m³<br>         <b>Temp:</b> 26.07°C &nbsp; <b>Humidity:</b> 32%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 52%     </div>     </div>`)[0];
+                popup_b1e18a68cf22121b4dd3e1b9f1f55cc8.setContent(html_8aa3570230cbb46af2a895a55104c921);
+            
+        
+
+        circle_marker_196515932bd0abf28bc65607b775a693.bindPopup(popup_b1e18a68cf22121b4dd3e1b9f1f55cc8)
+        ;
+
+        
+    
+    
+            circle_marker_196515932bd0abf28bc65607b775a693.bindTooltip(
+                `<div>
+                     Nacharam_TSIIC IALA, Hyderabad - TSPCB — PM2.5: 129.72 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_001d3f9453bf00906a10d08bb2584c5c = L.circleMarker(
+                [17.393559, 78.339194],
+                {"bubblingMouseEvents": true, "color": "#2ECC71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_ca062971c088d6c158d53453e29e9a89 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4c05a90afbe1ddb9e95d610830310385 = $(`<div id="html_4c05a90afbe1ddb9e95d610830310385" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Kokapet, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 21.25 µg/m³ &nbsp;         <span style="background:#2ECC71;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Good</span><br>         <b>PM10:</b> 30.4 µg/m³<br>         <b>NO2:</b> 14.6 µg/m³<br>         <b>SO2:</b> 12.1 µg/m³<br>         <b>CO:</b> 180.0 mg/m³<br>         <b>Temp:</b> 25.68°C &nbsp; <b>Humidity:</b> 36%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 44%     </div>     </div>`)[0];
+                popup_ca062971c088d6c158d53453e29e9a89.setContent(html_4c05a90afbe1ddb9e95d610830310385);
+            
+        
+
+        circle_marker_001d3f9453bf00906a10d08bb2584c5c.bindPopup(popup_ca062971c088d6c158d53453e29e9a89)
+        ;
+
+        
+    
+    
+            circle_marker_001d3f9453bf00906a10d08bb2584c5c.bindTooltip(
+                `<div>
+                     Kokapet, Hyderabad - TSPCB — PM2.5: 21.25 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4cd688149123997eda1706474434a8de = L.circleMarker(
+                [17.37206, 78.50864],
+                {"bubblingMouseEvents": true, "color": "#2ECC71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_c87dd21e6a10ff488e162d678e269250 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8d8a0e3248c56a66fa2791e8718a95ea = $(`<div id="html_8d8a0e3248c56a66fa2791e8718a95ea" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">New Malakpet, Hyderabad - TSPCB</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 27.66 µg/m³ &nbsp;         <span style="background:#2ECC71;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Good</span><br>         <b>PM10:</b> 70.5 µg/m³<br>         <b>NO2:</b> 14.1 µg/m³<br>         <b>SO2:</b> 47.1 µg/m³<br>         <b>CO:</b> 1000.0 mg/m³<br>         <b>Temp:</b> 25.85°C &nbsp; <b>Humidity:</b> 32%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Vehicular<br>         <b>Confidence:</b> 38%     </div>     </div>`)[0];
+                popup_c87dd21e6a10ff488e162d678e269250.setContent(html_8d8a0e3248c56a66fa2791e8718a95ea);
+            
+        
+
+        circle_marker_4cd688149123997eda1706474434a8de.bindPopup(popup_c87dd21e6a10ff488e162d678e269250)
+        ;
+
+        
+    
+    
+            circle_marker_4cd688149123997eda1706474434a8de.bindTooltip(
+                `<div>
+                     New Malakpet, Hyderabad - TSPCB — PM2.5: 27.66 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2912bf6720af1c8cff434dd0d683bc4b = L.circleMarker(
+                [17.492676, 78.405394],
+                {"bubblingMouseEvents": true, "color": "#2ECC71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ECC71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_b008a0dff14f3c72b28a91d46dc439d5);
+        
+    
+        var popup_3eb0b09e4d973978c353266a52ddc6c2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_04f0d4fee657f12b56d6640ff23d7e56 = $(`<div id="html_04f0d4fee657f12b56d6640ff23d7e56" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial; width:220px;">         <h4 style="color:#1F5C99; margin:0 0 8px 0;">Hyderabad</h4>         <hr style="margin:4px 0;">         <b>PM2.5:</b> 16.686041355133057 µg/m³ &nbsp;         <span style="background:#2ECC71;color:white;padding:2px 6px;border-radius:4px;font-size:11px;">Good</span><br>         <b>PM10:</b> 123.6 µg/m³<br>         <b>NO2:</b> 25.3 µg/m³<br>         <b>SO2:</b> 9.8 µg/m³<br>         <b>CO:</b> 1.51 mg/m³<br>         <b>Temp:</b> 26.21°C &nbsp; <b>Humidity:</b> 35%<br>         <hr style="margin:4px 0;">         <b>Source:</b> Industrial<br>         <b>Confidence:</b> 100%     </div>     </div>`)[0];
+                popup_3eb0b09e4d973978c353266a52ddc6c2.setContent(html_04f0d4fee657f12b56d6640ff23d7e56);
+            
+        
+
+        circle_marker_2912bf6720af1c8cff434dd0d683bc4b.bindPopup(popup_3eb0b09e4d973978c353266a52ddc6c2)
+        ;
+
+        
+    
+    
+            circle_marker_2912bf6720af1c8cff434dd0d683bc4b.bindTooltip(
+                `<div>
+                     Hyderabad — PM2.5: 16.686041355133057 µg/m³
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
