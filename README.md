@@ -250,16 +250,16 @@ This ensures that all features contribute equally to the model and prevents bias
 
 The following classification models are implemented:
 
-- Decision Tree
+- Decision Tree: 
   A rule-based model that classifies data using hierarchical decision structures.
 
-- Random Forest
+- Random Forest: 
   An ensemble learning algorithm that combines multiple decision trees to improve accuracy and reduce overfitting.
 
-- XGBoost
+- XGBoost: 
   A gradient boosting algorithm known for high performance, efficiency, and scalability.
 
-- Cross Validation
+- Cross Validation: 
   To ensure model reliability and robustness, 5-Fold Cross Validation is applied.
 ---
 
