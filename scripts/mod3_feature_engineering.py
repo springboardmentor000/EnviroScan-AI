@@ -14,6 +14,7 @@ def feature_engineering():
         air.sort_values("timestamp"),
         weather.sort_values("timestamp"),
         on="timestamp",
+        by="location",
         direction="nearest"
     )
 

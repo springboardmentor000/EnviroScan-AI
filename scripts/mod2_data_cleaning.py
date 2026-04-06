@@ -7,7 +7,7 @@ def clean_weather_data():
 
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
 
-    df.fillna(method="ffill", inplace=True)
+    df.ffill(inplace=True)
 
     df.to_csv("data/processed/weather_cleaned.csv", index=False)
 
@@ -20,7 +20,7 @@ def clean_air_quality_data():
 
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
 
-    df.fillna(method="ffill", inplace=True)
+    df.ffill(inplace=True)
 
     df.to_csv("data/processed/air_quality_cleaned.csv", index=False)
 

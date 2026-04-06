@@ -10,7 +10,7 @@ def collect_air_quality():
     data = []
 
     for loc in LOCATIONS:
-        for i in range(70):  
+        for i in range(240):  
 
             data.append({
                 "location": loc["name"],
