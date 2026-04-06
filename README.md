@@ -250,20 +250,20 @@ This ensures that all features contribute equally to the model and prevents bias
 
 The following classification models are implemented:
 
-- Decision Tree: 
+- Decision Tree : 
   A rule-based model that classifies data using hierarchical decision structures.
 
-- Random Forest: 
+- Random Forest : 
   An ensemble learning algorithm that combines multiple decision trees to improve accuracy and reduce overfitting.
 
-- XGBoost: 
+- XGBoost : 
   A gradient boosting algorithm known for high performance, efficiency, and scalability.
 
-- Cross Validation: 
+- Cross Validation : 
   To ensure model reliability and robustness, 5-Fold Cross Validation is applied.
 ---
 
-5. Hyperparameter Tuning
+4. Hyperparameter Tuning
 
 Hyperparameter tuning is performed through controlled parameter selection and model comparison.
 
@@ -277,7 +277,7 @@ This helps improve model performance and ensures better generalization.
 
 ---
 
-6. Model Evaluation Metrics
+5. Model Evaluation Metrics
 
 Model performance is evaluated using the following metrics:
 
@@ -291,7 +291,7 @@ These metrics help assess how well the model predicts pollution sources.
 
 ---
 
-7. Model Selection
+6. Model Selection
 
 All models are compared based on:
 
@@ -302,7 +302,7 @@ The best-performing model is selected as the final model for deployment.
 
 ---
 
-8. Model Export
+7. Model Export
 
 The final trained model is saved using joblib:
 
