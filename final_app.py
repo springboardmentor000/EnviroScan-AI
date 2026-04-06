@@ -12,8 +12,8 @@ from folium.plugins import HeatMap, MarkerCluster
 
 st.set_page_config(layout="wide", page_title="EnviroScan", page_icon="🌐")
 
-WEATHER_KEY = "4418090bafbbeac22965bf2a0b65a75b"
-OPENAQ_KEY = "86cc13fc2903a925f8b0785b10aa36d73439de75a5ea65461d06cd1dcdcb7113"
+WEATHER_KEY = "add_your_API_key"
+OPENAQ_KEY = "add_your_API_key"
 
 
 # LOAD DATA
