@@ -14,8 +14,8 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 from xgboost import XGBClassifier
 
 
-OPENAQ_API_KEY = "86cc13fc2903a925f8b0785b10aa36d73439de75a5ea65461d06cd1dcdcb7113"
-OPENWEATHER_API_KEY = "4418090bafbbeac22965bf2a0b65a75b"
+OPENAQ_API_KEY = "add_your_API_key"
+OPENWEATHER_API_KEY = "add_your_API_key"
 
 headers = {"X-API-Key": OPENAQ_API_KEY}
 IST = ZoneInfo("Asia/Kolkata")
