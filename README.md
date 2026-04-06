@@ -259,22 +259,8 @@ The following classification models are implemented:
 - XGBoost
   A gradient boosting algorithm known for high performance, efficiency, and scalability.
 
----
-
-4. Cross Validation
-
-To ensure model reliability and robustness, 5-Fold Cross Validation is applied.
-
-Process:
-
-1. The dataset is divided into 5 subsets
-2. The model is trained on 4 subsets
-3. Tested on the remaining subset
-4. This process is repeated 5 times
-5. The average accuracy is calculated
-
-This reduces overfitting and ensures consistent model performance.
-
+- Cross Validation
+  To ensure model reliability and robustness, 5-Fold Cross Validation is applied.
 ---
 
 5. Hyperparameter Tuning
