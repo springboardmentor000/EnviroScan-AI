@@ -46,7 +46,9 @@ ________________________________________
  Module-Wise Documentation
 ________________________________________
  Module 1: Data Collection
- module1.py
+
+
+module1.py
 Objective:
 To generate a comprehensive dataset by collecting pollution and weather data from multiple Indian cities.
 Key Functionalities:
@@ -68,6 +70,8 @@ Output:
 dataset.csv
 ________________________________________
  Module 2: Data Cleaning & Feature Engineering
+ 
+ 
  module2.py
 Objective:
 To clean raw data and transform it into a structured format suitable for machine learning.
@@ -84,6 +88,8 @@ Output:
 clean_environment_dataset.csv
 ________________________________________
 Module 3: Source Labeling
+
+
 module3.py
 Objective:
 To assign pollution source labels using rule-based logic.
@@ -101,6 +107,8 @@ Output:
 labeled_environment_dataset.csv
 ________________________________________
  Module 4: Model Training & Prediction
+ 
+ 
  module4.py
 Objective:
 To train machine learning models for predicting pollution sources.
@@ -126,6 +134,8 @@ Additional Features:
 •	Suggestion system based on prediction 
 ________________________________________
  Module 5: Geospatial Visualization
+ 
+ 
  module5.py
 Objective:
 To visualize pollution data and predicted sources using interactive maps.
