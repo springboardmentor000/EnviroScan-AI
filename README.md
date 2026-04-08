@@ -3,9 +3,9 @@ ________________________________________
 1. Introduction
 Air pollution is one of the most serious environmental challenges affecting modern cities and regions. Although existing systems can measure pollutant levels such as PM2.5 and NO₂, they are unable to identify the actual source of pollution, which limits effective decision-making.
 To address this limitation, EnviroScan is developed as an intelligent system that integrates:
-•	Machine Learning 
-•	Environmental Data Analysis 
-•	Geospatial Visualization 
+* Machine Learning 
+* Environmental Data Analysis 
+  * Geospatial Visualization 
 The system not only monitors pollution levels but also:
 •	Identifies the source of pollution 
 •	Detects high-risk pollution zones 
