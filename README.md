@@ -498,6 +498,17 @@ The dashboard integrates:
 - Real-time APIs: OpenAQ and OpenWeather
 
 ---
+Functionality Improvements (Implemented)
 
+- Integrated real-time APIs (OpenAQ, OpenWeather) with fallback mechanism for continuous data availability  
+- Added feature engineering (pollution_index, gas_ratio, pm_ratio) to improve model performance  
+- Applied feature scaling and cross-validation for reliable model training  
+- Developed an interactive Streamlit dashboard with heatmaps, source prediction, and alert system
 
+Deployment
 
+- The application is deployed using Streamlit Cloud  
+- Integrated with GitHub repository for automatic deployment  
+- Required files (model, dataset, scaler, encoder) are included in the repository  
+- Configured dependencies using requirements.txt  
+- The app is accessible via a public URL for real-time usage
