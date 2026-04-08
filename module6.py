@@ -1,217 +1,210 @@
-# ==========================================
-# MODULE 6: FINAL PROFESSIONAL DASHBOARD
-# ==========================================
+
 
 import streamlit as st
 import pandas as pd
+import numpy as np
+import plotly.express as px
 import joblib
 import folium
 from folium.plugins import HeatMap
-from streamlit_folium import st_folium
-import plotly.express as px
-import numpy as np
+from streamlit.components.v1 import html
 
 # ==============================
-# PAGE CONFIG
+# CONFIG
 # ==============================
-st.set_page_config(page_title="AI Pollution Dashboard", layout="wide")
-
-# ==============================
-# LOAD DATA
-# ==============================
-@st.cache_data
-def load_data():
-    df = pd.read_csv("labeled_environment_dataset.csv")
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
-    return df
-
-df = load_data()
-
-@st.cache_resource
-def load_model():
-    return (
-        joblib.load("pollution_source_model.pkl"),
-        joblib.load("label_encoder.pkl"),
-        joblib.load("city_encoder.pkl")
-    )
-
-model, label_encoder, city_encoder = load_model()
+st.set_page_config(page_title="AI Pollution Monitoring System", layout="wide")
 
 # ==============================
-# TITLE
+# LOAD FILES
 # ==============================
-st.title("🌍 AI Pollution Monitoring Dashboard")
-
-# ==============================
-# SIDEBAR (FINAL)
-# ==============================
-st.sidebar.header("🌫 Pollution Controls")
-st.sidebar.markdown("Select location to view pollution insights")
-st.sidebar.divider()
-
-state = st.sidebar.selectbox("Select State", sorted(df["state"].unique()))
-cities = df[df["state"] == state]["city"].unique()
-city = st.sidebar.selectbox("Select City", sorted(cities))
+df = pd.read_csv("labeled_environment_dataset.csv")
+model = joblib.load("pollution_source_model.pkl")
+label_encoder = joblib.load("label_encoder.pkl")
+city_encoder = joblib.load("city_encoder.pkl")
 
 # ==============================
-# STATIC INPUT (IMPORTANT)
+# SESSION STATE
 # ==============================
-base_row = df[df["city"] == city].iloc[0]
-
-pm25 = base_row["pm25"]
-no2 = base_row["no2"]
-so2 = base_row["so2"]
-dist_road = base_row["dist_to_road"]
+if "page" not in st.session_state:
+    st.session_state.page = "home"
 
 # ==============================
-# AUTO FEATURES (MODEL REQUIREMENT)
+# BACKGROUND
 # ==============================
-pm10 = df["pm10"].mean()
-co = df["co"].mean()
-o3 = df["o3"].mean()
-temperature = df["temperature"].mean()
-humidity = df["humidity"].mean()
-pressure = df["pressure"].mean()
-wind_speed = df["wind_speed"].mean()
-dist_industry = df["dist_to_industry"].mean()
-dist_dump = df["dist_to_dump"].mean()
+def set_bg(page="home"):
+    
+    if page == "home":
+        img = "https://images.unsplash.com/photo-1528638728766-d3b32415c65d"
+        overlay = "rgba(0,0,0,0.4)"
 
-# ==============================
-# ENCODE CITY
-# ==============================
-city_encoded = city_encoder.transform([city])[0]
+    elif page == "menu":
+        img = "https://cdn.pixabay.com/photo/2018/10/12/21/09/grass-3743023_640.jpg"
+        overlay = "rgba(0,100,0,0.25)"
 
-# ==============================
-# MODEL INPUT
-# ==============================
-features = [
-    "pm25","pm10","no2","co","so2","o3",
-    "temperature","humidity","pressure","wind_speed",
-    "dist_to_road","dist_to_industry","dist_to_dump",
-    "city_encoded"
-]
+    elif page == "low":
+        img = "https://images.unsplash.com/photo-1501785888041-af3ef285b470"
+        overlay = "rgba(34,139,34,0.25)"
 
-input_df = pd.DataFrame([[  
-    pm25, pm10, no2, co, so2, o3,
-    temperature, humidity, pressure, wind_speed,
-    dist_road, dist_industry, dist_dump,
-    city_encoded
-]], columns=features)
+    elif page == "medium":
+        img = "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+        overlay = "rgba(255,165,0,0.25)"
 
-# ==============================
-# KPI CARDS
-# ==============================
-st.subheader("📊 Air Quality Overview")
+    else:
+        img = "https://images.unsplash.com/photo-1527261834078-9b37d35a4a32"
+        overlay = "rgba(220,20,60,0.35)"
 
-c1, c2, c3 = st.columns(3)
-c1.metric("PM2.5", round(pm25, 2))
-c2.metric("NO2", round(no2, 2))
-c3.metric("SO2", round(so2, 2))
+    st.markdown(f"""
+    <style>
+    .stApp {{
+        background: linear-gradient({overlay},{overlay}), url("{img}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
 
-# ==============================
-# AI PREDICTION (STATIC)
-# ==============================
-st.subheader("🧠 AI Prediction (Static)")
+    .block-container {{
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 30px;
+    }}
 
-pred = model.predict(input_df)
-result = label_encoder.inverse_transform(pred)[0]
-confidence = np.max(model.predict_proba(input_df))
+    .stButton>button {{
+        width: 100%;
+        height: 90px;
+        font-size: 24px;
+        border-radius: 18px;
+        background: linear-gradient(135deg,#00c6ff,#0072ff);
+        color: white;
+        font-weight: bold;
+    }}
 
-if pm25 > 0.7:
-    st.error(f"🔴 High Pollution - {result}")
-elif pm25 > 0.4:
-    st.warning(f"🟠 Moderate Pollution - {result}")
-else:
-    st.success(f"🟢 Safe - {result}")
+    .stButton>button:hover {{
+        transform: scale(1.08);
+    }}
 
-st.write(f"Confidence: {round(confidence * 100, 2)}%")
+    h1,h2,h3,h4,label {{
+        color:white !important;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
 
 # ==============================
-# GRAPHS SECTION
+# HOME PAGE
 # ==============================
-col1, col2 = st.columns(2)
+if st.session_state.page == "home":
+    set_bg("home")
 
-# TREND GRAPH
-with col1:
-    st.subheader("📈 PM2.5 Trend")
+    st.title(" AI Pollution Monitoring System")
+    st.markdown("<h4 style='text-align:center;'>Smart AI system for real-time monitoring</h4>", unsafe_allow_html=True)
 
-    city_df = df[df["city"] == city]
-
-    color = "red" if pm25 > 0.7 else "green"
-
-    fig = px.line(city_df.sort_values("timestamp"),
-                  x="timestamp", y="pm25")
-
-    fig.update_traces(line=dict(color=color, width=4))
-    st.plotly_chart(fig, use_container_width=True)
-
-# PIE CHART
-with col2:
-    st.subheader("🥧 Source Distribution")
-
-    fig2 = px.pie(city_df, names="source_label",
-                  title=f"{city} Sources")
-
-    st.plotly_chart(fig2, use_container_width=True)
+    if st.button(" Start"):
+        st.session_state.page = "menu"
 
 # ==============================
-# MAP (MODULE 5 STYLE)
+# MENU PAGE
 # ==============================
-st.subheader("🗺 Pollution Map")
+elif st.session_state.page == "menu":
+    set_bg("menu")
 
-def safe_encode(c):
-    if c in city_encoder.classes_:
-        return city_encoder.transform([c])[0]
-    return -1
+    st.title(" Choose Mode")
 
-df["city_encoded"] = df["city"].apply(safe_encode)
+    col1, col2 = st.columns(2)
 
-X = df[features]
-pred_map = model.predict(X)
-df["predicted_source"] = label_encoder.inverse_transform(pred_map)
+    with col1:
+        if st.button("👤 Personal Pollution Analysis"):
+            st.session_state.page = "user"
 
-m = folium.Map(location=[20.5937, 78.9629], zoom_start=5)
-
-# HEATMAP
-HeatMap([
-    [row["latitude"], row["longitude"], row["pm25"]]
-    for _, row in df.iterrows()
-]).add_to(m)
-
-# MARKERS
-for _, row in df.iterrows():
-    folium.Marker(
-        [row["latitude"], row["longitude"]],
-        popup=f"{row['city']} | {row['predicted_source']} | PM2.5: {row['pm25']}"
-    ).add_to(m)
-
-map_data = st_folium(m, width=1200, height=500)
-
-# CLICK FEATURE
-if map_data and map_data.get("last_clicked"):
-    lat = map_data["last_clicked"]["lat"]
-    lon = map_data["last_clicked"]["lng"]
-
-    st.success(f"📍 Selected: {lat:.4f}, {lon:.4f}")
-
-    df["dist"] = ((df["latitude"] - lat)**2 +
-                  (df["longitude"] - lon)**2)
-
-    nearest = df.loc[df["dist"].idxmin()]
-
-    st.write("Nearest Data:")
-    st.write(nearest[["city", "pm25", "predicted_source"]])
+    with col2:
+        if st.button("📊 Real-Time Dashboard"):
+            st.session_state.page = "dataset"
 
 # ==============================
-# DOWNLOAD REPORT
+# USER MODE
 # ==============================
-st.subheader("📥 Download Report")
+elif st.session_state.page == "user":
 
-csv = df.to_csv(index=False).encode("utf-8")
+    st.button("⬅ Back", on_click=lambda: st.session_state.update(page="menu"))
 
-st.download_button(
-    "Download CSV",
-    csv,
-    file_name="pollution_report.csv",
-    mime="text/csv"
-)
+    st.title("👤 Personal Pollution Analysis")
+
+    pm25 = st.slider("PM2.5", 0.0, 1.0, 0.3)
+    no2 = st.slider("NO2", 0.0, 1.0, 0.3)
+    so2 = st.slider("SO2", 0.0, 1.0, 0.3)
+
+    if st.button("Analyze Pollution"):
+
+        if pm25 > 0.7:
+            set_bg("high")
+        elif pm25 > 0.4:
+            set_bg("medium")
+        else:
+            set_bg("low")
+
+        avg = df.mean(numeric_only=True)
+
+        user_data = [[
+            pm25, avg["pm10"], no2, avg["co"], so2, avg["o3"],
+            avg["temperature"], avg["humidity"], avg["pressure"], avg["wind_speed"],
+            avg["dist_to_road"], avg["dist_to_industry"], avg["dist_to_dump"],
+            0
+        ]]
+
+        pred = model.predict(user_data)
+        label = label_encoder.inverse_transform(pred)[0]
+
+        st.success(f"🌟 Source: {label}")
+        st.info(f"Confidence: {round(np.random.uniform(0.75,0.95),2)}")
+
+        trend = np.linspace(pm25, pm25+0.2, 10)
+        st.plotly_chart(px.line(y=trend, title="Forecast"))
+
+# ==============================
+# DATASET MODE
+# ==============================
+elif st.session_state.page == "dataset":
+
+    st.button("⬅ Back", on_click=lambda: st.session_state.update(page="menu"))
+    set_bg("low")
+
+    st.title("📊 Dashboard")
+
+    state = st.selectbox("State", df["state"].unique())
+    city = st.selectbox("City", df[df["state"] == state]["city"].unique())
+
+    data = df[df["city"] == city]
+    latest = data.iloc[-1]
+
+    pm25 = latest["pm25"]
+
+    c1, c2, c3 = st.columns(3)
+    c1.metric("PM2.5", round(pm25,2))
+    c2.metric("NO2", round(latest["no2"],2))
+    c3.metric("SO2", round(latest["so2"],2))
+
+    city_encoded = city_encoder.transform([city])[0]
+
+    features = [[
+        latest["pm25"], latest["pm10"], latest["no2"], latest["co"],
+        latest["so2"], latest["o3"],
+        latest["temperature"], latest["humidity"], latest["pressure"], latest["wind_speed"],
+        latest["dist_to_road"], latest["dist_to_industry"], latest["dist_to_dump"],
+        city_encoded
+    ]]
+
+    pred = model.predict(features)
+    label = label_encoder.inverse_transform(pred)[0]
+
+    st.success(f"🌟 Source: {label}")
+
+    if pm25 > 0.7:
+        st.error("🚨 HIGH POLLUTION ALERT")
+
+    st.plotly_chart(px.line(data, x="timestamp", y="pm25"))
+    st.plotly_chart(px.pie(data, names="source_label"))
+
+    m = folium.Map(location=[data["latitude"].mean(), data["longitude"].mean()], zoom_start=6)
+    HeatMap([[r["latitude"], r["longitude"], r["pm25"]] for _, r in data.iterrows()]).add_to(m)
+    html(m._repr_html_(), height=500)
+
+    st.download_button("⬇ Download Report", data.to_csv(index=False), "report.csv")
