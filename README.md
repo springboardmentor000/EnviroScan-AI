@@ -496,6 +496,8 @@ The dashboard integrates:
 
 - Dataset: enviro_scan_dataset.csv
 - Real-time APIs: OpenAQ and OpenWeather
+---
+Milestone 4 (Week 7–8)
 
 ---
 Functionality Improvements (Implemented)
