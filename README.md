@@ -215,6 +215,7 @@ Output
 Live deployed application accessible via URL
 ________________________________________
 5. Technologies Used
+
 •	Python
 
 •	Pandas, NumPy 
