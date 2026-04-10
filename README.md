@@ -443,6 +443,19 @@ Limitation:
 
 Overall, this module enhances usability by combining data visualization, machine learning predictions, and interactive controls into a single, intuitive interface.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+MILESTONE-4 DEPLOYMENT
+
+• The application is deployed using Streamlit Cloud.
+
+• Source code is managed using GitHub repository.
+
+• Continuous updates can be made by pushing changes to GitHub.
+
+• The deployed app can be accessed through a public URL link.
+
+• Prepared detailed project documentation including system architecture and data flow.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Results**
