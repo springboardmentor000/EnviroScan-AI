@@ -44,7 +44,6 @@ Explanation
 *	Results are visualized through an interactive dashboard and map 
 ________________________________________
  Module-Wise Documentation
-Module-wise Implementation
 Module 1: Data Collection
 
 Objective
@@ -69,6 +68,7 @@ Monitoring station
 Output
 
 Raw dataset stored as enviro_scan_dataset.csv
+________________________________________
 Module 2: Data Cleaning and Feature Engineering
 
 Objective
@@ -95,6 +95,7 @@ dump_count
 Output
 
 Cleaned and feature-rich dataset
+________________________________________
 Module 3: Source Labeling and Simulation
 
 Objective
@@ -115,6 +116,7 @@ Natural	Default classification
 Output
 
 Labeled dataset for model training
+________________________________________
 Module 4: Model Training and Source Prediction
 
 Objective
@@ -147,6 +149,7 @@ Output
 
 Trained model file (.pkl)
 Scaler and encoder files
+________________________________________
 Module 5: Geospatial Mapping and Visualization
 
 Objective
@@ -165,6 +168,7 @@ Identification of high pollution zones
 Output
 
 Interactive geospatial visualizations
+________________________________________
 Module 6: Interactive Dashboard and Real-Time Monitoring
 
 Objective
@@ -190,6 +194,7 @@ OpenWeather API
 Output
 
 Fully functional interactive dashboard
+________________________________________
 Module 7: Deployment and Integration
 
 Objective
