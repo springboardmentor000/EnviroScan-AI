@@ -1,3 +1,4 @@
+import osmnx as ox
 import pandas as pd
 
 cities = [
@@ -87,32 +88,34 @@ cities = [
     ("Kochi - Aluva", 10.10, 76.35, "rural"),
 ]
 
-
 data = []
 
 for name, lat, lon, area_type in cities:
+    point = (lat, lon)
 
-    if area_type == "urban":
-        road, industry, agriculture, dump = 40, 5, 1, 2
-    elif area_type == "industrial":
-        road, industry, agriculture, dump = 30, 15, 1, 5
-    elif area_type == "residential":
-        road, industry, agriculture, dump = 20, 3, 2, 1
-    else:
-        road, industry, agriculture, dump = 10, 1, 10, 1
+    roads = ox.geometries_from_point(point, tags={"highway": True}, dist=2000)
+    road_count = len(roads)
+
+    industries = ox.geometries_from_point(point, tags={"landuse": "industrial"}, dist=5000)
+    industry_count = len(industries)
+
+    agriculture = ox.geometries_from_point(point, tags={"landuse": "farmland"}, dist=5000)
+    agriculture_count = len(agriculture)
+
+    dumps = ox.geometries_from_point(point, tags={"landuse": "landfill"}, dist=5000)
+    dump_count = len(dumps)
 
     data.append({
         "city": name,
         "latitude": lat,
         "longitude": lon,
-        "road_count_2km": road,
-        "industry_count_5km": industry,
-        "agriculture_count_5km": agriculture,
-        "dump_count_5km": dump
+        "road_count_2km": road_count,
+        "industry_count_5km": industry_count,
+        "agriculture_count_5km": agriculture_count,
+        "dump_count_5km": dump_count
     })
 
 df = pd.DataFrame(data)
+df.to_csv("../data/static_features_osm.csv", index=False)
 
-df.to_csv("../data/static_features.csv", index=False)
-
-print("✅ Static features saved")
+print("Static features saved from OSM")

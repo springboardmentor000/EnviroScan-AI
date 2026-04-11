@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import datetime
 from streamlit_option_menu import option_menu
+import osmnx as ox
 import sys
 sys.path.append("../..")
 
@@ -24,9 +25,7 @@ with st.sidebar:
     icons=["house", "pencil-square", "map", "bar-chart"]
     )
 
-# -----------------------------
 # HOME
-# -----------------------------
 if page == "Home":
 
     import requests
@@ -36,20 +35,20 @@ if page == "Home":
     from streamlit_folium import st_folium
     import datetime
 
-    st.title("🌍 Environment Scan")
-    st.markdown("### 🔎 Pollution Insights Dashboard")
+    st.title("Environment Scan")
+    st.markdown("### Pollution Insights Dashboard")
 
     city_input = st.text_input("Enter City (e.g., Delhi, Mumbai)")
 
 
-    # ✅ Store state
+    # Store state
     if "selected_city" not in st.session_state:
         st.session_state.selected_city = None
 
     if st.button("Analyze"):
         st.session_state.selected_city = city_input
 
-    # ✅ Use stored value
+    # Use stored value
     if st.session_state.selected_city:
 
         city = st.session_state.selected_city
@@ -65,13 +64,11 @@ if page == "Home":
 
             st.success(f"Showing data for {city}")
 
-            # -----------------------------
             # CURRENT DATA
-            # -----------------------------
             air_url = f"http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API_KEY}"
             air = requests.get(air_url).json()
             comp = air["list"][0]["components"]
-            # 🔹 WEATHER DATA (ADD THIS)
+            #  WEATHER DATA (ADD THIS)
             weather_url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
             weather = requests.get(weather_url).json()
 
@@ -91,27 +88,39 @@ if page == "Home":
             col2.metric("CO", comp["co"])
             col3.metric("O3", comp["o3"])
 
-            # -----------------------------
             # HEATMAP
-            # -----------------------------
             st.subheader("Pollution Heatmap")
 
             m = folium.Map(location=[lat, lon], zoom_start=11)
 
+            pollution_value = (
+                comp["pm2_5"] + comp["pm10"] +
+                comp["no2"] + comp["so2"] +
+                comp["co"] + comp["o3"]
+            )
+
             heat_data = [
-                [lat + 0.01, lon + 0.01, comp["pm2_5"]],
-                [lat - 0.01, lon - 0.01, comp["pm2_5"]],
-                [lat + 0.02, lon - 0.01, comp["pm2_5"]],
-                [lat - 0.02, lon + 0.01, comp["pm2_5"]],
+                [lat, lon, pollution_value]
+
             ]
 
-            HeatMap(heat_data).add_to(m)
+            HeatMap(
+                heat_data,
+                gradient={
+                    0.2: 'green',    
+                    0.4: 'yellow',   
+                    0.6: 'orange',   
+                    0.8: 'red'      
+                },
+                min_opacity=0.5,
+                radius=40,
+                blur=25,
+                max_zoom=1
+            ).add_to(m)
 
             st_folium(m, width=800, height=400)
 
-              # -----------------------------
-            # LAST 5 DAYS GRAPH
-            # -----------------------------
+            # 5 DAYS 
             st.subheader("Last 5 Days Pollution Trends")
 
             history_data = []
@@ -143,9 +152,7 @@ if page == "Home":
                     fig = px.line(hist_df, x="Day", y=col, markers=True, title=f"{col.upper()} Trend")
                     st.plotly_chart(fig, use_container_width=True)
 
-            # -----------------------------
             # PREDICTION
-            # -----------------------------
             st.subheader("Predicted Pollution Source")
 
             model = joblib.load("model/final_model.pkl")
@@ -280,6 +287,7 @@ elif page == "Manual Input":
 # -----------------------------
 # MAP PAGE
 # -----------------------------
+
 elif page == "Map":
 
     import folium
@@ -287,10 +295,19 @@ elif page == "Map":
     from streamlit_folium import st_folium
 
     st.header("India Pollution Map")
+    if st.button("Refresh Live Data"):
+
+        with st.spinner("Fetching latest data..."):
+            import os
+            os.system("python scripts/milestone_3/live_data.py")
+
+        st.success("Data updated! Reloading...")
+
+        st.rerun()
 
     option = st.selectbox(
         "Select Map Type",
-        ["Pollution Heatmap", "Pollution Source Map", "Combined"]
+        ["Combined","Pollution Heatmap", "Pollution Source Map"]
     )
 
     df = pd.read_csv("data/live_data.csv")
@@ -329,21 +346,38 @@ elif page == "Map":
     # SOURCE MAP
     elif option == "Pollution Source Map":
 
-        colors = {0: "blue", 1: "red", 2: "green", 3: "purple"}
         labels = {
-            0: "Agricultural Buring",
+            0: "Agricultural Burning",
             1: "Industrial",
             2: "Natural",
             3: "Vehicular"
         }
 
+        icons = {
+            0: ("leaf", "green"),        # Agriculture
+            1: ("industry", "red"),      # Industrial
+            2: ("cloud", "blue"),        # Natural
+            3: ("car", "orange")         # Vehicular
+        }
         for _, row in df.iterrows():
-            folium.CircleMarker(
-                [row["latitude"], row["longitude"]],
-                radius=8,
-                color=colors.get(row["predicted_source"]),
-                fill=True,
-                popup=f"{row['city']} - {labels.get(row['predicted_source'])}"
+
+            icon_name, color = icons.get(row["predicted_source"], ("info-sign", "gray"))
+            popup_html = f"""
+                <b> City:</b> {row['city']}<br>
+                <b> Source:</b> {labels.get(row['predicted_source'])}<br><br>
+
+                <b> PM2.5:</b> {row['pm2.5 value']}<br>
+                <b> PM10:</b> {row['pm10 value']}<br>
+                <b> NO2:</b> {row['no2 value']}<br>
+                <b> SO2:</b> {row['so2 value']}<br>
+                <b> CO:</b> {row['co value']}<br>
+                <b> O3:</b> {row['o3 value']}<br><br>
+                <b>Date & Time:</b> {row['timestamp']}<br>
+                """
+            folium.Marker(
+                location=[row["latitude"], row["longitude"]],
+                popup=folium.Popup(popup_html, max_width=300),
+                icon=folium.Icon(color=color, icon=icon_name, prefix='fa')
             ).add_to(m)
 
     # COMBINED
@@ -362,14 +396,31 @@ elif page == "Map":
             2: "Natural",
             3: "Vehicular"
         }
-
+        icons = {
+            0: ("seedling", "green"),        # Agriculture
+            1: ("industry", "red"),      # Industrial
+            2: ("tree", "darkgreen"),        # Natural
+            3: ("car", "orange")         # Vehicular
+        }
         for _, row in df.iterrows():
-            folium.CircleMarker(
-                [row["latitude"], row["longitude"]],
-                radius=8,
-                color=colors.get(row["predicted_source"]),
-                fill=True,
-                popup=f"{row['city']} - {labels.get(row['predicted_source'])}"
+
+            icon_name, color = icons.get(row["predicted_source"], ("info-sign", "gray"))
+            popup_html = f"""
+                <b>City:</b> {row['city']}<br>
+                <b>Source:</b> {labels.get(row['predicted_source'])}<br><br>
+
+                <b>PM2.5:</b> {row['pm2.5 value']}<br>
+                <b>PM10:</b> {row['pm10 value']}<br>
+                <b>NO2:</b> {row['no2 value']}<br>
+                <b>SO2:</b> {row['so2 value']}<br>
+                <b>CO:</b> {row['co value']}<br>
+                <b>O3:</b> {row['o3 value']}<br><br>
+                <b>Date & Time:</b> {row['timestamp']}<br>
+                """
+            folium.Marker(
+                location=[row["latitude"], row["longitude"]],
+                 popup=folium.Popup(popup_html, max_width=300),
+                icon=folium.Icon(color=color, icon=icon_name, prefix='fa')
             ).add_to(m)
 
     st_folium(m, width=1000, height=600)
@@ -378,6 +429,14 @@ elif page == "Map":
 # DATA VIEW
 # -----------------------------
 elif page == "Data View":
+    if st.button("Refresh Live Data"):
 
+        with st.spinner("Fetching latest data..."):
+            import os
+            os.system("python scripts/milestone_3/live_data.py")
+
+        st.success(" Data updated! Reloading...")
+
+        st.rerun()
     df = pd.read_csv("data/live_data.csv")
     st.dataframe(df)

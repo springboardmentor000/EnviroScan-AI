@@ -9,46 +9,48 @@ import config
 
 DATA_PATH = "../../../data/raw"
 
-print("Fetching LARGE AI-ready air quality dataset (OWM + OpenAQ combined)...")
+print("Fetching selective AI-ready air quality dataset...")
 
 records = []
 
-start_time = datetime.now() - timedelta(days=config.DAYS)
-end_time = datetime.now()
+end_time = datetime(2026, 3, 30, 12, 0, 0)
+start_time = end_time - timedelta(days=config.DAYS)
+def is_first_or_last_week(dt):
+    """Check if a date is in the first or last week of its month."""
+    first_day = dt.replace(day=1)
+    last_day = (dt.replace(day=28) + timedelta(days=4)).replace(day=1) - timedelta(days=1)
+    return dt.day <= 7 or dt.day > (last_day.day - 7)
 
 for city, locations in config.CITIES.items():
     for lat, lon in locations:
-
         current_time = start_time
-
         while current_time <= end_time:
-            # 🔹 Only collect data every 4th day
-            day_index = (current_time - start_time).days
-            if day_index % 4 != 0:
+            if current_time.weekday() not in [0, 6]:
+                current_time += timedelta(hours=config.HOURS_INTERVAL)
+                continue
+
+            if not is_first_or_last_week(current_time):
                 current_time += timedelta(hours=config.HOURS_INTERVAL)
                 continue
 
             try:
-                # 🔹 OWM Air Pollution API
                 owm_url = (
                     f"http://api.openweathermap.org/data/2.5/air_pollution?"
                     f"lat={lat}&lon={lon}&appid={config.OWM_API_KEY}"
                 )
-                owm_resp = requests.get(owm_url).json()
+                owm_resp = requests.get(owm_url, timeout=10).json()
                 owm_comp = owm_resp["list"][0]["components"]
 
-                # 🔹 OpenAQ API (latest measurement near coordinates)
                 openaq_url = (
                     f"https://api.openaq.org/v2/measurements?"
                     f"coordinates={lat},{lon}&limit=10&key={config.OPENAQ_API_KEY}"
                 )
-                openaq_resp = requests.get(openaq_url).json()
+                openaq_resp = requests.get(openaq_url, timeout=10).json()
                 openaq_values = {}
                 if "results" in openaq_resp and len(openaq_resp["results"]) > 0:
                     for m in openaq_resp["results"]:
                         openaq_values[m["parameter"]] = m["value"]
 
-                # 🔹 Unified pollutant values (prefer OpenAQ, fallback to OWM)
                 pm25 = openaq_values.get("pm25", owm_comp.get("pm2_5"))
                 pm10 = openaq_values.get("pm10", owm_comp.get("pm10"))
                 no2  = openaq_values.get("no2",  owm_comp.get("no2"))
@@ -78,7 +80,6 @@ for city, locations in config.CITIES.items():
 df = pd.DataFrame(records)
 
 os.makedirs(DATA_PATH, exist_ok=True)
-
 df.to_csv(f"{DATA_PATH}/air_quality_data.csv", index=False)
 
 print("Air quality dataset created:", len(df), "rows")

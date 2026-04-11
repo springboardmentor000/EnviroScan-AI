@@ -10,7 +10,6 @@ __pycache__/
 
 # Project-specific folders you don’t want in Git
 .config/
-model/
 data/
 
 # OS-specific junk

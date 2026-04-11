@@ -1,15 +1,19 @@
 import requests
 import pandas as pd
 from datetime import datetime
-import os
 import sys
-sys.path.append("../..")
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 import config
 
 API_KEY = config.OWM_API_KEY
 
-static_df = pd.read_csv("../data/static_features.csv")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+file_path = os.path.join(BASE_DIR, "data", "static_features.csv")
+
+static_df = pd.read_csv(file_path)
 
 data = []
 
@@ -61,7 +65,7 @@ for _, row in static_df.iterrows():
 
 df = pd.DataFrame(data)
 
-file_path = "../data/live_data.csv"
+file_path = "../../data/live_data.csv"
 
 if os.path.exists(file_path):
     old_df = pd.read_csv(file_path)
@@ -70,6 +74,7 @@ if os.path.exists(file_path):
 df["timestamp"] = pd.to_datetime(df["timestamp"])
 df = df[df["timestamp"] > (datetime.now() - pd.Timedelta(hours=1))]
 
-df.to_csv(file_path, index=False)
+output_path = os.path.join(BASE_DIR, "data", "live_data.csv")
+df.to_csv(output_path, index=False)
 
 print("Live data updated (static + dynamic combined)")
