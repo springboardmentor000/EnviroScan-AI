@@ -50,19 +50,33 @@ The dataset used in this project was created by combining air quality data, weat
 **Main Features**
 
 PM2.5
+
 PM10
+
 NO₂
+
 SO₂
+
 CO
+
 O₃
+
 Temperature
+
 Humidity
+
 Wind Speed
+
 Wind Direction
+
 Road Count
+
 Industrial Count
+
 Farmland Count
+
 Waste Count
+
 Time Based Features (Hour, Day, Month, Season)
 
 **Technologies Used**
@@ -72,48 +86,51 @@ Python Programming language
 **Libraries**
 
 Pandas
+
 NumPy
+
 Scikit-learn
+
 Matplotlib
+
 Seaborn
+
 XGBoost
+
 Folium
+
 OSMnx
+
 Joblib
+
 os
 
 **Tools**
 
 Visual Studio Code
+
 GitHub
+
 Command prompt
+
 Streamlit
 
 **APIs**
 
 OpenAQ API – Air pollution data
+
 OpenWeatherMap API – Weather data
+
 OpenStreetMap – Geographic features
+
+Groq API - Chatbot
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 **System architecture**
 
-Data Collection
-      ↓
-	  
-Data Cleaning
-      ↓
-Feature Engineering
-      ↓
-Source Labeling
-      ↓
-Model Training
-      ↓
-Hyperparameter Tuning
-      ↓
-Cross Validation
-      ↓
-Prediction Dashboard
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/49d497d4-7aeb-40f6-9e95-c8216faf4c4c" />
+
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -202,13 +219,22 @@ From the plot, we can see that PM2.5 and PM10 have larger variation, indicating 
 
 Each line graph represents the hourly average concentration of a pollutant. The shaded areas highlight morning rush hours (around 7–10 AM) and evening rush hours (around 5–8 PM). During these periods, pollutants like PM2.5, PM10, and CO tend to increase, likely due to traffic and human activities. Ozone (O3) generally increases during the afternoon due to sunlight and chemical reactions in the atmosphere.
 
+<img width="2400" height="1200" alt="image" src="https://github.com/user-attachments/assets/5bcbed45-8be9-49e6-a006-51da4aa16615" />
+
+
 3)Pie chart:
 
 The bar chart displays the total count of records for each source, while the pie chart shows the percentage share. The results indicate that Natural sources contribute the highest share (about 37.5%), followed by Industrial (21.8%) and Burning activities (18.4%). Agricultural and vehicular sources contribute smaller portions. This distribution helps understand which sources are most responsible for pollution in the dataset.
 
+<img width="2100" height="750" alt="image" src="https://github.com/user-attachments/assets/446e12fc-153a-4a05-9a35-81742c28666f" />
+
+
 4)Heatmap:
 
 The correlation heatmap illustrates the relationship between different variables such as pollutants and weather conditions. Values range from -1 to 1, where values close to 1 indicate strong positive correlation and values close to -1 indicate strong negative correlation. The heatmap shows a strong positive correlation between PM2.5 and PM10, meaning they tend to increase together. Temperature and humidity show a strong negative correlation, indicating that when temperature increases, humidity generally decreases
+
+<img width="1800" height="1350" alt="image" src="https://github.com/user-attachments/assets/40c1ddbe-675c-417d-9f0f-d22875d5599c" />
+
 
 5)Bar chart  
 
@@ -238,9 +264,13 @@ This figure shows the average pollutant levels for each day of the week. Each su
 • Apply Stratified K-Fold Cross Validation to ensure balanced class distribution during training.
 
 • Evaluate model performance using:
+
 Accuracy
+
 Precision
+
 Recall
+
 F1 Score
 
 Confusion Matrix
@@ -293,9 +323,13 @@ Hyperparameter tuning was performed using GridSearchCV, and model stability was 
 **Important predictors identified:**
 
 PM2.5
+
 PM10
+
 NO₂
+
 CO
+
 O₃
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -308,27 +342,40 @@ O₃
 • Calculated pollution severity index using weighted pollutant values.
 
 • Generated an interactive Folium map with:
-    • Heatmap layer to visualize pollution intensity
-    • Color-coded circle markers based on pollution source     
+    
+• Heatmap layer to visualize pollution intensity
+    
+• Color-coded circle markers based on pollution source     
             Red → Industrial
             Blue → Vehicular
             Green → Agricultural
             Orange → Burning
             Purple → Natural	
-    • Marker size representing severity levels
+   
+• Marker size representing severity levels
           Bigger circle → more pollution
           Smaller circle → less pollution  
-    • Toggle layers for each pollution source
-    • Added custom legend and layer control for better user interaction.
-    • Saved the final map as an HTML file for easy visualization.
-                         **SHAP** 
+    
+• Toggle layers for each pollution source
+    
+• Added custom legend and layer control for better user interaction.
+    
+• Saved the final map as an HTML file for easy visualization.
+                        
+ **SHAP** 
+						 
 Used SHAP KernelExplainer to interpret model predictions.
 
 Generated waterfall plots for each pollution source to show feature impact.
 
+<img width="800" height="650" alt="image" src="https://github.com/user-attachments/assets/0ff36c9e-847b-4d1f-be8f-c387f8d95518" />
+
+
 Created a beeswarm  plot to visualize overall feature importance.
 
 Saved all SHAP plots as images for reporting and analysis.
+
+<img width="864" height="680" alt="image" src="https://github.com/user-attachments/assets/7ab9f22e-b70d-4a46-9b6b-0d74f18f90d8" />
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -337,9 +384,13 @@ Saved all SHAP plots as images for reporting and analysis.
 This module provides a user-friendly and interactive dashboard built using Streamlit for real-time pollution monitoring and analysis. It allows users to explore pollution data, visualize trends, and make predictions dynamically.
 
 The dashboard is divided into three main sections: 
+
 1)Dashboard
+
 2)Map
+
 3)Reports
+
 4)chatbot
 
 **1)Dashboard**
@@ -367,11 +418,16 @@ The dashboard is divided into three main sections:
 • Color-coded markers for pollution sources
 
 • Colors represent sources:
-     Red → Industrial
-     Blue → Vehicular
-     Green → Agricultural
-     Orange → Burning
-     Purple → Natural
+     
+Red → Industrial
+
+Blue → Vehicular
+     
+Green → Agricultural
+
+Orange → Burning
+     
+Purple → Natural
 
 **3)Reports**
 
@@ -394,8 +450,10 @@ The dashboard is divided into three main sections:
   •  Gives accurate answers for known queries 
   
   •  Gives flexible answers for unknown queries
-	   Dataset questions → Rule-based 
-	   General questions → AI (LLM) 
+	   
+Dataset questions → Rule-based 
+
+General questions → AI (LLM) 
       
 **4.2. Rule-Based System**
 
@@ -410,16 +468,22 @@ The dashboard is divided into three main sections:
   •	Calculations (mean, max, etc.) 
 
 Examples:
+
   •	“Top polluted areas” 
+ 
   •	“AQI of Kanuru” 
+  
   •	“Pollution on 2026-02-12” 
 
 Advantages:
+
   •	Fast and accurate 
+
   •	Uses real data 
 
 Limitation:
-      Cannot answer new or complex questions outside rules 
+
+Cannot answer new or complex questions outside rules 
 
 **4.3. LLM (Large Language Model)**
  
@@ -430,15 +494,20 @@ Limitation:
   •	Uses Groq AI to generate responses 
 
 Examples:
+
   •	“Why is pollution high in cities?” 
+  
   •	“Explain effects of air pollution” 
 
 Advantages:
+
   •	Handles any type of question 
+  
   •	Gives natural language responses 
 
 Limitation:
-	May not always use exact dataset values
+
+May not always use exact dataset values
 
 
 Overall, this module enhances usability by combining data visualization, machine learning predictions, and interactive controls into a single, intuitive interface.
